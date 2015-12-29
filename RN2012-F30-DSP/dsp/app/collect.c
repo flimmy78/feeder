@@ -152,11 +152,9 @@ Void Collect_Task(UArg arg0, UArg arg1)
 					status |= (0x01<<i);
 					/* sysparm->yxtime遥信去抖时间 */
 					ticks[i] = tickets + sysparm->yxtime;
-//					ticks[i] = Clock_getTicks() + 20;
 				}
 			}
 		}		
-//		LOG_INFO("YX Data is %x;",newdata);
 		/* 点亮相应的LED(分合闸LED) */
 		ChangeLED(yxdata);
 		/* 延时2ms */

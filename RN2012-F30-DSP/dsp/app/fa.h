@@ -21,6 +21,7 @@
 #define PROTECT				2	//保护状态
 #define LOCKOUT				3	//闭锁状态
 
+#define 
 #define PTPOWER				11	//PT有压事件
 #define CTPOWER				12	//CT有流事件
 #define GLBASE				13	//过流一段事件 基础事件

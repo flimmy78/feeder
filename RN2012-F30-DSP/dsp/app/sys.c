@@ -86,9 +86,22 @@ void Sys_Init(void)
 Int Sys_Check(void)
 {
 	UChar err = 1;
+	UChar status = 0;
 
-	/* 遥控自检 */
-	/* 遥信自检 */
+	/* 遥控自检 预置是否有效*/
+	// 使能预置继电器
+	GPIOPinWrite(SOC_GPIO_0_REGS, YK_YZ, GPIO_PIN_LOW);
+	Delay(50000);
+	// 读取预置继电器状态是否为低电平
+	status = GPIOPinRead(SOC_GPIO_0_REGS, YK_YZS);
+	if(status)
+	{
+		err = 0;
+	}
+
+	GPIOPinWrite(SOC_GPIO_0_REGS, YK_YZ, GPIO_PIN_HIGH);
+	/* 遥信自检 分合闸信号是否正常*/
+	
 
 	return err;
 }

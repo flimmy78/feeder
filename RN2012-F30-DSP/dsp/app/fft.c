@@ -237,7 +237,7 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	//输出有效值 根据adjust参数校准通道电压 
 	for(i=0;i<8;i++)
 	{
-		if(i==6)
+		if(i==7)
 		{
 			/* DC通道,直流分量/64 */
 			basevalue->modeangel[i].module = (basevalue->adjust[i]*basevalue->fftout[i].real)/64;
@@ -250,11 +250,11 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 			basevalue->modeangel[i].angle = atan2sp(basevalue->fftout[i].image,basevalue->fftout[i].real)*57.29577;
 		}
 	}
-	/* 基本量mv */
+	
+	/* 基本量 */
 	remotevalue->Ua1.Param = basevalue->modeangel[0].module;// * sysparm->ptrate ;
 	/* 判断过零检测电压是否失电 失电则需要切换 此处为恢复为过零检测部分为输入频率 */
 	if(remotevalue->Ua1.Param> basevalue->faparm->lowvol)
-//	if(remotevalue->Ua1.Param > 50000)
 	{
 		/* 输出方式为1 表明内部输出采样频率 */
 		if(ad7606Str.flagfreq & (0x01 << 2))
@@ -275,10 +275,18 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	remotevalue->Ia1.Param = basevalue->modeangel[3].module;// * sysparm->ctrate;
 	remotevalue->Ib1.Param = basevalue->modeangel[4].module;// * sysparm->ctrate;
 	remotevalue->Ic1.Param = basevalue->modeangel[5].module;// * sysparm->ctrate;
-//	remotevalue->I01.Param = basevalue->modeangel[6].module;		// * sysparm->ctrate;
-//	remotevalue->DC1.Param = basevalue->modeangel[7].module;
-	// 由于硬件原因修改
-	remotevalue->DC1.Param = basevalue->modeangel[6].module;
+	remotevalue->I01.Param = basevalue->modeangel[6].module;// * sysparm->ctrate;
+	remotevalue->DC1.Param = basevalue->modeangel[7].module;// DC value
+
+	//如果采集电流为A、C、零序时,计算B相电流
+	x = basevalue->fftout[6].real - basevalue->fftout[3].real - basevalue->fftout[5].real; 
+	y = basevalue->fftout[6].image - basevalue->fftout[3].image - basevalue->fftout[5].image;
+	remotevalue->Ib1.Param = sqrtsp(x*x + y*y);
+	//如果采集电压为A、C时,计算有功功率与无功功率
+	remotevalue->P1.Param = P_Value(0,1);
+	remotevalue->Q1.Param = Q_Value(0,1);
+	
+	return ;
 
 	/* 有功 P1 = Ur*Ir+Ui*Ii */
 	remotevalue->Pa1.Param = basevalue->fftout[0].real*basevalue->fftout[3].real + 
@@ -332,6 +340,24 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 
 	
 }
+// 有功计算
+float P_Value(UInt8 u1_ch, UInt8 u2_ch)
+{
+	float ptemp = 0;
+
+	ptemp = ycvalueprt->fftout[u1_ch].real*ycvalueprt->fftout[u1_ch+3].real + ycvalueprt->fftout[u1_ch].image*ycvalueprt->fftout[u1_ch+3].image;
+	ptemp = ptemp + ycvalueprt->fftout[u2_ch].real*ycvalueprt->fftout[u2_ch+3].real + ycvalueprt->fftout[u2_ch].image*ycvalueprt->fftout[u2_ch+3].image;
+	return ptemp;
+}
+// 无功计算
+float Q_Value(UInt8 u1_ch, UInt8 u2_ch)
+{
+	float ptemp = 0;
+
+	ptemp = ycvalueprt->fftout[u1_ch].image*ycvalueprt->fftout[u1_ch+3].real - ycvalueprt->fftout[u1_ch].real*ycvalueprt->fftout[u1_ch+3].image;
+	ptemp = ptemp + ycvalueprt->fftout[u2_ch].image*ycvalueprt->fftout[u2_ch+3].real - ycvalueprt->fftout[u2_ch].real*ycvalueprt->fftout[u2_ch+3].image;
+	return ptemp;
+}
 /***************************************************************************/
 //函数:	Void FFT_Task(UArg arg0, UArg arg1) 
 //说明:	数据计算任务
@@ -356,10 +382,10 @@ Void FFT_Task(UArg arg0, UArg arg1)
 	tw_gen(Cw,TN);	
 	//使能频率计数时钟		    
 	Clock_Init(remotevalue);
-//	Timer_Init(remotevalue);
+	//Timer_Init(remotevalue);
 	StartClock(&ad7606Str);
 
-//	fasem = Semaphore_create(0, NULL, NULL);
+	//fasem = Semaphore_create(0, NULL, NULL);
 	LOG_INFO("FFT_Task Init is OK;");
 	
 	while(1)
@@ -391,19 +417,20 @@ Void FFT_Task(UArg arg0, UArg arg1)
 			LOG_INFO("Semaphore_pend over 20ms,change clock output;");
 		}		
 		Copy_2_FFTIn(&ad7606Str, FFT_In);	
+		
 		/* 计算通道采集数据 */ /* 可以在FFT之前添加FIR滤波 */
 		for(i=0;i<8;i++)
 		{
-			// dsp fft处理程序
-			DSPF_sp_fftSPxSP(TN,(float *)&FFT_In[i],Cw,FFT_Out,brev,4,0,TN);
-
-			/* 基波实部与虚部  7通道为直流取直流分量*/
-			if(i == 6 )
+			/* i=7 为直流分量 求和算平均值*/
+			if(i == 7 )
 			{
-				ycvalueprt.fftout[i].real = FFT_Out[0] - 170*64;
+				ycvalueprt.fftout[i].real = SumDC((float *)&FFT_In[i],2*TN);
 			}
 			else
 			{
+				// dsp fft处理程序
+				DSPF_sp_fftSPxSP(TN,(float *)&FFT_In[i],Cw,FFT_Out,brev,4,0,TN);
+				
 				ycvalueprt.fftout[i].real = FFT_Out[2]*sqrt2*ycvalueprt.adjust[i]/64;
 				ycvalueprt.fftout[i].image = FFT_Out[3]*sqrt2*ycvalueprt.adjust[i]/64;
 			}
@@ -415,7 +442,23 @@ Void FFT_Task(UArg arg0, UArg arg1)
 		// 发送fa任务信号量 执行fa判断
 		Semaphore_post(fasem); 		//2015-10-30 change
 	}
-}
+}/***************************************************************************/
+//函数:	float SumDC(float *data, Int8 len)
+//说明:	数据求和
+//输入: data 数据指针 len 数据长度
+//输出: 数据和
+//编辑:
+//时间:2015.4.27
+/***************************************************************************/
+float SumDC(float *data, Int8 len)
+{
+	Int8 i;
+	float sum = 0;
 
+	for(i=0;i<len;i++)
+	{
+		sum += data[i];
+	}
+}
 
 
