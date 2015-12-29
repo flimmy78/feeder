@@ -1,0 +1,2011 @@
+Archive member included because of file (symbol)
+
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+                              bin/release/obj/sharearea.ov5T (SharedRegion_getSRPtr)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+                              bin/release/obj/sharearea.ov5T (Notify_sendEvent)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+                              bin/release/obj/sharearea.ov5T (MessageQ_setReplyQueue)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+                              bin/release/obj/arm_main.ov5T (Ipc_control)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (RingIO_destroy)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (RingIOShm_destroy)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (FrameQ_destroy)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o) (FrameQBufMgr_getHandle)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o) (ClientNotifyMgr_sendForceNotificationMulti)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (HeapMemMP_destroy)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+                              bin/release/obj/sharearea.ov5T (HeapBufMP_delete)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o) (GateMP_getKnlHandle)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o) (SharedRegionDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o) (NotifyDrvUsr_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o) (HeapBufMPDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o) (MessageQDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (IpcDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o) (FrameQDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o) (FrameQBufMgrDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o) (ClientNotifyMgrDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o) (RingIODrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o) (RingIOShmDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o) (HeapMemMPDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o) (GateMPDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (OsalProcess_getPid)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o) (GateMutex_create)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o) (Memory_getMaxDefaultTypeAlign)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o) (List_construct)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o) (String_cmp)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o) (NameServer_get)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o) (MultiProc_getNumProcessors)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o) (Gate_leaveSystem)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+                              bin/release/obj/arm_main.ov5T (SysLink_destroy)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o) (Cache_wbInv)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o) (NameServerDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o) (MultiProcDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o) (CacheDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o) (Dev_pollOpen)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o) (MemoryOS_free)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o) (OsalDrv_ioctl)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o) (OsalMutex_leave)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (ProcMgr_setup)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o) (ProcMgrDrvUsr_close)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o) (FrameQ_isSupportedInterface)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o) (ListMP_destroy)
+/home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o) (ListMPDrv_ioctl)
+/home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+                              /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o (__libc_csu_fini)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+                              /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o) (__aeabi_uidivmod)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubdf3.o)
+                              bin/release/obj/sharearea.ov5T (__aeabi_f2d)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubsf3.o)
+                              bin/release/obj/sharearea.ov5T (__aeabi_ui2f)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_cmpsf2.o)
+                              bin/release/obj/sharearea.ov5T (__aeabi_fcmplt)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixsfsi.o)
+                              bin/release/obj/iec101.ov5T (__aeabi_f2iz)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixunssfsi.o)
+                              bin/release/obj/iec104.ov5T (__aeabi_f2uiz)
+/home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_dvmd_lnx.o)
+                              /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+
+Allocating common symbols
+Common symbol       size              file
+
+sem_iec101          0x10              bin/release/obj/iec101.ov5T
+pc_id               0x4               bin/release/obj/arm_main.ov5T
+message_id          0x4               bin/release/obj/arm_main.ov5T
+pFAPARAM            0x78              bin/release/obj/arm_main.ov5T
+pIEC101_Struct      0x4               bin/release/obj/iec101.ov5T
+pYXPoint            0x4               bin/release/obj/arm_main.ov5T
+sem_iec101_recv     0x10              bin/release/obj/iec101.ov5T
+iec104_id           0x4               bin/release/obj/arm_main.ov5T
+pYCPoint            0x4               bin/release/obj/arm_main.ov5T
+sem_soe104          0x10              bin/release/obj/iec104.ov5T
+ucYKLock            0x1               bin/release/obj/iec101.ov5T
+sys_mod             0x28              bin/release/obj/arm_main.ov5T
+pYKPoint            0x4               bin/release/obj/arm_main.ov5T
+iec101_id           0x4               bin/release/obj/arm_main.ov5T
+bin_sem             0x10              bin/release/obj/nand_rw.ov5T
+mutex               0x18              bin/release/obj/iec104.ov5T
+pSYSPARAM           0x2c              bin/release/obj/arm_main.ov5T
+timer               0x10              bin/release/obj/iec104.ov5T
+pIEC104_Struct      0x4               bin/release/obj/iec104.ov5T
+print_buf           0x3c              bin/release/obj/common.ov5T
+checkfd             0x4               bin/release/obj/sharearea.ov5T
+network_id          0x4               bin/release/obj/arm_main.ov5T
+pSysparam_Struct    0x4               bin/release/obj/readsysconfig.ov5T
+sys_mod_p           0x4               bin/release/obj/monitorpc.ov5T
+NameServer_Object   0x4               /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+
+Discarded input sections
+
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/arm_main.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/iec101.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/iec104.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/sharearea.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/common.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/monitorpc.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/readconfig.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/readsysconfig.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 bin/release/obj/nand_rw.ov5T
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubdf3.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubsf3.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_cmpsf2.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixsfsi.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixunssfsi.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_dvmd_lnx.o)
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+ .note.GNU-stack
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+LOAD /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+LOAD bin/release/obj/arm_main.ov5T
+LOAD bin/release/obj/iec101.ov5T
+LOAD bin/release/obj/iec104.ov5T
+LOAD bin/release/obj/sharearea.ov5T
+LOAD bin/release/obj/common.ov5T
+LOAD bin/release/obj/monitorpc.ov5T
+LOAD bin/release/obj/readconfig.ov5T
+LOAD bin/release/obj/readsysconfig.ov5T
+LOAD bin/release/obj/nand_rw.ov5T
+LOAD /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libpthread.so
+START GROUP
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/libpthread.so.0
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libpthread_nonshared.a
+END GROUP
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc.so
+START GROUP
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/libc.so.6
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/ld-linux.so.3
+END GROUP
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/librt.so
+LOAD /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/libgcc_s.so
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc.so
+START GROUP
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/libc.so.6
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/ld-linux.so.3
+END GROUP
+LOAD /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/lib/libgcc_s.so
+LOAD /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+LOAD /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+                0x00008000                PROVIDE (__executable_start, 0x8000)
+                0x00008134                . = (0x8000 + SIZEOF_HEADERS)
+
+.interp         0x00008134       0x13
+ *(.interp)
+ .interp        0x00008134       0x13 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.note.ABI-tag   0x00008148       0x20
+ .note.ABI-tag  0x00008148       0x20 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.hash           0x00008168      0x340
+ *(.hash)
+ .hash          0x00008168      0x340 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.gnu.hash
+ *(.gnu.hash)
+
+.dynsym         0x000084a8      0x6d0
+ *(.dynsym)
+ .dynsym        0x000084a8      0x6d0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.dynstr         0x00008b78      0x436
+ *(.dynstr)
+ .dynstr        0x00008b78      0x436 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.gnu.version    0x00008fae       0xda
+ *(.gnu.version)
+ .gnu.version   0x00008fae       0xda /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.gnu.version_d  0x00009088        0x0
+ *(.gnu.version_d)
+ .gnu.version_d
+                0x00000000        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.gnu.version_r  0x00009088       0x60
+ *(.gnu.version_r)
+ .gnu.version_r
+                0x00009088       0x60 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.rel.dyn        0x000090e8       0xe8
+ *(.rel.init)
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+ *(.rel.fini)
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+ *(.rel.data.rel.ro* .rel.gnu.linkonce.d.rel.ro.*)
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+ *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+ *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+ *(.rel.ctors)
+ *(.rel.dtors)
+ *(.rel.got)
+ .rel.got       0x000090e8       0xe0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+ .rel.bss       0x000091c8        0x8 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.rel.ifunc.dyn
+ *(.rel.ifunc.*)
+
+.rela.dyn
+ *(.rela.init)
+ *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+ *(.rela.fini)
+ *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+ *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+ *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+ *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+ *(.rela.ctors)
+ *(.rela.dtors)
+ *(.rela.got)
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+
+.rela.ifunc.dyn
+ *(.rela.ifunc.*)
+
+.rel.plt        0x000091d0      0x268
+ *(.rel.plt)
+ .rel.plt       0x000091d0      0x268 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.rela.plt
+ *(.rela.plt)
+
+.init           0x00009438        0xc
+ *(.init)
+ .init          0x00009438        0x8 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+                0x00009438                _init
+ .init          0x00009440        0x4 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+
+.plt            0x00009444      0x3b0
+ *(.plt)
+ .plt           0x00009444      0x3b0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+                0x00009458                open@@GLIBC_2.4
+                0x00009464                strerror@@GLIBC_2.4
+                0x00009470                mmap@@GLIBC_2.4
+                0x0000947c                abort@@GLIBC_2.4
+                0x00009488                localtime@@GLIBC_2.4
+                0x00009494                pthread_exit@@GLIBC_2.4
+                0x000094a0                __libc_start_main@@GLIBC_2.4
+                0x000094ac                inet_ntoa@@GLIBC_2.4
+                0x000094b8                signal@@GLIBC_2.4
+                0x000094d0                strncpy@@GLIBC_2.4
+                0x000094dc                fclose@@GLIBC_2.4
+                0x000094e8                fgets@@GLIBC_2.4
+                0x000094f4                recv@@GLIBC_2.4
+                0x00009500                getenv@@GLIBC_2.4
+                0x0000950c                system@@GLIBC_2.4
+                0x00009518                listen@@GLIBC_2.4
+                0x00009524                sem_init@@GLIBC_2.4
+                0x00009530                fopen@@GLIBC_2.4
+                0x0000953c                mktime@@GLIBC_2.4
+                0x00009548                memset@@GLIBC_2.4
+                0x00009554                sem_destroy@@GLIBC_2.4
+                0x00009560                setitimer@@GLIBC_2.4
+                0x0000956c                perror@@GLIBC_2.4
+                0x00009578                usleep@@GLIBC_2.4
+                0x00009584                free@@GLIBC_2.4
+                0x00009590                read@@GLIBC_2.4
+                0x0000959c                write@@GLIBC_2.4
+                0x000095a8                gettimeofday@@GLIBC_2.4
+                0x000095b4                fseek@@GLIBC_2.4
+                0x000095c0                accept@@GLIBC_2.4
+                0x000095cc                tcgetattr@@GLIBC_2.4
+                0x000095d8                pthread_mutex_unlock@@GLIBC_2.4
+                0x000095e4                tcflush@@GLIBC_2.4
+                0x000095f0                socket@@GLIBC_2.4
+                0x000095fc                ioctl@@GLIBC_2.4
+                0x00009608                pthread_mutex_lock@@GLIBC_2.4
+                0x00009614                strlen@@GLIBC_2.4
+                0x00009620                sscanf@@GLIBC_2.4
+                0x0000962c                pthread_create@@GLIBC_2.4
+                0x00009638                memcpy@@GLIBC_2.4
+                0x00009644                alarm@@GLIBC_2.4
+                0x00009650                strtol@@GLIBC_2.4
+                0x0000965c                sem_post@@GLIBC_2.4
+                0x00009668                pthread_sigmask@@GLIBC_2.4
+                0x00009674                settimeofday@@GLIBC_2.4
+                0x00009680                printf@@GLIBC_2.4
+                0x0000968c                raise@@GLIBC_2.4
+                0x00009698                pthread_mutex_init@@GLIBC_2.4
+                0x000096a4                bind@@GLIBC_2.4
+                0x000096b0                strstr@@GLIBC_2.4
+                0x000096bc                select@@GLIBC_2.4
+                0x000096c8                close@@GLIBC_2.4
+                0x000096d4                fwrite@@GLIBC_2.4
+                0x000096e0                time@@GLIBC_2.4
+                0x000096ec                malloc@@GLIBC_2.4
+                0x000096f8                cfsetospeed@@GLIBC_2.4
+                0x00009704                strtok@@GLIBC_2.4
+                0x00009710                send@@GLIBC_2.4
+                0x0000971c                sigfillset@@GLIBC_2.4
+                0x00009728                puts@@GLIBC_2.4
+                0x00009734                tcsetattr@@GLIBC_2.4
+                0x00009740                getpid@@GLIBC_2.4
+                0x0000974c                fcntl@@GLIBC_2.4
+                0x00009758                lseek@@GLIBC_2.4
+                0x00009764                munmap@@GLIBC_2.4
+                0x00009770                nanosleep@@GLIBC_2.4
+                0x0000977c                setsockopt@@GLIBC_2.4
+                0x00009788                sem_wait@@GLIBC_2.4
+                0x00009794                exit@@GLIBC_2.4
+                0x000097a0                cfsetispeed@@GLIBC_2.4
+                0x000097ac                __errno_location@@GLIBC_2.4
+                0x000097b8                pthread_self@@GLIBC_2.4
+                0x000097c4                pthread_cancel@@GLIBC_2.4
+                0x000097d0                sprintf@@GLIBC_2.4
+                0x000097dc                pthread_join@@GLIBC_2.4
+                0x000097e8                getpagesize@@GLIBC_2.4
+
+.text           0x000097f4    0x1b2fc
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x000097f4       0x38 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+                0x000097f4                _start
+ .text          0x0000982c       0x24 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .text          0x00009850       0x4c /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ .text          0x0000989c      0xbe4 bin/release/obj/arm_main.ov5T
+                0x00009b04                Ipc_Init
+                0x0000989c                Ipc_Exit
+                0x00009bbc                main
+ .text          0x0000a480     0x4530 bin/release/obj/iec101.ov5T
+                0x0000af6c                IEC101_Process_Message
+                0x0000b2d0                IEC101_Free_Buf
+                0x0000e8f4                Iec101_Thread
+                0x0000a740                Uart_Thread
+                0x0000a674                IEC101_Senddata2pc
+                0x0000b0f8                IEC101_Init_Buf
+ .text          0x0000e9b0     0x363c bin/release/obj/iec104.ov5T
+                0x0000ea8c                PC_Send_YX
+                0x00010b50                Iec104_Thread
+                0x0000eec8                sig_handler
+                0x0000ee3c                uninit_time
+                0x0000f930                file_wc
+                0x0000ec58                PC_Send_YC
+                0x0000ee80                set_timer
+                0x0000ea34                IEC104_Senddata2pc
+                0x0000f9cc                Send_Soe_Data
+                0x0000ef00                IEC104_Init_Buf
+                0x0000f19c                Network_Thread
+                0x0000f860                IEC104_Free_Buf
+                0x0000fb70                IEC104_Process_Message
+ .text          0x00011fec      0xe30 bin/release/obj/sharearea.ov5T
+                0x0001205c                Send_Event_By_Message
+                0x00012024                Write_Sys_Sharearea
+                0x00012484                Message_Thread
+                0x000120f4                Write_To_Sharearea
+                0x00011fec                Write_Fa_Sharearea
+                0x00012280                Read_From_Sharearea
+                0x000129f0                Sharearea_Destory
+                0x00012380                Send_Event_By_Notify
+                0x00012b0c                Sharearea_Creat
+ .text          0x00012e1c      0x3e8 bin/release/obj/common.ov5T
+                0x000130f8                Set_Rtc_Time
+                0x00013000                Init_SOEfile
+                0x00013048                Init_Logfile
+                0x00013094                Get_Rtc_Time
+                0x00012e1c                Log_Frame
+ .text          0x00013204      0xab8 bin/release/obj/monitorpc.ov5T
+                0x000133a0                PC_Creat_connection
+                0x00013204                PC_Check_Sum
+                0x000132f8                PC_Send_Data
+ .text          0x00013cbc      0xbf4 bin/release/obj/readconfig.ov5T
+                0x00013cbc                Read_Faconfig_Conf
+ .text          0x000148b0      0x468 bin/release/obj/readsysconfig.ov5T
+                0x000148b0                Read_Sysconfig_Conf
+ .text          0x00014d18      0x1b0 bin/release/obj/nand_rw.ov5T
+                0x00014d18                Nand_Read_Config
+                0x00014dc4                Nand_Write_Config
+ .text          0x00014ec8      0xe98 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+                0x00014f08                SharedRegion_getPtr
+                0x00015958                SharedRegion_setup
+                0x00015084                SharedRegion_isCacheEnabled
+                0x000153ec                SharedRegion_getRegionInfo
+                0x000150ec                SharedRegion_getNumRegions
+                0x00015430                SharedRegion_getEntry
+                0x00014f78                SharedRegion_getSRPtr
+                0x00015240                SharedRegion_clearEntry
+                0x00015814                SharedRegion_getConfig
+                0x0001537c                SharedRegion_stop
+                0x00015850                SharedRegion_destroy
+                0x0001548c                _SharedRegion_setRegions
+                0x00015c70                SharedRegion_getIdByName
+                0x0001560c                SharedRegion_reserveMemory
+                0x000156d4                SharedRegion_getHeap
+                0x0001514c                SharedRegion_invalidSRPtr
+                0x000153b4                SharedRegion_start
+                0x00015340                SharedRegion_attach
+                0x00015b80                SharedRegion_getId
+                0x00015304                SharedRegion_detach
+                0x0001502c                SharedRegion_getCacheLineSize
+                0x0001574c                SharedRegion_setEntry
+                0x000150dc                SharedRegion_translateEnabled
+                0x00015154                _SharedRegion_clearRegions
+                0x000150fc                SharedRegion_entryInit
+ .text          0x00015d60      0x7a4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+                0x000164ac                Notify_getConfig
+                0x000162c0                Notify_registerEventSingle
+                0x00015e70                Notify_restore
+                0x00015f18                Notify_sendEvent
+                0x00015de8                Notify_disableEvent
+                0x00015fc0                Notify_intLineRegistered
+                0x00016378                Notify_sharedMemReq
+                0x000160b8                Notify_unregisterEvent
+                0x00016434                Notify_setup
+                0x00016168                Notify_unregisterEventSingle
+                0x00016018                Notify_eventAvailable
+                0x000163e4                Notify_destroy
+                0x00016094                Notify_detach
+                0x000163b0                Notify_attach
+                0x00016208                Notify_registerEvent
+                0x00015ec0                Notify_disable
+                0x00015d60                Notify_enableEvent
+ .text          0x00016504      0x81c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+                0x000166cc                MessageQ_close
+                0x00016504                MessageQ_setReplyQueue
+                0x00016a2c                MessageQ_staticMsgInit
+                0x00016524                MessageQ_getQueueId
+                0x00016550                MessageQ_detach
+                0x00016538                MessageQ_setMsgTrace
+                0x000165d4                MessageQ_unregisterHeap
+                0x00016ce0                MessageQ_getConfig
+                0x00016984                MessageQ_get
+                0x00016828                MessageQ_free
+                0x00016c84                MessageQ_setup
+                0x00016a7c                MessageQ_open
+                0x000168a0                MessageQ_put
+                0x00016920                MessageQ_alloc
+                0x00016b94                MessageQ_create
+                0x00016730                MessageQ_Params_init
+                0x0001658c                MessageQ_unblock
+                0x00016674                MessageQ_count
+                0x00016c38                MessageQ_destroy
+                0x00016b08                MessageQ_delete
+                0x00016774                MessageQ_attach
+                0x00016614                MessageQ_registerHeap
+                0x000167c8                MessageQ_sharedMemReq
+ .text          0x00016d20      0x798 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+                0x00016d58                Ipc_writeConfig
+                0x00016d20                Ipc_runtimeId
+                0x00017368                Ipc_control
+                0x00017044                Ipc_isAttached
+                0x00016db8                Ipc_destroy
+                0x00017140                Ipc_setup
+                0x00017094                Ipc_getConfig
+                0x00016d88                Ipc_readConfig
+ .text          0x000174b8     0x102c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+                0x00017a90                RingIO_unregisterNotifier
+                0x00018058                RingIO_destroy
+                0x00017bb8                RingIO_close
+                0x000180a4                RingIO_getConfig
+                0x00017514                RingIO_flush
+                0x0001815c                RingIO_setAttribute
+                0x00017900                RingIO_getValidSize
+                0x000179dc                RingIO_sendNotify
+                0x000174b8                RingIO_sharedMemReq
+                0x00017c84                RingIO_delete
+                0x00017d44                RingIO_openByAddr
+                0x00017708                RingIO_getWaterMark
+                0x00017998                RingIO_Params_init
+                0x00017804                RingIO_getEmptyAttrSize
+                0x00017680                RingIO_release
+                0x000177b0                RingIO_getAcquiredOffset
+                0x00017afc                RingIO_registerNotifier
+                0x00017954                RingIO_setNotifyType
+                0x00017ee4                RingIO_open
+                0x000175dc                RingIO_getvAttribute
+                0x00017a0c                RingIO_acquire
+                0x000178ac                RingIO_getEmptySize
+                0x000176c4                RingIO_setWaterMark
+                0x0001763c                RingIO_cancel
+                0x000181c4                RingIO_getAttribute
+                0x00018220                RingIO_create
+                0x00017858                RingIO_getValidAttrSize
+                0x000180e4                RingIO_setup
+                0x00017574                RingIO_setvAttribute
+                0x0001775c                RingIO_getAcquiredSize
+ .text          0x000184e4      0x148 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+                0x000185b4                RingIOShm_setup
+                0x000184e4                RingIOShm_Params_init
+                0x00018528                RingIOShm_destroy
+                0x00018574                RingIOShm_getConfig
+ .text          0x0001862c     0x16a8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+                0x00019054                FrameQ_freev
+                0x00018940                FrameQ_sendNotify
+                0x000190d0                FrameQ_free
+                0x00019200                FrameQ_close
+                0x00018edc                FrameQ_getv
+                0x00018ae8                FrameQ_registerNotifier
+                0x0001944c                FrameQ_open
+                0x0001911c                FrameQ_allocv
+                0x00018a18                FrameQ_unregisterNotifier
+                0x000197e4                FrameQ_create
+                0x000191b0                FrameQ_alloc
+                0x000186cc                FrameQ_ShMem_Params_init
+                0x00018764                FrameQ_getvNumFreeFrames
+                0x0001871c                FrameQ_control
+                0x000189a0                FrameQ_dup
+                0x0001862c                FrameQ_ShMem_sharedMemReq
+                0x00018848                FrameQ_getvNumFrames
+                0x00018680                FrameQ_Params_init
+                0x00018e10                FrameQ_put
+                0x00019bd8                FrameQ_getConfig
+                0x000187f4                FrameQ_getNumFreeFrames
+                0x00018c14                FrameQ_get
+                0x00019b50                FrameQ_destroy
+                0x000188d8                FrameQ_getNumFrames
+                0x00019c18                FrameQ_setup
+                0x0001931c                FrameQ_delete
+                0x00018cf8                FrameQ_putv
+ .text          0x00019cd4     0x16a4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+                0x00019d0c                FrameQBufMgr_getKnlHandle
+                0x0001a978                FrameQBufMgr_freev
+                0x00019cd4                FrameQBufMgr_add
+                0x0001aeb4                FrameQBufMgr_close
+                0x0001a5ac                FrameQBufMgr_writeBackFrameBuf
+                0x00019d04                FrameQBufMgr_getId
+                0x00019f3c                FrameQBufMgr_translateAddr
+                0x0001adac                FrameQBufMgr_delete
+                0x00019de8                FrameQBufMgr_getvNumFreeFrames
+                0x0001a844                FrameQBufMgr_dupv
+                0x00019d30                FrameQBufMgr_isSupportedBufInterface
+                0x0001a194                FrameQBufMgr_allocv
+                0x0001b1d4                FrameQBufMgr_destroy
+                0x0001b26c                FrameQBufMgr_getConfig
+                0x0001a0ec                FrameQBufMgr_free
+                0x0001a38c                FrameQBufMgr_invalidate
+                0x00019ecc                FrameQBufMgr_getHandle
+                0x00019e7c                FrameQBufMgr_getNumFreeFrames
+                0x0001a4e0                FrameQBufMgr_writeBack
+                0x00019d24                FrameQBufMgr_isSupportedInterface
+                0x00019d9c                FrameQBufMgr_ShMem_Params_init
+                0x0001aef0                FrameQBufMgr_create
+                0x0001a69c                FrameQBufMgr_writeBackHeaderBuf
+                0x00019d18                FrameQBufMgr_getBaseHeaderSize
+                0x0001a004                FrameQBufMgr_dup
+                0x0001a2cc                FrameQBufMgr_alloc
+                0x0001a784                FrameQBufMgr_registerNotifier
+                0x0001a468                FrameQBufMgr_invalidateFrameBuf
+                0x0001b2b8                FrameQBufMgr_setup
+                0x00019cdc                FrameQBufMgr_remove
+                0x00019d4c                FrameQBufMgr_Params_init
+                0x0001a6f8                FrameQBufMgr_unregisterNotifier
+                0x0001a624                FrameQBufMgr_invalidateHeaderBuf
+                0x0001aa94                FrameQBufMgr_open
+ .text          0x0001b378     0x1ba8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+                0x0001bc8c                ClientNotifyMgr_sendNotification
+                0x0001b4fc                ClientNotifyMgr_sendForceNotificationMulti
+                0x0001c58c                ClientNotifyMgr_close
+                0x0001b380                ClientNotifyMgr_disableNotification
+                0x0001c598                ClientNotifyMgr_sharedMemReq
+                0x0001cae4                ClientNotifyMgr_create
+                0x0001c5fc                ClientNotifyMgr_destroy
+                0x0001c7e4                ClientNotifyMgr_callBack
+                0x0001c6c4                ClientNotifyMgr_setup
+                0x0001b378                ClientNotifyMgr_sharedMemModReq
+                0x0001b760                ClientNotifyMgr_sendNotificationMulti
+                0x0001bf40                ClientNotifyMgr_unregisterClient
+                0x0001c684                ClientNotifyMgr_getConfig
+                0x0001b43c                ClientNotifyMgr_enableNotification
+                0x0001bac4                ClientNotifyMgr_sendForceNotification
+                0x0001c360                ClientNotifyMgr_Params_init
+                0x0001c3a4                ClientNotifyMgr_delete
+                0x0001c11c                ClientNotifyMgr_registerClient
+                0x0001cec0                ClientNotifyMgr_open
+ .text          0x0001cf20      0x8e4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+                0x0001d57c                HeapMemMP_getConfig
+                0x0001d020                HeapMemMP_getStats
+                0x0001d6a4                HeapMemMP_create
+                0x0001cfcc                HeapMemMP_getExtendedStats
+                0x0001d0b4                _HeapMemMP_create
+                0x0001cf20                HeapMemMP_getKnlHandle
+                0x0001d524                HeapMemMP_setup
+                0x0001d4d8                HeapMemMP_destroy
+                0x0001d074                HeapMemMP_Params_init
+                0x0001d5b8                HeapMemMP_getUsrHandle
+                0x0001d174                HeapMemMP_close
+                0x0001cf7c                HeapMemMP_sharedMemReq
+                0x0001cf50                HeapMemMP_restore
+                0x0001d210                HeapMemMP_delete
+                0x0001d2ac                HeapMemMP_free
+                0x0001d3c4                HeapMemMP_alloc
+                0x0001d324                HeapMemMP_openByAddr
+                0x0001d43c                HeapMemMP_open
+ .text          0x0001d804      0x7ec /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+                0x0001de98                HeapBufMP_create
+                0x0001da00                HeapBufMP_close
+                0x0001dbfc                HeapBufMP_openByAddr
+                0x0001d904                HeapBufMP_sharedMemReq
+                0x0001d804                HeapBufMP_isBlocking
+                0x0001d9ac                HeapBufMP_getStats
+                0x0001ddb0                HeapBufMP_destroy
+                0x0001ddfc                HeapBufMP_setup
+                0x0001d840                _HeapBufMP_create
+                0x0001dc9c                HeapBufMP_alloc
+                0x0001de58                HeapBufMP_getConfig
+                0x0001db40                HeapBufMP_Params_init
+                0x0001daa0                HeapBufMP_delete
+                0x0001d810                HeapBufMP_getKnlHandle
+                0x0001db84                HeapBufMP_free
+                0x0001dd14                HeapBufMP_open
+                0x0001d958                HeapBufMP_getExtendedStats
+ .text          0x0001dff0      0xa7c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+                0x0001e788                GateMP_getConfig
+                0x0001e0a0                GateMP_getDefaultRemote
+                0x0001e170                GateMP_enter
+                0x0001e1dc                GateMP_Instance_finalize
+                0x0001e6bc                GateMP_setup
+                0x0001e7d4                GateMP_delete
+                0x0001e36c                GateMP_openByAddr
+                0x0001e5a0                GateMP_Instance_init
+                0x0001e06c                GateMP_getSharedAddr
+                0x0001e260                GateMP_close
+                0x0001e20c                GateMP_Params_init
+                0x0001e488                GateMP_open
+                0x0001dff0                GateMP_getLocalProtect
+                0x0001e8e0                _GateMP_create
+                0x0001e0dc                GateMP_sharedMemReq
+                0x0001e10c                GateMP_leave
+                0x0001dff8                GateMP_getRemoteProtect
+                0x0001e9e0                GateMP_create
+                0x0001e000                GateMP_getKnlHandle
+                0x0001e63c                GateMP_destroy
+                0x0001e040                GateMP_setReserved
+ .text          0x0001ea6c      0x270 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+                0x0001ea6c                SharedRegionDrv_ioctl
+                0x0001ec10                SharedRegionDrv_close
+                0x0001ec60                SharedRegionDrv_open
+ .text          0x0001ecdc      0x384 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+                0x0001ecdc                _NotifyDrvUsr_eventWorker
+                0x0001ee3c                NotifyDrvUsr_close
+                0x0001ee08                NotifyDrvUsr_ioctl
+                0x0001ef00                NotifyDrvUsr_open
+ .text          0x0001f060      0x130 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+                0x0001f0e4                HeapBufMPDrv_open
+                0x0001f060                HeapBufMPDrv_ioctl
+                0x0001f094                HeapBufMPDrv_close
+ .text          0x0001f190      0x138 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+                0x0001f190                MessageQDrv_ioctl
+                0x0001f214                MessageQDrv_open
+                0x0001f1c4                MessageQDrv_close
+ .text          0x0001f2c8      0x114 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+                0x0001f34c                IpcDrv_open
+                0x0001f2c8                IpcDrv_ioctl
+                0x0001f2fc                IpcDrv_close
+ .text          0x0001f3dc       0xfc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+                0x0001f3dc                FrameQDrv_ioctl
+                0x0001f460                FrameQDrv_open
+                0x0001f410                FrameQDrv_close
+ .text          0x0001f4d8       0xfc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+                0x0001f55c                FrameQBufMgrDrv_open
+                0x0001f50c                FrameQBufMgrDrv_close
+                0x0001f4d8                FrameQBufMgrDrv_ioctl
+ .text          0x0001f5d4       0xfc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+                0x0001f658                ClientNotifyMgrDrv_open
+                0x0001f5d4                ClientNotifyMgrDrv_ioctl
+                0x0001f608                ClientNotifyMgrDrv_close
+ .text          0x0001f6d0       0xfc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+                0x0001f704                RingIODrv_close
+                0x0001f6d0                RingIODrv_ioctl
+                0x0001f754                RingIODrv_open
+ .text          0x0001f7cc       0xfc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+                0x0001f7cc                RingIOShmDrv_ioctl
+                0x0001f800                RingIOShmDrv_close
+                0x0001f850                RingIOShmDrv_open
+ .text          0x0001f8c8      0x100 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+                0x0001f8fc                HeapMemMPDrv_close
+                0x0001f8c8                HeapMemMPDrv_ioctl
+                0x0001f94c                HeapMemMPDrv_open
+ .text          0x0001f9c8      0x100 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+                0x0001fa4c                GateMPDrv_open
+                0x0001f9fc                GateMPDrv_close
+                0x0001f9c8                GateMPDrv_ioctl
+ .text          0x0001fac8        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+                0x0001fac8                OsalProcess_getTid
+                0x0001facc                OsalProcess_getPid
+ .text          0x0001fad0      0x1fc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+                0x0001fad0                GateMutex_leave
+                0x0001fbf8                GateMutex_delete
+                0x0001fb44                GateMutex_create
+                0x0001fae0                GateMutex_enter
+                0x0001fb0c                GateMutex_Instance_init
+                0x0001faf0                GateMutex_Instance_finalize
+ .text          0x0001fccc      0x144 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+                0x0001fd10                Memory_getMaxDefaultTypeAlign
+                0x0001fccc                Memory_getStats
+                0x0001fd18                Memory_translate
+                0x0001fd50                Memory_valloc
+                0x0001fdcc                Memory_calloc
+                0x0001fd1c                Memory_alloc
+                0x0001fce4                Memory_query
+                0x0001fda0                Memory_free
+ .text          0x0001fe10      0x2a0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+                0x0001ffcc                List_get
+                0x0001fe14                List_construct
+                0x0001ff90                List_put
+                0x0001fe7c                List_insert
+                0x0001fe10                List_Params_init
+                0x00020034                List_destruct
+                0x00020088                List_create
+                0x00020058                List_delete
+                0x0001fea8                List_remove
+                0x0001fecc                List_dequeue
+                0x00020008                List_empty
+                0x0001fe34                List_next
+                0x0001ff04                List_enqueue
+                0x0001fe24                List_elemClear
+                0x0001ff2c                List_enqueueHead
+                0x0001fe58                List_prev
+                0x0001ff58                List_putHead
+ .text          0x000200b0      0x34c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+                0x00020370                String_hash
+                0x00020230                String_cpy
+                0x000200e4                String_cmp
+                0x000201c8                String_ncmp
+                0x000202e0                String_hexToStr
+                0x0002024c                String_ncpy
+                0x000200b0                String_cat
+                0x000202ac                String_len
+ .text          0x000203fc      0x8e0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+                0x00020ac8                NameServer_create
+                0x00020564                NameServer_match
+                0x000205e8                NameServer_getLocal
+                0x0002096c                NameServer_addUInt32
+                0x000204bc                NameServer_delete
+                0x000208dc                NameServer_add
+                0x00020be0                NameServer_destroy
+                0x000209b8                NameServer_getHandle
+                0x00020698                NameServer_getLocalUInt32
+                0x00020c2c                NameServer_setup
+                0x00020520                NameServer_Params_init
+                0x0002045c                NameServer_removeEntry
+                0x00020a34                NameServer_open
+                0x000206f8                NameServer_get
+                0x00020b54                NameServer_close
+                0x0002086c                NameServer_remove
+                0x000203fc                NameServer_isRegistered
+                0x00020800                NameServer_getUInt32
+                0x00020c7c                NameServer_getConfig
+ .text          0x00020cdc      0x344 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+                0x00020ee0                MultiProc_destroy
+                0x00020d20                MultiProc_self
+                0x00020d10                MultiProc_getNumProcessors
+                0x00020f2c                MultiProc_setup
+                0x00020e64                MultiProc_setLocalId
+                0x00020cdc                MultiProc_getName
+                0x00020de8                MultiProc_getId
+                0x00020d34                MultiProc_getSlot
+                0x00020fc0                MultiProc_getConfig
+ .text          0x00021020       0x48 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+                0x00021020                Gate_leaveSystem
+                0x00021038                Gate_enterSystem
+ .text          0x00021068       0x38 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+                0x00021068                SysLink_destroy
+                0x00021078                SysLink_setup
+ .text          0x000210a0       0xd0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+                0x000210a0                Cache_setMode
+                0x000210cc                Cache_wait
+                0x00021144                Cache_inv
+                0x00021118                Cache_wb
+                0x000210ec                Cache_wbInv
+ .text          0x00021170      0x130 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+                0x000211f4                NameServerDrv_open
+                0x000211a4                NameServerDrv_close
+                0x00021170                NameServerDrv_ioctl
+ .text          0x000212a0       0xfc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+                0x000212a0                MultiProcDrv_ioctl
+                0x000212d4                MultiProcDrv_close
+                0x00021324                MultiProcDrv_open
+ .text          0x0002139c       0x1c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+                0x0002139c                CacheDrv_ioctl
+ .text          0x000213b8       0xd0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+                0x000213b8                Dev_pollOpen
+ .text          0x00021488      0x708 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+                0x00021934                MemoryOS_set
+                0x000219ac                MemoryOS_copy
+                0x00021498                MemoryOS_map
+                0x00021724                MemoryOS_setup
+                0x00021804                MemoryOS_translate
+                0x00021494                MemoryOS_alloc
+                0x0002166c                MemoryOS_destroy
+                0x00021a28                MemoryOS_unmap
+                0x00021648                MemoryOS_calloc
+                0x00021488                MemoryOS_free
+ .text          0x00021b90      0x234 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+                0x00021cc8                OsalDrv_close
+                0x00021d2c                OsalDrv_open
+                0x00021bc8                OsalDrv_unmap
+                0x00021b90                OsalDrv_ioctl
+                0x00021c0c                OsalDrv_map
+ .text          0x00021dc4       0xb4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+                0x00021de8                OsalMutex_delete
+                0x00021e30                OsalMutex_create
+                0x00021dd0                OsalMutex_enter
+                0x00021dc4                OsalMutex_leave
+ .text          0x00021e78     0x151c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+                0x00022098                ProcMgr_getSymbolAddress
+                0x00022e1c                ProcMgr_destroy
+                0x00022448                ProcMgr_unmap
+                0x00022398                ProcMgr_delete
+                0x00022874                ProcMgr_load
+                0x000222ec                ProcMgr_getStartParams
+                0x00022f98                ProcMgr_detach
+                0x00021f98                ProcMgr_getSectionData
+                0x00022de0                ProcMgr_getConfig
+                0x000222b0                ProcMgr_start
+                0x00021f58                ProcMgr_getMaxMemoryRegions
+                0x0002227c                ProcMgr_stop
+                0x00022a68                ProcMgr_open
+                0x00022710                ProcMgr_map
+                0x0002240c                ProcMgr_Params_init
+                0x00022320                ProcMgr_unload
+                0x00023160                ProcMgr_attach
+                0x000221c0                ProcMgr_read
+                0x00021e78                ProcMgr_translateAddr
+                0x00022c68                ProcMgr_create
+                0x00022238                ProcMgr_getState
+                0x00021f64                ProcMgr_getLoadedFileId
+                0x0002235c                ProcMgr_getAttachParams
+                0x00022934                ProcMgr_close
+                0x00022148                ProcMgr_write
+                0x0002210c                ProcMgr_control
+                0x00022048                ProcMgr_getProcInfo
+                0x00021ff0                ProcMgr_getSectionInfo
+                0x00022d68                ProcMgr_setup
+ .text          0x00023394      0x1f8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+                0x000233ec                ProcMgrDrvUsr_open
+                0x00023394                ProcMgrDrvUsr_close
+                0x00023470                ProcMgrDrvUsr_ioctl
+ .text          0x0002358c       0xf8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+                0x000235a8                FrameQ_getNumFrameBuffers
+                0x000235e4                FrameQ_getFrameBufValidSize
+                0x0002364c                FrameQ_setFrameBufDataStartOffset
+                0x00023614                FrameQ_setFrameBufValidSize
+                0x000235b4                FrameQ_getFrameBuffer
+                0x000235cc                FrameQ_getFrameBufSize
+                0x0002358c                FrameQ_isSupportedInterface
+                0x000235fc                FrameQ_getFrameBufDataStartOffset
+                0x00023598                FrameQ_getExtendedHeaderPtr
+ .text          0x00023684      0x92c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+                0x00023e78                ListMP_getConfig
+                0x00023eb4                ListMP_create
+                0x0002368c                _ListMP_create
+                0x00023a10                ListMP_prev
+                0x000236e0                ListMP_remove
+                0x00023bb8                ListMP_close
+                0x00023e20                ListMP_setup
+                0x00023cc0                ListMP_open
+                0x0002393c                ListMP_openByAddr
+                0x00023c3c                ListMP_delete
+                0x00023684                ListMP_getGate
+                0x00023b00                ListMP_getTail
+                0x00023dd4                ListMP_destroy
+                0x00023758                ListMP_insert
+                0x000239d0                ListMP_Params_init
+                0x00023b5c                ListMP_getHead
+                0x000237f8                ListMP_putTail
+                0x00023a88                ListMP_next
+                0x00023d5c                ListMP_sharedMemReq
+                0x00023870                ListMP_putHead
+                0x000238e8                ListMP_empty
+ .text          0x00023fb0      0x100 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+                0x00023fe4                ListMPDrv_close
+                0x00023fb0                ListMPDrv_ioctl
+                0x00024034                ListMPDrv_open
+ .text          0x000240b0       0x70 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+                0x000240b0                __libc_csu_fini
+                0x000240b4                __libc_csu_init
+ .text          0x00024120      0x20c /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+                0x00024120                __udivsi3
+                0x00024120                __aeabi_uidiv
+                0x0002430c                __aeabi_uidivmod
+ .text          0x0002432c      0x3b8 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubdf3.o)
+                0x00024670                __floatundidf
+                0x00024608                __floatsidf
+                0x000245e4                __aeabi_ui2d
+                0x00024608                __aeabi_i2d
+                0x000245e4                __floatunsidf
+                0x00024334                __subdf3
+                0x00024684                __floatdidf
+                0x00024338                __adddf3
+                0x00024684                __aeabi_l2d
+                0x00024630                __aeabi_f2d
+                0x00024670                __aeabi_ul2d
+                0x0002432c                __aeabi_drsub
+                0x00024630                __extendsfdf2
+                0x00024338                __aeabi_dadd
+                0x00024334                __aeabi_dsub
+ .text          0x000246e4      0x250 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubsf3.o)
+                0x000246f0                __aeabi_fadd
+                0x000248b8                __aeabi_l2f
+                0x000248a8                __aeabi_ul2f
+                0x000246ec                __subsf3
+                0x00024888                __floatsisf
+                0x000246f0                __addsf3
+                0x000246e4                __aeabi_frsub
+                0x000248b8                __floatdisf
+                0x000246ec                __aeabi_fsub
+                0x00024880                __aeabi_ui2f
+                0x00024888                __aeabi_i2f
+                0x00024880                __floatunsisf
+                0x000248a8                __floatundisf
+ .text          0x00024934       0xfc /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_cmpsf2.o)
+                0x00024934                __gesf2
+                0x00024a08                __aeabi_fcmpge
+                0x000249b8                __aeabi_cfcmple
+                0x00024944                __cmpsf2
+                0x000249a8                __aeabi_cfrcmple
+                0x000249b8                __aeabi_cfcmpeq
+                0x0002493c                __lesf2
+                0x0002493c                __ltsf2
+                0x00024934                __gtsf2
+                0x000249e0                __aeabi_fcmplt
+                0x00024944                __eqsf2
+                0x000249cc                __aeabi_fcmpeq
+                0x00024944                __nesf2
+                0x000249f4                __aeabi_fcmple
+                0x00024a1c                __aeabi_fcmpgt
+ .text          0x00024a30       0x5c /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixsfsi.o)
+                0x00024a30                __fixsfsi
+                0x00024a30                __aeabi_f2iz
+ .text          0x00024a8c       0x54 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixunssfsi.o)
+                0x00024a8c                __aeabi_f2uiz
+                0x00024a8c                __fixunssfsi
+ .text          0x00024ae0       0x10 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_dvmd_lnx.o)
+                0x00024ae0                __aeabi_idiv0
+                0x00024ae0                __aeabi_ldiv0
+ .text          0x00024af0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+ .text          0x00024af0        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+ *(.gnu.warning)
+ *(.glue_7t)
+ .glue_7t       0x00000000        0x0 linker stubs
+ *(.glue_7)
+ .glue_7        0x00000000        0x0 linker stubs
+ *(.vfp11_veneer)
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+ *(.v4_bx)
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.fini           0x00024af0        0x8
+ *(.fini)
+ .fini          0x00024af0        0x4 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+                0x00024af0                _fini
+ .fini          0x00024af4        0x4 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+                0x00024af8                PROVIDE (__etext, .)
+                0x00024af8                PROVIDE (_etext, .)
+                0x00024af8                PROVIDE (etext, .)
+
+.rodata         0x00024af8     0x1e8c
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.cst4   0x00024af8        0x4 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+                0x00024af8                _IO_stdin_used
+ .rodata.str1.4
+                0x00024afc      0x1c9 bin/release/obj/arm_main.ov5T
+                                0x1cc (size before relaxing)
+ *fill*         0x00024cc5        0x3 00
+ .rodata        0x00024cc8       0x30 bin/release/obj/iec101.ov5T
+ .rodata.str1.4
+                0x00024cf8      0x38c bin/release/obj/iec101.ov5T
+                                0x3a8 (size before relaxing)
+ .rodata.str1.4
+                0x00025084      0x4b4 bin/release/obj/iec104.ov5T
+                                0x5a4 (size before relaxing)
+ .rodata.str1.4
+                0x00025538      0x477 bin/release/obj/sharearea.ov5T
+                                0x478 (size before relaxing)
+ *fill*         0x000259af        0x1 00
+ .rodata.str1.4
+                0x000259b0       0x77 bin/release/obj/common.ov5T
+                                 0x8c (size before relaxing)
+ *fill*         0x00025a27        0x1 00
+ .rodata.str1.4
+                0x00025a28       0x86 bin/release/obj/monitorpc.ov5T
+                                 0xf4 (size before relaxing)
+ *fill*         0x00025aae        0x2 00
+ .rodata.str1.4
+                0x00025ab0      0x428 bin/release/obj/readconfig.ov5T
+                                0x440 (size before relaxing)
+ .rodata.str1.4
+                0x00025ed8      0x120 bin/release/obj/readsysconfig.ov5T
+                                0x144 (size before relaxing)
+ .rodata.str1.4
+                0x00025ff8       0x85 bin/release/obj/nand_rw.ov5T
+                                 0x98 (size before relaxing)
+ *fill*         0x0002607d        0x3 00
+ .rodata.str1.4
+                0x00026080        0xa /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+                                  0xc (size before relaxing)
+ .rodata.str1.4
+                0x00000000        0xa /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+                                  0x8 (size before relaxing)
+ .rodata.str1.4
+                0x00000000        0xa /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+                                 0x10 (size before relaxing)
+ *fill*         0x0002608a        0x2 00
+ .rodata.str1.4
+                0x0002608c       0x57 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+                                 0x58 (size before relaxing)
+ *fill*         0x000260e3        0x1 00
+ .rodata.str1.4
+                0x000260e4       0x9b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+                                 0x9c (size before relaxing)
+ *fill*         0x0002617f        0x1 00
+ .rodata.str1.4
+                0x00026180       0x36 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+                                 0x38 (size before relaxing)
+ *fill*         0x000261b6        0x2 00
+ .rodata.str1.4
+                0x000261b8       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+                                 0x34 (size before relaxing)
+ *fill*         0x000261e9        0x3 00
+ .rodata.str1.4
+                0x000261ec       0x28 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .rodata.str1.4
+                0x00026214       0x2f /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+                                 0x30 (size before relaxing)
+ *fill*         0x00026243        0x1 00
+ .rodata.str1.4
+                0x00026244       0x39 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+                                 0x3c (size before relaxing)
+ *fill*         0x0002627d        0x3 00
+ .rodata.str1.4
+                0x00026280       0x40 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .rodata.str1.4
+                0x000262c0       0x2f /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+                                 0x30 (size before relaxing)
+ *fill*         0x000262ef        0x1 00
+ .rodata.str1.4
+                0x000262f0       0x1a /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+                                 0x34 (size before relaxing)
+ *fill*         0x0002630a        0x2 00
+ .rodata.str1.4
+                0x0002630c       0x36 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+                                 0x38 (size before relaxing)
+ *fill*         0x00026342        0x2 00
+ .rodata.str1.4
+                0x00026344       0x2f /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+                                 0x30 (size before relaxing)
+ *fill*         0x00026373        0x1 00
+ .rodata        0x00026374      0x400 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .rodata.str1.4
+                0x00026774       0x11 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+                                 0x14 (size before relaxing)
+ *fill*         0x00026785        0x3 00
+ .rodata.str1.4
+                0x00026788       0x37 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+                                 0x38 (size before relaxing)
+ *fill*         0x000267bf        0x1 00
+ .rodata.str1.4
+                0x000267c0       0x36 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+                                 0x38 (size before relaxing)
+ *fill*         0x000267f6        0x2 00
+ .rodata.str1.4
+                0x000267f8       0x71 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+                                 0x74 (size before relaxing)
+ *fill*         0x00026869        0x3 00
+ .rodata.str1.4
+                0x0002686c       0x6e /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+                                 0x70 (size before relaxing)
+ *fill*         0x000268da        0x2 00
+ .rodata.str1.4
+                0x000268dc       0x75 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+                                 0x78 (size before relaxing)
+ *fill*         0x00026951        0x3 00
+ .rodata.str1.4
+                0x00026954       0x30 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+
+.rodata1
+ *(.rodata1)
+
+.ARM.extab      0x00026984        0xc
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+ .ARM.extab     0x00026984        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+ .ARM.extab     0x00026984        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .ARM.extab     0x00026984        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ .ARM.extab     0x00026984        0x0 bin/release/obj/arm_main.ov5T
+ .ARM.extab     0x00026984        0x0 bin/release/obj/iec101.ov5T
+ .ARM.extab     0x00026984        0xc bin/release/obj/iec104.ov5T
+ .ARM.extab     0x00026990        0x0 bin/release/obj/sharearea.ov5T
+ .ARM.extab     0x00026990        0x0 bin/release/obj/common.ov5T
+ .ARM.extab     0x00026990        0x0 bin/release/obj/monitorpc.ov5T
+ .ARM.extab     0x00026990        0x0 bin/release/obj/readconfig.ov5T
+ .ARM.extab     0x00026990        0x0 bin/release/obj/readsysconfig.ov5T
+ .ARM.extab     0x00026990        0x0 bin/release/obj/nand_rw.ov5T
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+ .ARM.extab     0x00026990        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+ .ARM.extab     0x00026990        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+ .ARM.extab.init
+                0x00026990        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+ .ARM.extab.fini
+                0x00026990        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+                0x00026990                __exidx_start = .
+
+.ARM.exidx      0x00026990      0xb78
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+ .ARM.exidx     0x000269a0        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+                                  0x8 (size before relaxing)
+ .ARM.exidx     0x000269a0        0x8 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .ARM.exidx     0x000269a8        0x8 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+                                 0x10 (size before relaxing)
+ .ARM.exidx     0x000269b0       0x20 bin/release/obj/arm_main.ov5T
+                                 0x28 (size before relaxing)
+ .ARM.exidx     0x000269d0       0x50 bin/release/obj/iec101.ov5T
+                                 0x60 (size before relaxing)
+ .ARM.exidx     0x00026a20       0x88 bin/release/obj/iec104.ov5T
+                                 0xa0 (size before relaxing)
+ .ARM.exidx     0x00026aa8       0x50 bin/release/obj/sharearea.ov5T
+                                 0x58 (size before relaxing)
+ .ARM.exidx     0x00026af8       0x20 bin/release/obj/common.ov5T
+                                 0x28 (size before relaxing)
+ .ARM.exidx     0x00026b18       0x18 bin/release/obj/monitorpc.ov5T
+ .ARM.exidx     0x00026b30        0x8 bin/release/obj/readconfig.ov5T
+ .ARM.exidx     0x00026b38        0x8 bin/release/obj/readsysconfig.ov5T
+ .ARM.exidx     0x00026b40       0x10 bin/release/obj/nand_rw.ov5T
+ .ARM.exidx     0x00026b50       0x80 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+                                 0xd8 (size before relaxing)
+ .ARM.exidx     0x00026bd0       0x68 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+                                 0x88 (size before relaxing)
+ .ARM.exidx     0x00026c38       0x80 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+                                 0xb8 (size before relaxing)
+ .ARM.exidx     0x00026cb8       0x30 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+                                 0x40 (size before relaxing)
+ .ARM.exidx     0x00026ce8       0x88 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+                                 0xf0 (size before relaxing)
+ .ARM.exidx     0x00026d70       0x18 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+                                 0x20 (size before relaxing)
+ .ARM.exidx     0x00026d88       0xb8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+                                 0xd8 (size before relaxing)
+ .ARM.exidx     0x00026e40       0xd8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+                                0x110 (size before relaxing)
+ .ARM.exidx     0x00026f18       0x88 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+                                 0x98 (size before relaxing)
+ .ARM.exidx     0x00026fa0       0x58 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+                                 0x90 (size before relaxing)
+ .ARM.exidx     0x00026ff8       0x58 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+                                 0x88 (size before relaxing)
+ .ARM.exidx     0x00027050       0x78 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+                                 0xa8 (size before relaxing)
+ .ARM.exidx     0x000270c8       0x18 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .ARM.exidx     0x000270e0       0x20 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .ARM.exidx     0x00027100       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027110       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027120       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027130       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027140       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027150       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027160       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027170       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027180        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027188        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027188        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+                                 0x10 (size before relaxing)
+ .ARM.exidx     0x00027190       0x18 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+                                 0x30 (size before relaxing)
+ .ARM.exidx     0x000271a8       0x20 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+                                 0x40 (size before relaxing)
+ .ARM.exidx     0x000271c8       0x18 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+                                 0x88 (size before relaxing)
+ .ARM.exidx     0x000271e0       0x38 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+                                 0x40 (size before relaxing)
+ .ARM.exidx     0x00027218       0x88 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+                                 0x98 (size before relaxing)
+ .ARM.exidx     0x000272a0       0x38 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+                                 0x48 (size before relaxing)
+ .ARM.exidx     0x000272d8       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+                                 0x20 (size before relaxing)
+ .ARM.exidx     0x000272e8        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+                                 0x10 (size before relaxing)
+ .ARM.exidx     0x000272f0        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+                                 0x28 (size before relaxing)
+ .ARM.exidx     0x000272f8       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027308       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027318        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .ARM.exidx     0x00027320        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .ARM.exidx     0x00027328       0x30 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+                                 0x50 (size before relaxing)
+ .ARM.exidx     0x00027358       0x20 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+                                 0x28 (size before relaxing)
+ .ARM.exidx     0x00027378       0x18 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+                                 0x20 (size before relaxing)
+ .ARM.exidx     0x00027390       0xb8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+                                 0xe8 (size before relaxing)
+ .ARM.exidx     0x00027448       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x00027458       0x10 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+                                 0x48 (size before relaxing)
+ .ARM.exidx     0x00027468       0x70 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+                                 0xa8 (size before relaxing)
+ .ARM.exidx     0x000274d8        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+                                 0x18 (size before relaxing)
+ .ARM.exidx     0x000274e0       0x18 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+                                 0x10 (size before relaxing)
+ .ARM.exidx.init
+                0x00026990       0x10 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+                                  0x8 (size before relaxing)
+ .ARM.exidx.fini
+                0x000274f8       0x10 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+                                  0x8 (size before relaxing)
+                0x00027508                __exidx_end = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame       0x00027508        0x4
+ *(.eh_frame)
+ .eh_frame      0x00027508        0x4 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+                0x0002750c                . = (ALIGN (0x8000) - ((0x8000 - .) & 0x7fff))
+                0x0002f50c                . = (0x8000 DATA_SEGMENT_ALIGN 0x1000)
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.tdata
+ *(.tdata .tdata.* .gnu.linkonce.td.*)
+
+.tbss
+ *(.tbss .tbss.* .gnu.linkonce.tb.*)
+ *(.tcommon)
+
+.preinit_array  0x0002f50c        0x0
+                0x0002f50c                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array)
+                0x0002f50c                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x0002f50c        0x4
+                0x0002f50c                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ *(.init_array)
+ .init_array    0x0002f50c        0x4 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+                0x0002f510                PROVIDE (__init_array_end, .)
+
+.fini_array     0x0002f510        0x4
+                0x0002f510                PROVIDE (__fini_array_start, .)
+ *(.fini_array)
+ .fini_array    0x0002f510        0x4 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ *(SORT(.fini_array.*))
+                0x0002f514                PROVIDE (__fini_array_end, .)
+
+.ctors
+ *crtbegin.o(.ctors)
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin.o(.dtors)
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT(.dtors.*))
+ *(.dtors)
+
+.jcr            0x0002f514        0x4
+ *(.jcr)
+ .jcr           0x0002f514        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ .jcr           0x0002f514        0x4 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+
+.data.rel.ro
+ *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
+ *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*)
+
+.dynamic        0x0002f518      0x100
+ *(.dynamic)
+ .dynamic       0x0002f518      0x100 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+                0x0002f518                _DYNAMIC
+                0x0002f618                . = (. DATA_SEGMENT_RELRO_END 0x0)
+
+.got            0x0002f618      0x1b0
+ *(.got.plt)
+ .got.plt       0x0002f618      0x140 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+                0x0002f618                _GLOBAL_OFFSET_TABLE_
+ *(.got)
+ .got           0x0002f758       0x70 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+
+.data           0x0002f7c8       0x28
+                0x0002f7c8                __data_start = .
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x0002f7c8        0x4 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+                0x0002f7c8                data_start
+ .data          0x0002f7cc        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .data          0x0002f7cc        0x4 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+                0x0002f7cc                __dso_handle
+ .data          0x0002f7d0        0x0 bin/release/obj/arm_main.ov5T
+ .data          0x0002f7d0        0x0 bin/release/obj/iec101.ov5T
+ .data          0x0002f7d0        0x8 bin/release/obj/iec104.ov5T
+ .data          0x0002f7d8        0x0 bin/release/obj/sharearea.ov5T
+ .data          0x0002f7d8        0x0 bin/release/obj/common.ov5T
+ .data          0x0002f7d8        0x0 bin/release/obj/monitorpc.ov5T
+ .data          0x0002f7d8        0x0 bin/release/obj/readconfig.ov5T
+ .data          0x0002f7d8        0x0 bin/release/obj/readsysconfig.ov5T
+ .data          0x0002f7d8        0x0 bin/release/obj/nand_rw.ov5T
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+ .data          0x0002f7d8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .data          0x0002f7d8        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+ .data          0x0002f7dc        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+ .data          0x0002f7dc        0xc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+                0x0002f7e4                Gate_systemHandle
+                0x0002f7dc                Gate_systemObject
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .data          0x0002f7e8        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+ .data          0x0002f7e8        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+ .data          0x0002f7ec        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+ .data          0x0002f7ec        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+ .data          0x0002f7ec        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+ .data          0x0002f7f0        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+ .data          0x0002f7f0        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+ .data          0x0002f7f0        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubdf3.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubsf3.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_cmpsf2.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixsfsi.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixunssfsi.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_dvmd_lnx.o)
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+ .data          0x0002f7f0        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+
+.data1
+ *(.data1)
+                0x0002f7f0                _edata = .
+                0x0002f7f0                PROVIDE (edata, .)
+                0x0002f7f0                __bss_start = .
+                0x0002f7f0                __bss_start__ = .
+
+.bss            0x0002f7f0    0x2e27c
+ *(.dynbss)
+ *fill*         0x0002f7f0        0x0 00
+ .dynbss        0x0002f7f0        0x4 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+                0x0002f7f0                stderr@@GLIBC_2.4
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x0002f7f4        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+ .bss           0x0002f7f4        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .bss           0x0002f7f4        0x1 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ *fill*         0x0002f7f5        0x3 00
+ .bss           0x0002f7f8       0x18 bin/release/obj/arm_main.ov5T
+ .bss           0x0002f810      0x520 bin/release/obj/iec101.ov5T
+ .bss           0x0002fd30      0x534 bin/release/obj/iec104.ov5T
+ .bss           0x00030264       0x8c bin/release/obj/sharearea.ov5T
+                0x000302ec                INDEX
+ .bss           0x000302f0        0x2 bin/release/obj/common.ov5T
+ .bss           0x000302f2        0x0 bin/release/obj/monitorpc.ov5T
+ .bss           0x000302f2        0x0 bin/release/obj/readconfig.ov5T
+ .bss           0x000302f2        0x0 bin/release/obj/readsysconfig.ov5T
+ .bss           0x000302f2        0x0 bin/release/obj/nand_rw.ov5T
+ *fill*         0x000302f2        0x2 00
+ .bss           0x000302f4      0x120 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+ .bss           0x00030414       0x14 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+ .bss           0x00030428        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+ .bss           0x0003042c       0x5c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+                0x0003047c                SysLinkCfg_sysMemMap
+                0x00030484                SysLink_params
+ .bss           0x00030488        0xc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+ .bss           0x00030494        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+ .bss           0x0003049c       0x20 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+ .bss           0x000304bc       0x20 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+ .bss           0x000304dc    0x2d024 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+ .bss           0x0005d500        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+ .bss           0x0005d504        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+ .bss           0x0005d508       0x1c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+ .bss           0x0005d524        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .bss           0x0005d52c        0xc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .bss           0x0005d538        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+ .bss           0x0005d540        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+ .bss           0x0005d548        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .bss           0x0005d550        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+ .bss           0x0005d558        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+ .bss           0x0005d560        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .bss           0x0005d568        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+ .bss           0x0005d570        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+ .bss           0x0005d578        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+ .bss           0x0005d580        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+ .bss           0x0005d588        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+ .bss           0x0005d588        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+ .bss           0x0005d58c        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+ .bss           0x0005d58c        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+ .bss           0x0005d58c        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .bss           0x0005d58c        0xc /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+ .bss           0x0005d598      0x298 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+ .bss           0x0005d830       0x18 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+                0x0005d830                staticMutex
+ .bss           0x0005d848        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+ .bss           0x0005d848        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+ .bss           0x0005d848        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+ .bss           0x0005d850        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+ .bss           0x0005d858        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .bss           0x0005d858        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .bss           0x0005d858       0x28 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+ .bss           0x0005d880        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+ .bss           0x0005d884        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+ .bss           0x0005d884       0x2c /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+ .bss           0x0005d8b0        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+ .bss           0x0005d8b4        0x0 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+ .bss           0x0005d8b4        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+ .bss           0x0005d8b8        0x8 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubdf3.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubsf3.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_cmpsf2.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixsfsi.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixunssfsi.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_dvmd_lnx.o)
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+ .bss           0x0005d8c0        0x0 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+ *(COMMON)
+ COMMON         0x0005d8c0       0xec bin/release/obj/arm_main.ov5T
+                0x0005d8c0                pc_id
+                0x0005d8c4                message_id
+                0x0005d8c8                pFAPARAM
+                0x0005d940                pYXPoint
+                0x0005d944                iec104_id
+                0x0005d948                pYCPoint
+                0x0005d94c                sys_mod
+                0x0005d974                pYKPoint
+                0x0005d978                iec101_id
+                0x0005d97c                pSYSPARAM
+                0x0005d9a8                network_id
+ COMMON         0x0005d9ac       0x25 bin/release/obj/iec101.ov5T
+                0x0005d9ac                sem_iec101
+                0x0005d9bc                pIEC101_Struct
+                0x0005d9c0                sem_iec101_recv
+                0x0005d9d0                ucYKLock
+ *fill*         0x0005d9d1        0x3 00
+ COMMON         0x0005d9d4       0x3c bin/release/obj/iec104.ov5T
+                0x0005d9d4                sem_soe104
+                0x0005d9e4                mutex
+                0x0005d9fc                timer
+                0x0005da0c                pIEC104_Struct
+ COMMON         0x0005da10        0x4 bin/release/obj/sharearea.ov5T
+                0x0005da10                checkfd
+ COMMON         0x0005da14       0x3c bin/release/obj/common.ov5T
+                0x0005da14                print_buf
+ COMMON         0x0005da50        0x4 bin/release/obj/monitorpc.ov5T
+                0x0005da50                sys_mod_p
+ COMMON         0x0005da54        0x4 bin/release/obj/readsysconfig.ov5T
+                0x0005da54                pSysparam_Struct
+ COMMON         0x0005da58       0x10 bin/release/obj/nand_rw.ov5T
+                0x0005da58                bin_sem
+ COMMON         0x0005da68        0x4 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+                0x0005da68                NameServer_Object
+                0x0005da6c                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x0005da6c                _bss_end__ = .
+                0x0005da6c                __bss_end__ = .
+                0x0005da6c                . = ALIGN (0x4)
+                0x0005da6c                . = ALIGN (0x4)
+                0x0005da6c                __end__ = .
+                0x0005da6c                _end = .
+                0x0005da6c                PROVIDE (end, .)
+                0x0005da6c                . = DATA_SEGMENT_END (.)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.ARM.attributes
+                0x00000000       0x2d
+ .ARM.attributes
+                0x00000000       0x2d /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crt1.o
+ .ARM.attributes
+                0x0000002d       0x31 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crti.o
+ .ARM.attributes
+                0x0000005e       0x31 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtbegin.o
+ .ARM.attributes
+                0x0000008f       0x2a bin/release/obj/arm_main.ov5T
+ .ARM.attributes
+                0x000000b9       0x2a bin/release/obj/iec101.ov5T
+ .ARM.attributes
+                0x000000e3       0x2a bin/release/obj/iec104.ov5T
+ .ARM.attributes
+                0x0000010d       0x2a bin/release/obj/sharearea.ov5T
+ .ARM.attributes
+                0x00000137       0x2a bin/release/obj/common.ov5T
+ .ARM.attributes
+                0x00000161       0x2a bin/release/obj/monitorpc.ov5T
+ .ARM.attributes
+                0x0000018b       0x2a bin/release/obj/readconfig.ov5T
+ .ARM.attributes
+                0x000001b5       0x2a bin/release/obj/readsysconfig.ov5T
+ .ARM.attributes
+                0x000001df       0x2a bin/release/obj/nand_rw.ov5T
+ .ARM.attributes
+                0x00000209       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+ .ARM.attributes
+                0x0000023a       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+ .ARM.attributes
+                0x0000026b       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+ .ARM.attributes
+                0x0000029c       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+ .ARM.attributes
+                0x000002cd       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+ .ARM.attributes
+                0x000002fe       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+ .ARM.attributes
+                0x0000032f       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+ .ARM.attributes
+                0x00000360       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+ .ARM.attributes
+                0x00000391       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+ .ARM.attributes
+                0x000003c2       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+ .ARM.attributes
+                0x000003f3       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+ .ARM.attributes
+                0x00000424       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+ .ARM.attributes
+                0x00000455       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .ARM.attributes
+                0x00000486       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .ARM.attributes
+                0x000004b7       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+ .ARM.attributes
+                0x000004e8       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+ .ARM.attributes
+                0x00000519       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .ARM.attributes
+                0x0000054a       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+ .ARM.attributes
+                0x0000057b       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+ .ARM.attributes
+                0x000005ac       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .ARM.attributes
+                0x000005dd       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+ .ARM.attributes
+                0x0000060e       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+ .ARM.attributes
+                0x0000063f       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+ .ARM.attributes
+                0x00000670       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+ .ARM.attributes
+                0x000006a1       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+ .ARM.attributes
+                0x000006d2       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+ .ARM.attributes
+                0x00000703       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+ .ARM.attributes
+                0x00000734       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+ .ARM.attributes
+                0x00000765       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .ARM.attributes
+                0x00000796       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+ .ARM.attributes
+                0x000007c7       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+ .ARM.attributes
+                0x000007f8       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+ .ARM.attributes
+                0x00000829       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+ .ARM.attributes
+                0x0000085a       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+ .ARM.attributes
+                0x0000088b       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+ .ARM.attributes
+                0x000008bc       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+ .ARM.attributes
+                0x000008ed       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .ARM.attributes
+                0x0000091e       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .ARM.attributes
+                0x0000094f       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+ .ARM.attributes
+                0x00000980       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+ .ARM.attributes
+                0x000009b1       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+ .ARM.attributes
+                0x000009e2       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+ .ARM.attributes
+                0x00000a13       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+ .ARM.attributes
+                0x00000a44       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+ .ARM.attributes
+                0x00000a75       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+ .ARM.attributes
+                0x00000aa6       0x31 /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+ .ARM.attributes
+                0x00000ad7       0x31 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+ .ARM.attributes
+                0x00000b08       0x16 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x00000b1e       0x16 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubdf3.o)
+ .ARM.attributes
+                0x00000b34       0x16 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_addsubsf3.o)
+ .ARM.attributes
+                0x00000b4a       0x16 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_cmpsf2.o)
+ .ARM.attributes
+                0x00000b60       0x16 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixsfsi.o)
+ .ARM.attributes
+                0x00000b76       0x16 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_arm_fixunssfsi.o)
+ .ARM.attributes
+                0x00000b8c       0x14 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_dvmd_lnx.o)
+ .ARM.attributes
+                0x00000ba0       0x31 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/crtend.o
+ .ARM.attributes
+                0x00000bd1       0x31 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/crtn.o
+
+.comment        0x00000000      0x93d
+ *(.comment)
+ .comment       0x00000000       0x2b bin/release/obj/arm_main.ov5T
+ .comment       0x0000002b       0x2b bin/release/obj/iec101.ov5T
+ .comment       0x00000056       0x2b bin/release/obj/iec104.ov5T
+ .comment       0x00000081       0x2b bin/release/obj/sharearea.ov5T
+ .comment       0x000000ac       0x2b bin/release/obj/common.ov5T
+ .comment       0x000000d7       0x2b bin/release/obj/monitorpc.ov5T
+ .comment       0x00000102       0x2b bin/release/obj/readconfig.ov5T
+ .comment       0x0000012d       0x2b bin/release/obj/readsysconfig.ov5T
+ .comment       0x00000158       0x2b bin/release/obj/nand_rw.ov5T
+ .comment       0x00000183       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegion.o)
+ .comment       0x000001ae       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Notify.o)
+ .comment       0x000001d9       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQ.o)
+ .comment       0x00000204       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Ipc.o)
+ .comment       0x0000022f       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIO.o)
+ .comment       0x0000025a       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShm.o)
+ .comment       0x00000285       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ.o)
+ .comment       0x000002b0       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgr.o)
+ .comment       0x000002db       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgr.o)
+ .comment       0x00000306       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMP.o)
+ .comment       0x00000331       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMP.o)
+ .comment       0x0000035c       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMP.o)
+ .comment       0x00000387       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SharedRegionDrv.o)
+ .comment       0x000003b2       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NotifyDrvUsr.o)
+ .comment       0x000003dd       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapBufMPDrv.o)
+ .comment       0x00000408       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MessageQDrv.o)
+ .comment       0x00000433       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(IpcDrv.o)
+ .comment       0x0000045e       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQDrv.o)
+ .comment       0x00000489       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQBufMgrDrv.o)
+ .comment       0x000004b4       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ClientNotifyMgrDrv.o)
+ .comment       0x000004df       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIODrv.o)
+ .comment       0x0000050a       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(RingIOShmDrv.o)
+ .comment       0x00000535       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(HeapMemMPDrv.o)
+ .comment       0x00000560       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMPDrv.o)
+ .comment       0x0000058b       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalProcess.o)
+ .comment       0x000005b6       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(GateMutex.o)
+ .comment       0x000005e1       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Memory.o)
+ .comment       0x0000060c       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(List.o)
+ .comment       0x00000637       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(String.o)
+ .comment       0x00000662       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServer.o)
+ .comment       0x0000068d       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProc.o)
+ .comment       0x000006b8       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Gate.o)
+ .comment       0x000006e3       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(SysLink.o)
+ .comment       0x0000070e       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Cache.o)
+ .comment       0x00000739       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(NameServerDrv.o)
+ .comment       0x00000764       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MultiProcDrv.o)
+ .comment       0x0000078f       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(CacheDrv.o)
+ .comment       0x000007ba       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(Dev.o)
+ .comment       0x000007e5       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(MemoryOS.o)
+ .comment       0x00000810       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalDrv.o)
+ .comment       0x0000083b       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(OsalMutex.o)
+ .comment       0x00000866       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgr.o)
+ .comment       0x00000891       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ProcMgrDrvUsr.o)
+ .comment       0x000008bc       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(FrameQ_common.o)
+ .comment       0x000008e7       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMP.o)
+ .comment       0x00000912       0x2b /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/lib/syslink.a_release(ListMPDrv.o)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame    0x00000000       0x64
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x44 /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/lib/libc_nonshared.a(elf-init.oS)
+ .debug_frame   0x00000044       0x20 /home/think/l138/arm-2009q1/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.3/libgcc.a(_udivsi3.o)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.gnu.attributes
+ *(.gnu.attributes)
+
+.note.gnu.arm.ident
+ *(.note.gnu.arm.ident)
+
+/DISCARD/
+ *(.note.GNU-stack)
+ *(.gnu_debuglink)
+OUTPUT(bin/release/app_host elf32-littlearm)
