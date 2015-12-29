@@ -41,27 +41,45 @@ UChar ReCounter = 0;				//重合闸次数
 UChar old_fastatus = NOPOWER;
 /******************************* functions **************************************/
 /***************************************************************************/
-//函数: UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
-//说明:	检测上电状态
-//输入: 
-//输出: 无
+//函数: static Char OpenDoor(void)
+//说明:	开路输出
+//输入: 无
+//输出: 开路是否成功
 //编辑:
 //时间:2015.8.17
 /***************************************************************************/
 static Char OpenDoor(void)
 {
+	Char err = 0;
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
-	// 执行动作
+	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
+
+	// 执行预置动作
 	YK_SendOut(0, PIN_LOW);
-	// 执行合闸
+	// 延时等待预置动作执行完毕
+	Task_sleep(5);
+	if(GPIOPinRead(SOC_GPIO_0_REGS, YK_YZ))	
+		return -1;
+	// 执行分闸动作
 	YK_SendOut(2, PIN_LOW);
+	// 延时执行时间
 	Task_sleep(sysparm->yc1_out);
-//	Task_sleep(200);				
+	// 分闸为常开触点,
+	if((yxdata[0] >> (FWYX-1)) & 0x01)
+	{
+		//分闸失败
+		err = 1;
+	}
+	else
+	{
+		//分闸成功
+		err = 0;		
+	}			
 	YK_SendOut(2, PIN_HIGH);
 	// 取消预置
 	YK_SendOut(0, PIN_HIGH);
 
-	return 0;
+	return err;
 }
 
 /***************************************************************************/
@@ -281,6 +299,7 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 /***************************************************************************/
 UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 {	
+	UChar i;
 	static UChar GLflag[3] = {0};
 	static UChar GLstatus[3] = {0};
 	static unsigned long GLtimes[3] = {0};
@@ -352,7 +371,24 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				// 过流跳闸
 				if((faparm->faparm->softenable >> 10) & 0x01)
 				{
-					OpenDoor();	
+					for(i=0;i<3;i++)
+					{
+						status = OpenDoor();
+						if(status != 0)	
+						{
+							// 故障
+							continue;
+						}
+						break;
+					}
+					if(status != 0)
+					{
+						/* 点亮故障指示灯 LED2 */
+						LEDDATA &= ~(0x01<<LED_PROB);
+						LED_SENDOUT(LEDDATA);
+						LOG_INFO("open is err. ");
+						//告警  事故总
+					}
 				}
 				status = 1;
 				
@@ -370,7 +406,6 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 			{
 				// 清除故障标志
 				GLstatus[num] = 0;
-				
 			}
 		}
 	}
@@ -437,6 +472,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 /***************************************************************************/
 UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 {
+	UChar i;
 	static UChar LXGLflag[3] = {0};
 	static UChar LXGLstatus[3] = {0};
 	static unsigned long LXGLtimes[3] = {0};
@@ -486,7 +522,24 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				}
 				if((faparm->faparm->softenable >> 10) & 0x01)
 				{
-					OpenDoor();
+					for(i=0;i<3;i++)
+					{
+						status = OpenDoor();
+						if(status != 0)	
+						{
+							// 故障
+							continue;
+						}
+						break;
+					}
+					if(status != 0)
+					{
+						/* 点亮故障指示灯 LED2 */
+						LEDDATA &= ~(0x01<<LED_PROB);
+						LED_SENDOUT(LEDDATA);
+						LOG_INFO("open is err. ");
+						//告警  事故总
+					}
 				}
 				status = 1;
 

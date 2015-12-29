@@ -44,6 +44,7 @@ Void ChangeLED(UInt32 *status)
 	}
 	else
 	{
+		// 点亮分闸LED
 		LEDDATA &= ~(0x01<<LED_FZ1);
 	}
 
@@ -53,6 +54,7 @@ Void ChangeLED(UInt32 *status)
 	}
 	else
 	{
+		//点亮合闸LED
 		LEDDATA &= ~(0x01<<LED_HZ1);
 	}
 	/* yk2 可以添加到这里 */
