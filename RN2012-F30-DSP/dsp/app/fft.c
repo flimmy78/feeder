@@ -254,6 +254,7 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	remotevalue->Ua1.Param = basevalue->modeangel[0].module;// * sysparm->ptrate ;
 	/* 判断过零检测电压是否失电 失电则需要切换 此处为恢复为过零检测部分为输入频率 */
 	if(remotevalue->Ua1.Param> basevalue->faparm->lowvol)
+//	if(remotevalue->Ua1.Param > 50000)
 	{
 		/* 输出方式为1 表明内部输出采样频率 */
 		if(ad7606Str.flagfreq & (0x01 << 2))
@@ -274,18 +275,10 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	remotevalue->Ia1.Param = basevalue->modeangel[3].module;// * sysparm->ctrate;
 	remotevalue->Ib1.Param = basevalue->modeangel[4].module;// * sysparm->ctrate;
 	remotevalue->Ic1.Param = basevalue->modeangel[5].module;// * sysparm->ctrate;
-	remotevalue->I01.Param = basevalue->modeangel[6].module;// * sysparm->ctrate;
-	remotevalue->DC1.Param = basevalue->modeangel[7].module;// DC value
-
-	//如果采集电流为A、C、零序时,计算B相电流
-	x = basevalue->fftout[6].real - basevalue->fftout[3].real - basevalue->fftout[5].real; 
-	y = basevalue->fftout[6].image - basevalue->fftout[3].image - basevalue->fftout[5].image;
-	remotevalue->Ib1.Param = sqrtsp(x*x + y*y);
-	//如果采集电压为A、C时,计算有功功率与无功功率
-	remotevalue->P1.Param = P_Value(0,1);
-	remotevalue->Q1.Param = Q_Value(0,1);
-	
-	return ;
+//	remotevalue->I01.Param = basevalue->modeangel[6].module;		// * sysparm->ctrate;
+//	remotevalue->DC1.Param = basevalue->modeangel[7].module;
+	// 由于硬件原因修改
+	remotevalue->DC1.Param = basevalue->modeangel[6].module;
 
 	/* 有功 P1 = Ur*Ir+Ui*Ii */
 	remotevalue->Pa1.Param = basevalue->fftout[0].real*basevalue->fftout[3].real + 
@@ -339,24 +332,6 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 
 	
 }
-// 有功计算
-float P_Value(UInt8 u1_ch, UInt8 u2_ch)
-{
-	float ptemp = 0;
-
-	ptemp = ycvalueprt->fftout[u1_ch].real*ycvalueprt->fftout[u1_ch+3].real + ycvalueprt->fftout[u1_ch].image*ycvalueprt->fftout[u1_ch+3].image;
-	ptemp = ptemp + ycvalueprt->fftout[u2_ch].real*ycvalueprt->fftout[u2_ch+3].real + ycvalueprt->fftout[u2_ch].image*ycvalueprt->fftout[u2_ch+3].image;
-	return ptemp;
-}
-// 无功计算
-float Q_Value(UInt8 u1_ch, UInt8 u2_ch)
-{
-	float ptemp = 0;
-
-	ptemp = ycvalueprt->fftout[u1_ch].image*ycvalueprt->fftout[u1_ch+3].real - ycvalueprt->fftout[u1_ch].real*ycvalueprt->fftout[u1_ch+3].image;
-	ptemp = ptemp + ycvalueprt->fftout[u2_ch].image*ycvalueprt->fftout[u2_ch+3].real - ycvalueprt->fftout[u2_ch].real*ycvalueprt->fftout[u2_ch+3].image;
-	return ptemp;
-}
 /***************************************************************************/
 //函数:	Void FFT_Task(UArg arg0, UArg arg1) 
 //说明:	数据计算任务
@@ -381,10 +356,10 @@ Void FFT_Task(UArg arg0, UArg arg1)
 	tw_gen(Cw,TN);	
 	//使能频率计数时钟		    
 	Clock_Init(remotevalue);
-	//Timer_Init(remotevalue);
+//	Timer_Init(remotevalue);
 	StartClock(&ad7606Str);
 
-	//fasem = Semaphore_create(0, NULL, NULL);
+//	fasem = Semaphore_create(0, NULL, NULL);
 	LOG_INFO("FFT_Task Init is OK;");
 	
 	while(1)
@@ -416,7 +391,6 @@ Void FFT_Task(UArg arg0, UArg arg1)
 			LOG_INFO("Semaphore_pend over 20ms,change clock output;");
 		}		
 		Copy_2_FFTIn(&ad7606Str, FFT_In);	
-		
 		/* 计算通道采集数据 */ /* 可以在FFT之前添加FIR滤波 */
 		for(i=0;i<8;i++)
 		{

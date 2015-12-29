@@ -120,6 +120,7 @@ Void Init_Conf(UArg arg0, UArg arg1)
 	/* 4.读取配置信息 */
 	Init_ShareAddr(ShareRegionPtr);
 	ReadConfig();
+	LOG_INFO("ReadConfig get data yx;");
 	
 	Task_Params_init(&taskParams);
 	/* 采集任务 */

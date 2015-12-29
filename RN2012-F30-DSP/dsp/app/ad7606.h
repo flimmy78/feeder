@@ -25,8 +25,8 @@
 /* 采样点数 */
 #define TN  64					//每周期采集64点数据
 /* set ad1 or ad2 */
-#define SETAD7606_1			1		//采集1AD通路
-//#define SETAD7606_2  			1		//采集2AD通路
+//#define SETAD7606_1			1
+#define SETAD7606_2  			1
 
 /* AD1 I/O */
 #define AD7606_BUSY_AD1			GPIO_TO_PIN(2, 13)

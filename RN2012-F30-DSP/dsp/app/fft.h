@@ -52,8 +52,6 @@ extern YCValueStr ycvalueprt;				//Ò£²â½á¹¹Ìå
 /******************************* functions **************************************/
 Void FFT_Task(UArg arg0, UArg arg1);
 Void GetTempture(CurrentPaStr *remotevalue);
-float P_Value(UInt8 u1_ch, UInt8 u2_ch);
-float Q_Value(UInt8 u1_ch, UInt8 u2_ch);
 
 //Void FFT(ANSMP_Stru *Input, BaseValueType *Out, UChar flagtmp, float *adjust);
 
