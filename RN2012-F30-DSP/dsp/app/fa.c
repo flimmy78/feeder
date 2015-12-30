@@ -94,7 +94,6 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 {
 	UChar status = 0;
 	static UChar flag = 0;
-	UInt32 channel = 0;
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	float lowvol = faparm->faparm->lowvol;
 	float lowcur = faparm->faparm->lowcur;
@@ -103,19 +102,10 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	if(ycvalue->Ua1.Param > lowvol||ycvalue->Ub1.Param > lowvol
 		||ycvalue->Uc1.Param > lowvol)
 	{	
-		if((flag & 0x01)&&(((yxdata[0] >> (PTPOWER-1)) & 0x01) == 0))
+		if((flag & 0x01)&&(((yxdata[0] >> PTNOPOWER) & 0x01) == 0))
 		{
-			//send soe PT 有压 //ARM端上传电压值 有压为1  失压为0
-			channel = 0x01<<(PTPOWER-1);
-			yxdata[0] |= 0x01 << (PTPOWER-1);
-			if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (PTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_COS, channel, yxdata[0]);
-			}
-			if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (PTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_SOE, channel, yxdata[0]);
-			}
+			//send soe PT 有压 //ARM端上传电压值有压为1 无压为0,应该是无压disab
+			Send_CS(PTNOPOWER, Disable);
 			//切换状态
 			status = 1;
 			flag &= 0xfe;
@@ -130,7 +120,8 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	else
 	{
 		flag &= 0xfe;
-		yxdata[0] &= ~(0x01 << (PTPOWER-1));
+		
+		yxdata[0] &= ~(0x01 << PTNOPOWER);
 	}
 		
 	/* 是否超出失限电流 */
@@ -142,16 +133,7 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 			// 只要电流超过规定值就进入正常状态 进行过流检测
 			status = 1;
 			//send CT 有流  //ARM端上传电流值  有流为1  失流为0
-			channel = 0x01<<(CTPOWER-1);
-			yxdata[0] |= 0x01 << (CTPOWER-1);
-			if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (CTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_COS, channel, yxdata[0]);
-			}
-			if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (CTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_SOE, channel, yxdata[0]);
-			}
+			Send_CS(CTNOPOWER, Disable);
 			flag &= 0xfd;
 			LOG_INFO("Check_PowerON CT power Ia1 = %d, Ib1 = %d, Ic1 = %d;",(UInt32)ycvalue->Ia1.Param, (UInt32)ycvalue->Ib1.Param, (UInt32)ycvalue->Ic1.Param );
 		}
@@ -189,7 +171,6 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 {
 	UChar status = 0;
 	static UChar flag = 0;
-	UInt32 channel = 0;
 	static unsigned long times = 0;
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	float lowvol = faparm->faparm->lowvol;
@@ -199,19 +180,10 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	if(ycvalue->Ua1.Param < lowvol && ycvalue->Ub1.Param < lowvol
 		&& ycvalue->Uc1.Param < lowvol)
 	{	
-		if((flag & 0x01)&&((yxdata[0] >> (PTPOWER-1)) & 0x01))
+		if((flag & 0x01)&&((yxdata[0] >> (PTNOPOWER-1)) & 0x01))
 		{
 			//send soe PT 有压 //ARM端上传电压值 有压为1  失压为0
-			channel = 0x01<<(PTPOWER-1);
-			yxdata[0] &= ~(0x01 << (PTPOWER-1));
-			if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (PTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_COS, channel, yxdata[0]);
-			}
-			if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (PTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_SOE, channel, yxdata[0]);
-			}	
+			Send_CS(PTNOPOWER, Enable);
 			status = 1;
 			flag &= 0xfe;
 			times = 0;
@@ -220,7 +192,7 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 		else
 		{
 			/* 低于失限电压时bit0 = 1 */
-			if((yxdata[0] >> (PTPOWER-1)) & 0x01)
+			if((yxdata[0] >> (PTNOPOWER-1)) & 0x01)
 			{
 				flag |= 0x01; 	
 			}	
@@ -235,20 +207,11 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	if(ycvalue->Ia1.Param < lowcur && ycvalue->Ib1.Param < lowcur
 		&&ycvalue->Ic1.Param < lowcur)
 	{
-		if((flag & 0x02)&&((yxdata[0] >> (CTPOWER-1)) & 0x01))
+		if((flag & 0x02)&&((yxdata[0] >> (CTNOPOWER-1)) & 0x01))
 		{
 			status = 1;
 			//send CT 有流  //ARM端上传电流值  有流为1  失流为0
-			channel = 0x01<<(CTPOWER-1);
-			yxdata[0] &= ~(0x01 << (CTPOWER-1));
-			if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (CTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_COS, channel, yxdata[0]);
-			}
-			if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (CTPOWER-1)) & 0x01))
-			{
-				Message_Send(MSG_SOE, channel, yxdata[0]);
-			}
+			Send_CS(CTNOPOWER, Enable);
 			flag &= 0xfd;
 			times = 0;
 			LOG_INFO("Check_PowerOFF CT power Ia1 = %d, Ib1 = %d, Ic1 = %d;",(UInt32)ycvalue->Ia1.Param, (UInt32)ycvalue->Ib1.Param, (UInt32)ycvalue->Ic1.Param );
@@ -256,7 +219,7 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 		else
 		{
 			/* 超出失限电流时bit1 = 1 */
-			if((yxdata[0] >> (CTPOWER-1)) & 0x01)
+			if((yxdata[0] >> (CTNOPOWER-1)) & 0x01)
 			{
 				flag |= 0x02; 	
 			}
@@ -304,8 +267,6 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 	static UChar GLstatus[3] = {0};
 	static unsigned long GLtimes[3] = {0};
 	static UInt32 GLRECOVERtimes[3] = {0};
-	UInt32 channel = 0;
-	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	UChar status = 0;
 	
 	// A相是否过流
@@ -356,18 +317,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				LEDDATA &= ~(0x01<<LED_PROT);
 				LED_SENDOUT(LEDDATA);
 				//故障确实发生 产生soe cos
-				if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (GLBASE + num -1)) & 0x01))
-				{
-					channel = 0x01 << (GLBASE + num -1);
-					yxdata[0] |= 0x01 << (GLBASE + num -1);
-					Message_Send(MSG_COS, channel, yxdata[0]);
-				}
-				if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (GLBASE + num -1)) & 0x01))
-				{
-					channel = 0x01 << (GLBASE + num -1);
-					yxdata[0] |= 0x01 << (GLBASE + num -1);
-					Message_Send(MSG_SOE, channel, yxdata[0]);				
-				}
+				Send_CS(ALARM, Enable);
 				// 过流跳闸
 				if((faparm->faparm->softenable >> 10) & 0x01)
 				{
@@ -376,7 +326,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 						status = OpenDoor();
 						if(status != 0)	
 						{
-							// 故障
+							// 故障,重新执行
 							continue;
 						}
 						break;
@@ -387,8 +337,12 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 						LEDDATA &= ~(0x01<<LED_PROB);
 						LED_SENDOUT(LEDDATA);
 						LOG_INFO("open is err. ");
-						//告警  事故总
 					}
+					else
+						Send_CS(ACTION, Enable);
+
+					//告警 事故总
+					Send_CS(ALLERR, Enable);
 				}
 				status = 1;
 				
@@ -430,19 +384,11 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				GLstatus[num] = 0;
 				GLRECOVERtimes[num] = 0;
 				//故障失去 产生soe cos
-				if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (GLBASE + num -1)) & 0x01))
-				{
-					channel = 0x01 << (GLBASE + num-1);
-					yxdata[0] &= ~(0x01 << (GLBASE + num-1));
-					Message_Send(MSG_COS, channel, yxdata[0]);
-				}
-				if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (GLBASE + num -1)) & 0x01))
-				{
-					channel = 0x01 << (GLBASE + num-1);
-					yxdata[0] &= ~(0x01 << (GLBASE + num-1));
-					Message_Send(MSG_SOE, channel, yxdata[0]);				
-				}
-
+				Send_CS(ALARM, Disable);
+				//事故总去除
+				Send_CS(ALLERR, Disable);
+				//重合去除
+				Send_CS(RECLOSE, Disable);
 				if(ReCounter && (old_fastatus == PROTECT))
 				{
 					// 清除重合闸次数记录
@@ -478,8 +424,6 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 	static unsigned long LXGLtimes[3] = {0};
 	static UInt32 LXGLRECOVERtimes[3] = {0};
 	
-	UInt32 channel = 0;
-	UInt32 *yxdata = ShareRegionAddr.digitIn_addr;
 	UChar status = 0;
 
 	if((ycvalue->I01.Param > faparm->faparm->zerosection[num].protectvalue) && ((faparm->faparm->softenable >> 7) & 0x01))
@@ -508,18 +452,7 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				LED_SENDOUT(LEDDATA);
 
 				//故障确实发生 产生soe cos
-				if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (LXGLBASE + num-1)) & 0x01))
-				{
-					channel = 0x01 << (LXGLBASE + num-1);
-					yxdata[0] |= 0x01 << (LXGLBASE + num-1);
-					Message_Send(MSG_COS, channel, yxdata[0]);
-				}
-				if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (LXGLBASE + num-1)) & 0x01))
-				{
-					channel = 0x01 << (LXGLBASE + num-1);
-					yxdata[0] |= 0x01 << (LXGLBASE + num-1);
-					Message_Send(MSG_SOE, channel, yxdata[0]);				
-				}
+				Send_CS(ALARM, Enable);
 				if((faparm->faparm->softenable >> 10) & 0x01)
 				{
 					for(i=0;i<3;i++)
@@ -527,7 +460,7 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 						status = OpenDoor();
 						if(status != 0)	
 						{
-							// 故障
+							// 故障,重新执行
 							continue;
 						}
 						break;
@@ -538,8 +471,13 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 						LEDDATA &= ~(0x01<<LED_PROB);
 						LED_SENDOUT(LEDDATA);
 						LOG_INFO("open is err. ");
-						//告警  事故总
+						//断路器故障
 					}
+					else
+						Send_CS(ACTION, Enable);
+
+					//告警 事故总
+					Send_CS(ALLERR, Enable);
 				}
 				status = 1;
 
@@ -578,20 +516,12 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				//清除过流标志
 				LXGLstatus[num] = 0;
 				LXGLRECOVERtimes[num] = 0;
-				//故障失去 产生soe cos
-				if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (LXGLBASE + num-1)) & 0x01))
-				{
-					channel = 0x01 << (LXGLBASE + num-1);
-					yxdata[0] &= ~(0x01 << (LXGLBASE + num-1));
-					Message_Send(MSG_COS, channel, yxdata[0]);
-				}
-				if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (LXGLBASE + num-1)) & 0x01))
-				{
-					channel = 0x01 << (LXGLBASE + num-1);
-					yxdata[0] &= ~(0x01 << (LXGLBASE + num-1));
-					Message_Send(MSG_SOE, channel, yxdata[0]);				
-				}
-				
+				//故障失去 产生soe cos清除故障
+				Send_CS(ALARM, Disable);
+				//事故总去除
+				Send_CS(ALLERR, Disable);
+				//重合去除
+				Send_CS(RECLOSE, Disable);
 				if(ReCounter && (old_fastatus == PROTECT))
 				{
 					// 清除重合闸次数记录
@@ -621,7 +551,6 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 UChar Check_YUEX(YCValueStr *faparm, UChar num)
 {
 	UChar value = 0;
-	UInt32 channel = 0;
 	UChar status = 0;
 	UInt32 *yxdata = ShareRegionAddr.digitIn_addr;
 	float *ycdata = (float *)(ShareRegionAddr.base_addr + faparm->faparm->ycover[num].ycindex *2);
@@ -655,18 +584,8 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 	
 	if(status && (((yxdata[0] >> (YUEXBASE + num-1)) & 0x01) == 0))
 	{
-		if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (YUEXBASE + num-1)) & 0x01))
-		{
-			channel = 0x01 << (YUEXBASE + num-1);
-			yxdata[0] |= (0x01 << (YUEXBASE + num-1));
-			Message_Send(MSG_COS, channel, yxdata[0]);
-		}
-		if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (YUEXBASE + num-1)) & 0x01))
-		{
-			channel = 0x01 << (YUEXBASE + num-1);
-			yxdata[0] |= (0x01 << (YUEXBASE + num-1));
-			Message_Send(MSG_SOE, channel, yxdata[0]);				
-		}
+		//报警
+		Send_CS(ALARM, Enable);
 		value = 1;
 
 		LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", 
@@ -676,15 +595,10 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 	{
 		if(yxdata[0] & (0x01 << (YUEXBASE + num-1)))
 		{
-			channel = 0x01 << (YUEXBASE + num-1);
-			yxdata[0] &= ~(0x01 << (YUEXBASE + num-1));
-			if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (YUEXBASE + num-1)) & 0x01))
-				Message_Send(MSG_COS, channel, yxdata[0]);
-			if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (YUEXBASE + num-1)) & 0x01))
-				Message_Send(MSG_SOE, channel, yxdata[0]);
+			//取消
+			Send_CS(ALARM, Disable);
 
-			LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", 
-			num,  (UInt32)ycdata[0], yuxvalue);
+			LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", num,  (UInt32)ycdata[0], yuxvalue);
 		}
 	}
 	
@@ -701,7 +615,6 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 UChar Reclose_State(YCValueStr *faparm)
 {
 	UChar status = 0;
-	UInt32 channel = 0;
 	UInt32 *yxstatus = ShareRegionAddr.digitIn_addr;
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
 
@@ -742,18 +655,7 @@ UChar Reclose_State(YCValueStr *faparm)
 			YK_SendOut(0, PIN_HIGH);
 			// 重合次数自加
 			ReCounter++;
-			if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> (RECLOSE + ReCounter-1)) & 0x01))
-			{
-				channel = 0x01 << (RECLOSE + ReCounter-1);
-				yxstatus[0] |= (0x01 << (RECLOSE + ReCounter-1));
-				Message_Send(MSG_COS, channel, yxstatus[0]);
-			}
-			if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> (RECLOSE + ReCounter-1)) & 0x01))
-			{
-				channel = 0x01 << (RECLOSE + ReCounter-1);
-				yxstatus[0] |= (0x01 << (RECLOSE + ReCounter-1));
-				Message_Send(MSG_SOE, channel, yxstatus[0]);				
-			}
+			Send_CS(RECLOSE, Enable);
 			status = 1;
 		}
 		else
@@ -898,7 +800,35 @@ Void Tempture(UArg arg0, UArg arg1)
 	}
 
 }
+/***************************************************************************/
+//函数:	void Send_CS(UChar num,UChar status)
+//说明:	发送SOE与COS数据
+//输入: num 发送软遥信编号,status 使能或失能
+//输出: 无
+//编辑:
+//时间:2015.8.17
+/***************************************************************************/
+void Send_CS(UChar num,UChar status)
+{
+	YCValueStr *faparm = &ycvalueprt;
+	UInt32 channel = 0;
+	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 
+	if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> num ) & 0x01))
+	{
+		channel = 0x01 << num;
+		if(status)
+			yxdata[0] &= ~(0x01 << num);
+		else
+			yxdata[0] |= 0x01 << num;
+		
+		Message_Send(MSG_COS, channel, yxdata[0]);
+	}
+	if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> num) & 0x01))
+	{
+		Message_Send(MSG_SOE, channel, yxdata[0]);				
+	}
+}
 
 
 

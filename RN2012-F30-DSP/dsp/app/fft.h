@@ -54,7 +54,7 @@ Void FFT_Task(UArg arg0, UArg arg1);
 Void GetTempture(CurrentPaStr *remotevalue);
 float P_Value(UInt8 u1_ch, UInt8 u2_ch);
 float Q_Value(UInt8 u1_ch, UInt8 u2_ch);
-float SumDC(float *data, Int8 len);
+float SumDC(float *data, UInt16 len);
 
 //Void FFT(ANSMP_Stru *Input, BaseValueType *Out, UChar flagtmp, float *adjust);
 

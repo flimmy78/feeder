@@ -339,7 +339,7 @@ Int ReadConfig(Void)
 		fapamptr->ycover_n = 16;
 		LOG_INFO("ReadConfig ycover_n is over value. ");
 	}
-	
+/*	
 	LOG_INFO("ReadConfig fistreclose_t = %d, secondreclose_t = %d, thirdreclose_t = %d, softenable = %x",
 		fapamptr->fistreclose_t,fapamptr->secondreclose_t,fapamptr->thirdreclose_t,fapamptr->softenable);
 	
@@ -351,6 +351,6 @@ Int ReadConfig(Void)
 	{
 		LOG_INFO("ReadConfig ycindex = %d, flag = %d, value = %d ",fapamptr->ycover[i].ycindex,fapamptr->ycover[i].flag,fapamptr->ycover[i].value);
 	}
-	
+*/	
 	return 0;
 }

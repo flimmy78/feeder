@@ -16,22 +16,30 @@
 #include <xdc/std.h>
 
 
+//使能宏定义
+#define Enable				1	//使能
+#define Disable				0   //失能
+//FTU状态
 #define NOPOWER				0	//无压无流
 #define RUNNING				1	//运行状态
 #define PROTECT				2	//保护状态
 #define LOCKOUT				3	//闭锁状态
 
-#define PTPOWER				11	//PT有压事件
-#define CTPOWER				12	//CT有流事件
+// 软遥信信号
+#define ACTION				10	//保护动作
+#define ALARM				11	//保护装置告警
+#define ALLERR				12	//事故总
+#define PTNOPOWER			13	//交流失电
+#define CTNOPOWER			14	//CT有流事件
+#define YUEXBASE			15	//越限保护事件
+#define RECLOSE				16	//重合闸
+//
 #define GLBASE				13	//过流一段事件 基础事件
 #define GLSECOND			14  //过流二段事件
 #define GLTHIRD				15  //过流三段事件
 #define LXGLBASE			16	//零序过流一段事件 基础事件
 #define LXGLSECOND			17  //零序过流二段事件
 #define LXGLTHIRD			18  //零序过流三段事件
-#define RECLOSE				19	//重合闸一次，二次为20 三次为21
-#define YUEXBASE			22	//越限保护事件 基础事件
-
 
 /* 遥测越限保护参数 */
 struct _YCOVERPARAM_
@@ -107,6 +115,7 @@ typedef struct _YCOVERPARAM_ YCOVERSTR;
 
 Void FA_Task(UArg arg0, UArg arg1);
 Void Tempture(UArg arg0, UArg arg1);
+void Send_CS(UChar num,UChar status);
 
 
 

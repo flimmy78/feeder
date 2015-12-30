@@ -283,8 +283,8 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	y = basevalue->fftout[6].image - basevalue->fftout[3].image - basevalue->fftout[5].image;
 	remotevalue->Ib1.Param = sqrtsp(x*x + y*y);
 	//如果采集电压为A、C时,计算有功功率与无功功率,采用俩表法计算功率
-	remotevalue->P1.Param = P_Value(0,1);
-	remotevalue->Q1.Param = Q_Value(0,1);
+	remotevalue->P1.Param = P_Value(0,2);
+	remotevalue->Q1.Param = Q_Value(0,2);
 	
 	return ;
 
@@ -445,14 +445,14 @@ Void FFT_Task(UArg arg0, UArg arg1)
 		Semaphore_post(fasem); 		//2015-10-30 change
 	}
 }/***************************************************************************/
-//函数:	float SumDC(float *data, Int8 len)
+//函数:	float SumDC(float *data, UInt16 len)
 //说明:	数据求和
 //输入: data 数据指针 len 数据长度
 //输出: 数据和
 //编辑:
 //时间:2015.4.27
 /***************************************************************************/
-float SumDC(float *data, Int8 len)
+float SumDC(float *data, UInt16 len)
 {
 	Int8 i;
 	float sum = 0;

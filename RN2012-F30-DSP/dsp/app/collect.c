@@ -38,6 +38,7 @@ UChar FGflag = 0;
 /***************************************************************************/
 Void ChangeLED(UInt32 *status)
 {
+	//分闸分位为合 
 	if((*status >> (FWYX-1)) & 0x01)
 	{
 		LEDDATA |= 0x01<<LED_FZ1;
@@ -47,7 +48,7 @@ Void ChangeLED(UInt32 *status)
 		// 点亮分闸LED
 		LEDDATA &= ~(0x01<<LED_FZ1);
 	}
-
+	//分闸合位为分
 	if((*status >> (HWYX-1)) & 0x01)
 	{
 		LEDDATA |= 0x01<<LED_HZ1;
@@ -85,7 +86,8 @@ Void Collect_Task(UArg arg0, UArg arg1)
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
 	UChar i;
 	UInt32 channel;
-	UInt32 newdata = 0;
+	// 遥信默认值全部为1
+	UInt32 newdata = 0xff;
 	UInt32 comparedata = 0;
 	UInt32 status = 0;
 	unsigned long ticks[10]={0};
@@ -97,9 +99,9 @@ Void Collect_Task(UArg arg0, UArg arg1)
 	yxdata[0] = 0;
 	for(i=0;i<10;i++)
 	{
-		if(GPIOPinRead(SOC_GPIO_0_REGS, yxio_num[i]))
+		if(GPIOPinRead(SOC_GPIO_0_REGS, yxio_num[i]) == 0)
 		{
-			newdata |= (0x01<<i);
+			newdata &= ~(0x01<<i);
 		}
 	}
 	yxdata[0] = newdata;	
@@ -120,13 +122,14 @@ Void Collect_Task(UArg arg0, UArg arg1)
 					if(comparedata != GPIOPinRead(SOC_GPIO_0_REGS, yxio_num[i]))
 					{
 						newdata ^= (0x01<<i);
+						//复制到共享区
+						yxdata[0] = newdata;
 						/* 判断是否取反使能 */
 						if(dianbiaodata.yxnot & (0x01<<i))
 						{
-							yxdata[0] = newdata ^ (0x01<<i);
+							// 使能取反则将数据再次异或
+							newdata ^= (0x01<<i);
 						}
-						else
-							yxdata[0] = newdata;
 						if(dianbiaodata.yxcos & (0x01<<i))
 						{
 							//send cos msg
