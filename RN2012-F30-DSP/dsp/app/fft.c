@@ -67,7 +67,6 @@ unsigned char brev[64]=
 };
 
 static float fft_in_buff[8][64];				//缓存数据 缓存遥测AD值
-
 BaseValueType BaseFFToutValue[8];				//基数据缓存 1*8 1块AD芯片 8 个通道 模值 相角
 BaseFFTout FFTBaseValue[8];					//fft 基波值(一次谐波)
 float AdjustValue[8];							//校准值数组，一个通道一个校准值
@@ -279,9 +278,9 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	remotevalue->DC1.Param = basevalue->modeangel[7].module;// DC value
 
 	//如果采集电流为A、C、零序时,计算B相电流
-	x = basevalue->fftout[6].real - basevalue->fftout[3].real - basevalue->fftout[5].real; 
-	y = basevalue->fftout[6].image - basevalue->fftout[3].image - basevalue->fftout[5].image;
-	remotevalue->Ib1.Param = sqrtsp(x*x + y*y);
+//	x = basevalue->fftout[6].real - basevalue->fftout[3].real - basevalue->fftout[5].real; 
+//	y = basevalue->fftout[6].image - basevalue->fftout[3].image - basevalue->fftout[5].image;
+//	remotevalue->Ib1.Param = sqrtsp(x*x + y*y);
 	//如果采集电压为A、C时,计算有功功率与无功功率,采用俩表法计算功率
 	remotevalue->P1.Param = P_Value(0,2);
 	remotevalue->Q1.Param = Q_Value(0,2);
@@ -423,28 +422,28 @@ Void FFT_Task(UArg arg0, UArg arg1)
 		/* 计算通道采集数据 */ /* 可以在FFT之前添加FIR滤波 */
 		for(i=0;i<8;i++)
 		{
+			// dsp fft处理程序
+			DSPF_sp_fftSPxSP(TN,(float *)&FFT_In[i],Cw,FFT_Out,brev,4,0,TN);
+			
 			/* i=7 为直流分量 求和算平均值*/
 			if(i == 7 )
 			{
-				ycvalueprt.fftout[i].real = SumDC((float *)&FFT_In[i],2*TN);
+				//ycvalueprt.fftout[i].real = SumDC((float *)&FFT_In[i],2*TN);
+				ycvalueprt.fftout[i].real = FFT_Out[0];
+				
 			}
 			else
-			{
-				// dsp fft处理程序
-				DSPF_sp_fftSPxSP(TN,(float *)&FFT_In[i],Cw,FFT_Out,brev,4,0,TN);
-				
+			{	
 				ycvalueprt.fftout[i].real = FFT_Out[2]*sqrt2*ycvalueprt.adjust[i]/64;
 				ycvalueprt.fftout[i].image = FFT_Out[3]*sqrt2*ycvalueprt.adjust[i]/64;
 			}
 		}
 		PowerValue(&ycvalueprt, remotevalue);	
-		// 测试专用GPIO_PIN_HIGH
-//		LOG_INFO("freq is %d status is %d,remotevalue->Ua1.Param is %d;remotevalue->Ub1.Param is %d;remotevalue->Uc1.Param is %d;remotevalue->U01.Param is %d;remotevalue->Ia1.Param is %d; remotevalue->Ib1.Param is %d;remotevalue->Ic1.Param is %d;remotevalue->Cos1.Param is %d",
-//				(UInt32)remotevalue->F1.Param,status,(UInt32)remotevalue->Ua1.Param,(UInt32)remotevalue->Ub1.Param,(UInt32)remotevalue->Uc1.Param,(UInt32)remotevalue->U01.Param,(UInt32)remotevalue->Ia1.Param,(UInt32)remotevalue->Ib1.Param,(UInt32)remotevalue->Ic1.Param,(UInt32)remotevalue->Cos1.Param);
 		// 发送fa任务信号量 执行fa判断
-		Semaphore_post(fasem); 		//2015-10-30 change
+		//Semaphore_post(fasem); 		//2015-10-30 change
 	}
-}/***************************************************************************/
+}
+/***************************************************************************/
 //函数:	float SumDC(float *data, UInt16 len)
 //说明:	数据求和
 //输入: data 数据指针 len 数据长度
@@ -454,7 +453,7 @@ Void FFT_Task(UArg arg0, UArg arg1)
 /***************************************************************************/
 float SumDC(float *data, UInt16 len)
 {
-	Int8 i;
+	UInt16 i;
 	float sum = 0;
 
 	for(i=0;i<len;i++)

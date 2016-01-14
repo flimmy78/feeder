@@ -72,7 +72,6 @@ struct _YK_DATA_
 };	
 typedef struct _YK_DATA_ DigOutStr;
 
-
 void Delay(volatile unsigned int n);		//延时N个节拍
 void LED_SENDOUT(UChar led_data);	//LED输出
 void LED_GPIO_Config(void);			//LED配置

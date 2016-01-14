@@ -413,14 +413,14 @@ static void Model_Get_Dianbiao(char *  line,  LOCAL_Module  *  mod_p)
 		else if((type==TYPE_YX)&&(yxcnt<yxnum))//遥信
 		{
 		 (pYXPoint+yxcnt)->ucType = type;
-		 (pYXPoint+yxcnt)->uiAddr = addr-1;
-		 (pYXPoint+yxcnt)->uiOffset = index-1;
+		 (pYXPoint+yxcnt)->uiAddr = addr;
+		 (pYXPoint+yxcnt)->uiOffset = index;
 		 (pYXPoint+yxcnt)->usFlag = flag;//bit[0]-SOE使能   bit[1]-COS使能
-		    Write_To_Sharearea(index-1, TYPE_YX_ENABLE_BIT, 1);//写入遥信使能区
+		    Write_To_Sharearea(index, TYPE_YX_ENABLE_BIT, 1);//写入遥信使能区
 		 if(flag&0x01)
-            Write_To_Sharearea(index-1, TYPE_YX_SOE_ENABLE_BIT, 1);//写入SOE区
+            Write_To_Sharearea(index, TYPE_YX_SOE_ENABLE_BIT, 1);//写入SOE区
 		 if(flag&0x02)
-            Write_To_Sharearea(index-1, TYPE_YX_COS_ENABLE_BIT, 1);//写入COS区
+            Write_To_Sharearea(index, TYPE_YX_COS_ENABLE_BIT, 1);//写入COS区
 		 memcpy((pYXPoint+yxcnt)->ucName, name, 4);
 		    if(yxcnt==0)
 		    {

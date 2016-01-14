@@ -19,6 +19,7 @@
 #include "gpio.h"
 #include "psc.h"
 #include "led.h"
+#include "sys.h"
 
 
 /***************************************************************************/
@@ -206,6 +207,16 @@ void YK_SendOut(UInt16 index, UInt16 value)
 	{
 		case 0:					//预置
 			pin = YK_YZ;
+			if(value == PIN_LOW)
+			{
+				yzdata.YZFlag = 1;							//预置标志置位
+				yzdata.YZDelay = tickets + YZ_DELAY;		//记录时间节拍
+			}
+			else
+			{
+				yzdata.YZFlag = 0;							//清除预置标志
+				yzdata.YZDelay = 0xffffffff;				//防止赋值时中断发生
+			}
 			break;
 		case 1:					// 1 合
 			pin = YK_HZ1;

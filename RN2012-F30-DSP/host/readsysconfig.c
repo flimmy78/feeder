@@ -92,21 +92,21 @@ static unsigned char Get_Sysconfig_From_Line(char * line,struct _SYSPARAME_ * it
 	char * tmp_line=NULL;
 	char * token = NULL;
     //char * token1 = NULL;
-	tmp_line=(char * )strstr((char *)line, "yc1_out=");
+	tmp_line=(char * )strstr((char *)line, "yk1_out=");
 	if(tmp_line!=NULL)
 		{
 			token= strtok( tmp_line, "#");
-            item->DspReadData.yc1_out= atoi( token+strlen("yc1_out="));
+            item->DspReadData.yc1_out= atoi( token+strlen("yk1_out="));
             
 			my_debug("item->yc1_out:%d",item->DspReadData.yc1_out);
 			return 0;
 		}
     
-	tmp_line=(char * )strstr((char *)line, "yc2_out=");
+	tmp_line=(char * )strstr((char *)line, "yk2_out=");
 	if(tmp_line!=NULL)
 		{
 			token= strtok( tmp_line, "#");
-            item->DspReadData.yc2_out= atoi( token+strlen("yc2_out="));
+            item->DspReadData.yc2_out= atoi( token+strlen("yk2_out="));
 			my_debug("item->yc2_out:%d",item->DspReadData.yc2_out);
 			return 0;
 		}

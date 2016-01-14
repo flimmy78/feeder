@@ -5869,7 +5869,7 @@ __o = __obj[441]  // ti.sysbios.heaps.HeapMem.Instance#0
     __o['instance'] = __obj[442.0]
     __o['minBlockAlign'] = 0
     __o['sectionName'] = null
-    __o['size'] = 24576
+    __o['size'] = 32768
 
 __o = __obj[442]  // ti.sysbios.heaps.HeapMem.Instance#0/instance
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))

@@ -25,6 +25,7 @@
 #include <ti/sysbios/hal/Hwi.h>
 #include <ti/sysbios/knl/Clock.h>
 #include <xdc/runtime/Error.h>
+#include "communicate.h"
 #include "fft.h"
 #include "sht11.h"
 #include "led.h"
@@ -55,6 +56,10 @@ volatile unsigned long towards = 0;
 /***************************************************************************/
 void Sys_Init(void)
 {
+	/* YX初始化配置 */
+	YX_GPIO_Config();
+	/* YK初始化配置 */
+	YK_GPIO_Config();
 	/* 初始化LED */
 	LED_GPIO_Config();
 	/* 点亮运行指示灯 LEDDATA初始化为0 LED1 */
@@ -67,13 +72,7 @@ void Sys_Init(void)
 	/* SHT11温度传感器初始化 */
 	TEMP_GPIO_Config();
 	/* 定时器初始化 */
-	
-	/* YX初始化配置 */
-	YX_GPIO_Config();
-	/* YK初始化配置 */
-	YK_GPIO_Config();
 	Timer_Init(); 
-	
 }
 /***************************************************************************/
 //函数:Int Sys_Check(void)
@@ -122,7 +121,7 @@ Void Timer_Init(void)
 	Timer_Params_init(&timerParams);
 
 	// 1ms定时器
-	timerParams.period = 1000;	
+	timerParams.period = 1042;	
 	timerParams.periodType = Timer_PeriodType_MICROSECS;
 	timerParams.startMode = Timer_StartMode_AUTO;
  
@@ -144,6 +143,14 @@ Void Timer_Init(void)
 Void Timer3Isr(UArg arg)
 {
 	tickets++;
+
+	if(yzdata.YZFlag)
+	{
+		if(tickets >= yzdata.YZDelay)
+		{
+			YK_SendOut(0, PIN_HIGH);				//清除预置标志
+		}
+	}
 }
 /***************************************************************************/
 //函数:Void TimerIsr(UArg arg)

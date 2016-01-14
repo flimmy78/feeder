@@ -693,27 +693,6 @@ typedef struct ti_sdo_ipc_nsremote_NameServerRemoteNotify_Module__ {
 /* Module__root__V */
 extern ti_sdo_ipc_nsremote_NameServerRemoteNotify_Module__ ti_sdo_ipc_nsremote_NameServerRemoteNotify_Module__root__V;
 
-/* @@@ ti_sysbios_knl_Swi_Object__ */
-typedef struct ti_sysbios_knl_Swi_Object__ {
-    ti_sysbios_knl_Queue_Elem qElem;
-    ti_sysbios_knl_Swi_FuncPtr fxn;
-    xdc_UArg arg0;
-    xdc_UArg arg1;
-    xdc_UInt priority;
-    xdc_UInt mask;
-    xdc_Bool posted;
-    xdc_UInt initTrigger;
-    xdc_UInt trigger;
-    ti_sysbios_knl_Queue_Handle readyQ;
-    __TA_ti_sysbios_knl_Swi_Instance_State__hookEnv hookEnv;
-} ti_sysbios_knl_Swi_Object__;
-
-/* @@@ ti_sysbios_knl_Swi_Object2__ */
-typedef struct {
-    xdc_runtime_Types_InstHdr hdr;
-    ti_sysbios_knl_Swi_Object__ obj;
-} ti_sysbios_knl_Swi_Object2__;
-
 /* @@@ ti_sysbios_knl_Queue_Object__ */
 typedef struct ti_sysbios_knl_Queue_Object__ {
     ti_sysbios_knl_Queue_Elem elem;
@@ -739,6 +718,27 @@ typedef struct {
     xdc_runtime_Types_InstHdr hdr;
     ti_sysbios_knl_Semaphore_Object__ obj;
 } ti_sysbios_knl_Semaphore_Object2__;
+
+/* @@@ ti_sysbios_knl_Swi_Object__ */
+typedef struct ti_sysbios_knl_Swi_Object__ {
+    ti_sysbios_knl_Queue_Elem qElem;
+    ti_sysbios_knl_Swi_FuncPtr fxn;
+    xdc_UArg arg0;
+    xdc_UArg arg1;
+    xdc_UInt priority;
+    xdc_UInt mask;
+    xdc_Bool posted;
+    xdc_UInt initTrigger;
+    xdc_UInt trigger;
+    ti_sysbios_knl_Queue_Handle readyQ;
+    __TA_ti_sysbios_knl_Swi_Instance_State__hookEnv hookEnv;
+} ti_sysbios_knl_Swi_Object__;
+
+/* @@@ ti_sysbios_knl_Swi_Object2__ */
+typedef struct {
+    xdc_runtime_Types_InstHdr hdr;
+    ti_sysbios_knl_Swi_Object__ obj;
+} ti_sysbios_knl_Swi_Object2__;
 
 /* Object__ */
 typedef struct ti_sdo_ipc_nsremote_NameServerRemoteNotify_Object__ {
@@ -3306,13 +3306,13 @@ ti_sysbios_hal_Timer_Object__ ti_sysbios_hal_Timer_Object__table__V[1];
     #pragma data_alignment=8
 #endif
 /* --> ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A */
-__T1_ti_sysbios_heaps_HeapMem_Instance_State__buf ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A[24576];
+__T1_ti_sysbios_heaps_HeapMem_Instance_State__buf ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A[32768];
 #ifdef __ti__align
     #pragma DATA_ALIGN(ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A, 8);
 #endif
 #ifdef __GNUC__
 #if __GNUC__ >= 4
-__T1_ti_sysbios_heaps_HeapMem_Instance_State__buf ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A[24576] __attribute__ ((aligned(8)));
+__T1_ti_sysbios_heaps_HeapMem_Instance_State__buf ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A[32768] __attribute__ ((aligned(8)));
 #endif
 #endif
 
@@ -9461,7 +9461,7 @@ __FAR__ const ti_sysbios_heaps_HeapMem_Params ti_sysbios_heaps_HeapMem_Object__P
 };
 
 /* --> ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A */
-__T1_ti_sysbios_heaps_HeapMem_Instance_State__buf ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A[24576];
+__T1_ti_sysbios_heaps_HeapMem_Instance_State__buf ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A[32768];
 
 /* Module__root__V */
 ti_sysbios_heaps_HeapMem_Module__ ti_sysbios_heaps_HeapMem_Module__root__V = {
@@ -9478,7 +9478,7 @@ ti_sysbios_heaps_HeapMem_Object__ ti_sysbios_heaps_HeapMem_Object__table__V[1] =
         ((void*)ti_sysbios_heaps_HeapMem_Instance_State_0_buf__A),  /* buf */
         {
             ((ti_sysbios_heaps_HeapMem_Header*)0),  /* next */
-            ((xdc_UArg)(0x6000)),  /* size */
+            ((xdc_UArg)(0x8000)),  /* size */
         },  /* head */
         (xdc_SizeT)0x8,  /* minBlockAlign */
     },

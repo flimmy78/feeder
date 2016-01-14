@@ -130,12 +130,12 @@ Void Init_Conf(UArg arg0, UArg arg1)
 	taskParams.priority = 6;
 	Task_create(Collect_Task, &taskParams, &eb);
 	/* 温度采集 */
-	taskParams.instance->name = "Tempture";
-	taskParams.arg0 = (UArg)arg0;
-	taskParams.arg1 = (UArg)arg1;
-	taskParams.stackSize = 0x1000;
-	taskParams.priority = 7;
-	Task_create(Tempture, &taskParams, &eb);
+//	taskParams.instance->name = "Tempture";
+//	taskParams.arg0 = (UArg)arg0;
+//	taskParams.arg1 = (UArg)arg1;
+//	taskParams.stackSize = 0x1000;
+//	taskParams.priority = 7;
+//	Task_create(Tempture, &taskParams, &eb);
 	/* 数据计算任务 */
 	taskParams.instance->name = "FFT_Task";
 	taskParams.arg0 = (UArg)arg0;

@@ -48,9 +48,10 @@
 /******************************* private data ***********************************/
 ShareAddrBase ShareRegionAddr;
 DianBiaoStr dianbiaodata;			//点表数据
+yz_data yzdata;						//预置数据
 //ParameterListStr* ParListPtr;		//power value 所有遥测数据回路参数地址指针
 //查找通道对应的index值 0xff 表示不存在此通道对应index
-UInt16 findindex[8] = {0,1,2,4,5,6,17,17};
+UInt16 findindex[8] = {0,1,2,4,5,6,7,17};
 /***************************************************************************/
 //函数:	Void Init_ShareAddr(UInt32* ptr)
 //说明: 初始化共享地址
@@ -103,15 +104,15 @@ Int DigAdjust(App_Msg *msg, float *adjust)
 		return status;
 	}	
 	
-//	value = 1000 * msg->data;				//校准值 mA 或 mV
-	value = msg->data;
+	value = 1000 * msg->data;				//校准值 mA 或 mV
+//	value = msg->data;
 
 	// base_addr是UInt32 ,index索引号对应的参数占用8个字节
 	collectvalue = (float *)(ShareRegionAddr.base_addr + index*2);
 	ShareAdjustaddr  = ShareRegionAddr.anadjust_addr;
 	//计算校准参数
 	if(0 == collectvalue[0])
-		ShareAdjustaddr[index] = 1.0;
+		ShareAdjustaddr[index] = 0.1;
 	else
 		ShareAdjustaddr[index] = (value * ShareAdjustaddr[index]) / collectvalue[0];
 
@@ -127,7 +128,7 @@ Int DigAdjust(App_Msg *msg, float *adjust)
 	/* 更新本地校准 */
 	adjust[channel] = ShareAdjustaddr[index];
 
-	LOG_INFO("DigAdjust collectvalue is %f channel is %d, adjust is %d;",collectvalue[0],index , (int)adjust[channel]);
+	LOG_INFO("DigAdjust collectvalue is %d channel is %d, adjust is %d, collect is %d;",(int)collectvalue[0],index , (int)adjust[channel], (int)collectvalue[0]);
 	return status;
 }
 /***************************************************************************/
@@ -277,13 +278,14 @@ Int ReadConfig(Void)
 	/* 遥控输出时间过短时 */
 	if(syspamptr->yc1_out < 20)
 	{
+		LOG_INFO("ReadConfig yc1_out is %x too low. ",syspamptr->yc1_out);
 		syspamptr->yc1_out = 100;
-		LOG_INFO("ReadConfig yc1_out is too low. ");
+		
 	}
 	if(syspamptr->yc2_out < 20)
 	{
+		LOG_INFO("ReadConfig yc2_out is %x too low. ",syspamptr->yc2_out);
 		syspamptr->yc2_out = 100;
-		LOG_INFO("ReadConfig yc2_out is too low. ");
 	}
 	
 	/* 共计20个参量 index max=20 但是需要校准的只有8个通道 */
@@ -292,7 +294,7 @@ Int ReadConfig(Void)
 		if(adjust[i] == 0.0)
 		{	
 			/* 默认校准值*/
-			adjust[i] = 1.0;
+			adjust[i] = 0.01;
 		}
 	}
 	//根据具体值算出，暂时使用

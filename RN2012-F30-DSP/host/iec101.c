@@ -1999,6 +1999,7 @@ static  int IEC101_Open_Console(void)
 	 if(pIEC101_Struct->fd_usart < 0)
 	 	return -1;
  	set_speed(pIEC101_Struct->fd_usart, pIEC101_Struct->bitrate);
+// 	set_speed(pIEC101_Struct->fd_usart, 115200);
 	set_parity(pIEC101_Struct->fd_usart, 8, 1, 'N');
 		return 0;
 }
@@ -2049,7 +2050,7 @@ int  Uart_Thread( void )
 				pIEC101_Struct->usRecvCont = pIEC101_Struct->usRecvCont + nrecvdata;
 				if(nrecvdata >0)
 				{
-				    my_debug("sem_post\n");
+//				    my_debug("sem_post\n");
 					sem_post(&sem_iec101);//信号量值增1
 					sem_post(&sem_iec101_recv);
 				}

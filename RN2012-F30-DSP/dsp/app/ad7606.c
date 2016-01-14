@@ -89,25 +89,26 @@ static void EMIFA_AD7606_Init(void)
 
 	/*configures the wait timing for the device interfaced on CS2
 	* W_SETUP/W_HOLD W_STROBE/R_STROBE W_HOLD/R_HOLD TA*/
-	EMIFAWaitTimingConfig(SOC_EMIFA_0_REGS, EMIFA_CHIP_SELECT_2,
+//	EMIFAWaitTimingConfig(SOC_EMIFA_0_REGS, EMIFA_CHIP_SELECT_2,
 //                          EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 1, 3, 1, 1));	
-							EMIFA_ASYNC_WAITTIME_CONFIG(2, 3, 2, 2, 3, 2, 0));
+//							EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 3, 2, 0));
+	HWREG(SOC_EMIFA_0_REGS + EMIFA_CE2CFG) |= EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 4, 2, 0);
 
-	/* CS4 set AD7606 2 */
-	/*set the buswidth of async device connected.  16bit*/
-	EMIFAAsyncDevDataBusWidthSelect(SOC_EMIFA_0_REGS,EMIFA_CHIP_SELECT_4,
-					EMIFA_DATA_BUSWITTH_16BIT);
-	/*selects the aync interface opmode. :Normal Mode*/
-	EMIFAAsyncDevOpModeSelect(SOC_EMIFA_0_REGS,EMIFA_CHIP_SELECT_4,
-	EMIFA_ASYNC_INTERFACE_NORMAL_MODE);
-	/*Extended Wait disable.*/
-	EMIFAExtendedWaitConfig(SOC_EMIFA_0_REGS,EMIFA_CHIP_SELECT_4,
-	EMIFA_EXTENDED_WAIT_DISABLE);
-	/*configures the wait timing for the device interfaced on CS4
-	* W_SETUP/W_HOLD W_STROBE/R_STROBE W_HOLD/R_HOLD TA*/
-	EMIFAWaitTimingConfig(SOC_EMIFA_0_REGS, EMIFA_CHIP_SELECT_4,
+//	/* CS4 set AD7606 2 */
+//	/*set the buswidth of async device connected.  16bit*/
+//	EMIFAAsyncDevDataBusWidthSelect(SOC_EMIFA_0_REGS,EMIFA_CHIP_SELECT_4,
+//					EMIFA_DATA_BUSWITTH_16BIT);
+//	/*selects the aync interface opmode. :Normal Mode*/
+//	EMIFAAsyncDevOpModeSelect(SOC_EMIFA_0_REGS,EMIFA_CHIP_SELECT_4,
+//	EMIFA_ASYNC_INTERFACE_NORMAL_MODE);
+//	/*Extended Wait disable.*/
+//	EMIFAExtendedWaitConfig(SOC_EMIFA_0_REGS,EMIFA_CHIP_SELECT_4,
+//	EMIFA_EXTENDED_WAIT_DISABLE);
+//	/*configures the wait timing for the device interfaced on CS4
+//	* W_SETUP/W_HOLD W_STROBE/R_STROBE W_HOLD/R_HOLD TA*/
+//	EMIFAWaitTimingConfig(SOC_EMIFA_0_REGS, EMIFA_CHIP_SELECT_4,
 //                          EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 1, 3, 1, 1));
-							EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 3, 2, 0));
+//							EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 3, 2, 0));
 }
 /***************************************************************************/
 //函数:static void AD7606_GPIO_Config(void)
@@ -236,13 +237,12 @@ static void AD7606_BUSY_Hwi(UArg ad_addr)
 	if(GPIOPinIntStatus(SOC_GPIO_0_REGS, AD7606_BUSY_AD1) == GPIO_INT_PEND)
 	{
 		//获取数据，记录数据量是否达到32组数据，达到时发送信号量
-		advalue = ((Int16 *)SOC_EMIFA_CS4_ADDR)[0];			//2015-10-14 add by zlb (数据采集错位问题) 
 		for(i=0;i<8;i++)
 		{
 			// get original data 
 		    advalue = ((Int16 *)SOC_EMIFA_CS2_ADDR)[i];
 			// conversion data 
-			ad->databuff[i].channel[ad->conter] = advalue* ad->analog_ad ;
+			ad->databuff[i].channel[ad->conter] = advalue;
 			ad->databuff[i].channel[ad->conter+1] = 0.0;
 		}
 		ad->conter += 2;
@@ -250,16 +250,12 @@ static void AD7606_BUSY_Hwi(UArg ad_addr)
 		{
 			ad->flagfreq |= 0x01;
 			Semaphore_post(ad->sem);
-			//测试用
-//				GPIOPinWrite(SOC_GPIO_0_REGS, AD7606_CLK_AD1, GPIO_PIN_LOW);
 		}
 		else if(ad->conter > 127)
 		{
 			ad->flagfreq &= ~0x01;
 			ad->conter = 0;
 			Semaphore_post(ad->sem);
-			//测试用
-//				GPIOPinWrite(SOC_GPIO_0_REGS, AD7606_CLK_AD1, GPIO_PIN_HIGH);
 		}
 		// 频率采集 
 		if(ad->flagfreq & 0x02)

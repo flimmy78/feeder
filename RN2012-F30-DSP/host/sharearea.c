@@ -3,9 +3,9 @@
 // 描述
 //
 // 本文件是DTU通讯网关装置的CPU之间的共享内存
-// 编写人:shaoyi
+// 编写人:R&N
 //
-//  email		  :shaoyi1110@126.com
+//  email		  :R&N@126.com
 //  日	   期:2014.9.16
 //  注	   释:
 /*************************************************************************/
@@ -41,6 +41,7 @@
 static  int Check_Write_Param(char * file);
 static void Check_Read_Param(int file);
 static void Write_Check_Sharearea(UInt8 flag, UInt32  *data);
+static UInt8 Get_Check_Param_Sum(UInt8 *bufp, UInt16 len);
 
 UInt32            INDEX=0;
 unsigned int checkfd;
@@ -88,6 +89,8 @@ typedef struct {
 /*******************local various***************************************/
 static Message_Module message_mod;
 static App_Module Module;
+YC_CHECK_PARA_struct * g_YC_Check_Para_p;
+
 /*******************local function***************************************/
 static UInt32 App_waitForEvent(Event_Queue* eventQueue);
 static Void App_NotifyCB( UInt16 procId, UInt16 lineId, UInt32 eventId, UArg arg, UInt32 payload);
@@ -96,7 +99,7 @@ static Void App_NotifyCB( UInt16 procId, UInt16 lineId, UInt32 eventId, UArg arg
 //函数说明:创建共享区
 //输入:
 //输出:共享区基地址
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.17
 /***************************************************************************/
 SharedRegion_SRPtr Sharearea_Creat(  LOCAL_Module * mod_p)
@@ -161,7 +164,6 @@ SharedRegion_SRPtr Sharearea_Creat(  LOCAL_Module * mod_p)
     sprintf(Module.bufferPtr,"%s", "mytest");
     sharedBufferPtr = SharedRegion_getSRPtr(Module.bufferPtr,  SHARED_REGION_1);
     my_debug("sharedBufferPtr:0x%8x\n", sharedBufferPtr);
-
     //发送共享地址低16位到DSP
    command = (sharedBufferPtr & 0xFFFF);
    command = APP_SPTR_LADDR | command;
@@ -201,12 +203,17 @@ SharedRegion_SRPtr Sharearea_Creat(  LOCAL_Module * mod_p)
     }
     my_debug("App_exec: Transformed string: %s\n",  Module.bufferPtr);
     memset((char *)Module.bufferPtr,0, 3400);//初始化遥测区和遥信区
+    /*
+    memset((char *)Module.bufferPtr,0, 4000);//初始化遥测区和遥信区
+    Module.bufferPtr = Module.bufferPtr+0x10;
+    */
     //Write_To_Sharearea(0, TYPE_YC, 100);
     //Write_To_Sharearea(1, TYPE_YC, -710);
     //Write_To_Sharearea(2, TYPE_YC, 40);
     //Write_To_Sharearea(3, TYPE_YC, 45);
     //Write_To_Sharearea(4, TYPE_YC, 41);
     //Write_To_Sharearea(5, TYPE_YC, -43);
+    g_YC_Check_Para_p = (YC_CHECK_PARA_struct *)(Module.bufferPtr+YC_CHECK_PAR_BASE);//new
     return sharedBufferPtr;
 
  leave4:
@@ -222,7 +229,7 @@ SharedRegion_SRPtr Sharearea_Creat(  LOCAL_Module * mod_p)
 //函数说明:从共享区读取值
 //输入:   base:YC YK YX都有自己独立的base， offset共享区的偏移地址
 //输出:对于遥测量每次读取一个UInt32，对于遥信量每次读取一个UInt8
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.20
 /***************************************************************************/
 float Read_From_Sharearea( UInt16 index, UInt8 flag )
@@ -267,7 +274,7 @@ float Read_From_Sharearea( UInt16 index, UInt8 flag )
 //输入:   base:YC YK YX都有自己独立的base， index共享区的偏移地址
 //		     data将要写入的数据
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.20
 /***************************************************************************/
 void   Write_To_Sharearea(UInt16 index, UInt8 flag, UInt32  data)
@@ -351,7 +358,7 @@ void Write_Sys_Sharearea(struct _SYSPARAME_ * item)
 //函数说明:销毁共享区
 //输入:
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.17
 /***************************************************************************/
 void Sharearea_Destory( LOCAL_Module * mod_p )
@@ -391,7 +398,7 @@ void Sharearea_Destory( LOCAL_Module * mod_p )
 //说明:NOTIFY中断处理函数
 //输入:
 //输出:共享区基地址
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.17
 /***************************************************************************/
 static Void App_NotifyCB(UInt16 procId, UInt16 lineId, UInt32 eventId, UArg arg,  UInt32 payload)
@@ -429,7 +436,7 @@ static Void App_NotifyCB(UInt16 procId, UInt16 lineId, UInt32 eventId, UArg arg,
 //说明:NOTIFY真正处理数据的地方
 //输入:
 //输出:共享区基地址
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.17
 /***************************************************************************/
 
@@ -471,6 +478,7 @@ void *Message_Thread(void * arg)
     float               data_test;
     App_Msg *   msg;
     LOCAL_Module *  mod_p= (LOCAL_Module *)arg;
+    float  check_para;
     checkfd = Check_Write_Param(CHECKPARMFILE);
     Check_Read_Param(checkfd);
     //分配堆空间64*10
@@ -576,8 +584,24 @@ while(1)
             //memcpy(&sendbuf_p[3], (char *)&status, 4);
             memcpy(&sendbuf_p[3], (UInt8 *)&data_test, 4);
             PC_Send_Data(MSG_CHECK_U, sendbuf_p, 7);
+            g_YC_Check_Para_p->checksum = Get_Check_Param_Sum((UInt8 *)g_YC_Check_Para_p->checkpara, 80);
+            my_debug("checksum:%d",g_YC_Check_Para_p->checksum);
             lseek(checkfd,0,SEEK_SET);
-            write(checkfd,(UInt8 *)(Module.bufferPtr+YC_CHECK_PAR_BASE),80);
+            //write(checkfd,(UInt8 *)(Module.bufferPtr+YC_CHECK_PAR_BASE),80);//存储参数,
+            write(checkfd,(UInt8 *)g_YC_Check_Para_p->checkpara,84);//存储参数,
+            
+            lseek(checkfd,84, SEEK_SET);
+            write(checkfd,(UInt8 *)g_YC_Check_Para_p->checkpara, 84);//存储参数,
+
+            lseek(checkfd,0,SEEK_SET);
+            read(checkfd, (UInt8 *)g_YC_Check_Para_p->checkpara, 84);
+            check_para = g_YC_Check_Para_p->checkpara[INDEX];
+            my_debug("readpara:%f", check_para);
+            lseek(checkfd,84,SEEK_SET);
+            read(checkfd, (UInt8 *)g_YC_Check_Para_p->checkpara, 84);
+            check_para = g_YC_Check_Para_p->checkpara[INDEX];
+            my_debug("readpara:%f", check_para);
+            
             free(sendbuf_p);
         default:
             break;
@@ -594,8 +618,8 @@ leave1:
 	pthread_exit("Message_Thread exit\n");
 }
 /***************************************************************************/
-//函数: void Nand_Write_Config(char * file)
-//说明:write data to nandfile.txt
+//函数: Check_Write_Param(char * file)
+//说明: Open checkparm.txt
 //输入:
 //输出:
 //编辑:R&N
@@ -614,6 +638,27 @@ static  int Check_Write_Param(char * file)
      lseek(fp,0,SEEK_SET);
      return fp;
 }
+
+/***************************************************************************/
+//函数: static UInt8 Get_Check_Param_Sum(UInt8 *bufp, UInt16 len)
+//说明:获取校准参数的校验和
+//输入:校准参数的开始指针，需要校准的长度
+//输出:校准和
+//编辑:R&N
+//时间:2015.11.02
+/***************************************************************************/
+
+static UInt8 Get_Check_Param_Sum(UInt8 *bufp, UInt16 len)
+{
+
+    UInt16 i=0;
+    UInt8 sum=0;
+
+    for(i=0; i<len; i++)
+        sum =sum + bufp[i];
+    return sum;
+}
+
 /***************************************************************************/
 //函数: static void Check_Read_Param(int file)
 //说明:read data from checkparm.txt
@@ -625,8 +670,26 @@ static  int Check_Write_Param(char * file)
 
 static void Check_Read_Param(int file)
 {
+    UInt8 sum;
     lseek(file,0,SEEK_SET);
-    read(file, (UInt8 *)(Module.bufferPtr+YC_CHECK_PAR_BASE), 80 );
+    //read(file, (UInt8 *)(Module.bufferPtr+YC_CHECK_PAR_BASE), 80 );
+    read(file, (UInt8 *)g_YC_Check_Para_p->checkpara, 84 );
+    
+    sum= Get_Check_Param_Sum((UInt8 *)g_YC_Check_Para_p->checkpara, 80);
+    if(sum != g_YC_Check_Para_p->checksum)
+    {
+        lseek(file,84,SEEK_SET);
+        read(file, (UInt8 *)g_YC_Check_Para_p->checkpara, 84);
+        if(sum != g_YC_Check_Para_p->checksum)
+        {
+            my_debug("use the default check paramter");
+            for(sum=0;sum<20;sum++)
+            {
+                g_YC_Check_Para_p->checkpara[sum] = 1;
+            }
+        }
+    }
+    
 }
 
 /***************************************************************************/
@@ -634,7 +697,7 @@ static void Check_Read_Param(int file)
 //说明:供其他线程通过notify发送消息
 //输入:
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N
 //时间:2015.4.17
 /***************************************************************************/
 void  Send_Event_By_Notify( UInt32  command, void * arg)
@@ -651,7 +714,7 @@ void  Send_Event_By_Notify( UInt32  command, void * arg)
 //说明:供其他线程通过message发送消息
 //输入:
 //输出: 0---成功  -1--失败
-//编辑:shaoyi1110@126.com
+//编辑:R&N@126.com
 //时间:2015.4.17
 /***************************************************************************/
 Int  Send_Event_By_Message( UInt32   cmd,  UInt32  buf, UInt32 data)
@@ -671,7 +734,7 @@ Int  Send_Event_By_Message( UInt32   cmd,  UInt32  buf, UInt32 data)
     msg->buf = buf;
     msg->data = data;
     MessageQ_put(message_mod.videoQue, (MessageQ_Msg)msg);
-	my_debug("DSP: MSG Data cmd 0x%x,buff %x, data %x", msg->cmd,msg->buf, msg->data);
+	//my_debug("DSP: MSG Data cmd 0x%x,buff %x, data %x", msg->cmd,msg->buf, msg->data);
     status = 0;
              return status;
     leave:

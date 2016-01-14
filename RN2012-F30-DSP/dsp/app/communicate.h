@@ -7,6 +7,7 @@ extern "C" {
 #include "IPCServer.h"
 /****************************** macro define ************************************/
 #define MAX_INDEX					21
+#define YZ_DELAY					30000		//30*1000 = 30s
 
 #define YC_CHECK_PAR_BASE         4000		//存储遥测参数，校准参数是float
 #define PRINTF_BASE				6000	   	//用于DSP的打印数据
@@ -116,7 +117,12 @@ typedef struct _DianBiao_Data_
 	UInt32 yxnot;						//yx 取反
 	UInt32 yken;						//yk 使能
 }DianBiaoStr;
-
+/* YZ 数据 */
+typedef struct _YZ_DATA_
+{
+	UInt8    YZFlag;						//遥控预置标志
+	UInt32	 YZDelay;						//遥控预置延时
+}yz_data;	
 
 
 /******************************* declar data ***********************************/
@@ -124,6 +130,7 @@ extern ShareAddrBase ShareRegionAddr;	//共享区地址结构体 全局变量
 //extern ParameterListStr* ParListPtr;	//遥测参数列表 电流电压值 功率因数 功率 能耗等
 extern UInt16 findindex[8];			//索引表
 extern DianBiaoStr dianbiaodata;		//点表数据
+extern yz_data yzdata;					//预置数据
 /******************************* functions **************************************/
 //Void Init_BaseParamAddr(BaseValueType output[][7]);
 //Void DigTurn2ShareRegion(DIGRP_Struct* olddigbuff, DIGRP_Struct* newdigbuff);

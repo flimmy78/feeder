@@ -97,8 +97,7 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	float lowvol = faparm->faparm->lowvol;
 	float lowcur = faparm->faparm->lowcur;
-	
-	/* 是否超出失限电压 若超出失限电压但是状态不发生切换 */
+
 	if(ycvalue->Ua1.Param > lowvol||ycvalue->Ub1.Param > lowvol
 		||ycvalue->Uc1.Param > lowvol)
 	{	
@@ -120,7 +119,7 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	else
 	{
 		flag &= 0xfe;
-		
+		//无压时恢复
 		yxdata[0] &= ~(0x01 << PTNOPOWER);
 	}
 		
@@ -180,7 +179,7 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	if(ycvalue->Ua1.Param < lowvol && ycvalue->Ub1.Param < lowvol
 		&& ycvalue->Uc1.Param < lowvol)
 	{	
-		if((flag & 0x01)&&((yxdata[0] >> (PTNOPOWER-1)) & 0x01))
+		if((flag & 0x01)&&((yxdata[0] >> PTNOPOWER) & 0x01))
 		{
 			//send soe PT 有压 //ARM端上传电压值 有压为1  失压为0
 			Send_CS(PTNOPOWER, Enable);
@@ -582,7 +581,7 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 			break;
 	}
 	
-	if(status && (((yxdata[0] >> (YUEXBASE + num-1)) & 0x01) == 0))
+	if(status && ((yxdata[0] >> ALARM) & 0x01))
 	{
 		//报警
 		Send_CS(ALARM, Enable);
@@ -593,11 +592,10 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 	}
 	else if(status == 0)
 	{
-		if(yxdata[0] & (0x01 << (YUEXBASE + num-1)))
+		if(((yxdata[0] >> ALARM )& 0x01) == 0)
 		{
 			//取消
 			Send_CS(ALARM, Disable);
-
 			LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", num,  (UInt32)ycdata[0], yuxvalue);
 		}
 	}
@@ -828,6 +826,7 @@ void Send_CS(UChar num,UChar status)
 	{
 		Message_Send(MSG_SOE, channel, yxdata[0]);				
 	}
+	LOG_INFO("Send_CS num %d, status %d!",num,status);
 }
 
 

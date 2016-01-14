@@ -82,12 +82,12 @@ Void ChangeLED(UInt32 *status)
 /***************************************************************************/
 Void Collect_Task(UArg arg0, UArg arg1) 
 {
+	UChar i;
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
-	UChar i;
 	UInt32 channel;
 	// 遥信默认值全部为1
-	UInt32 newdata = 0xff;
+	UInt32 newdata = 0x0;
 	UInt32 comparedata = 0;
 	UInt32 status = 0;
 	unsigned long ticks[10]={0};
@@ -99,12 +99,13 @@ Void Collect_Task(UArg arg0, UArg arg1)
 	yxdata[0] = 0;
 	for(i=0;i<10;i++)
 	{
-		if(GPIOPinRead(SOC_GPIO_0_REGS, yxio_num[i]) == 0)
+		if(GPIOPinRead(SOC_GPIO_0_REGS, yxio_num[i]))
 		{
-			newdata &= ~(0x01<<i);
+			newdata |= (0x01<<i);
 		}
 	}
 	yxdata[0] = newdata;	
+	LOG_INFO("yxdata if %x,dianbiaodata soe is %x", yxdata[0],dianbiaodata.yxsoe);
 	
 	while(1)
 	{

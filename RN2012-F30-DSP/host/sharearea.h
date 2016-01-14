@@ -3,9 +3,9 @@
 // 描述
 //
 // 本文件是DTU通讯网关装置的CPU之间共享内存
-// 编写人:shaoyi
+// 编写人:R&N
 //
-//  email		  :shaoyi1110@126.com
+//  email		  :R&N@126.com
 //  日	   期:2014.9.16
 //  注	   释:
 /*************************************************************************/
@@ -61,6 +61,13 @@
 #define YK_CANCEL_CLOSE_SEL         0x04
 #define YK_OPEN_EXECUTIVE           0x05
 #define YK_CLOSE_EXECUTIVE          0x06
+
+/*遥测校准参数*/
+typedef struct _YC_CHECK_PARA_struct_
+{
+    float checkpara[20];//20
+    UInt8 checksum;
+}YC_CHECK_PARA_struct;
 
 typedef enum
 {

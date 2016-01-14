@@ -370,7 +370,7 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
 	
     //if(new_fd == -1)
      //   return ;
-    //my_debug("cmd104:0x%x buf:0x%x data:0x%x",cmd, buf, data);
+    my_debug("cmd104:0x%x buf:0x%x data:0x%x",cmd, buf, data);
     switch (cmd&0xFFFF)
     {
         case MSG_COS:
@@ -400,7 +400,7 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
         case MSG_SOE:
              stime=malloc(sizeof(struct rtc_time));
              cout_framer++;
-//             my_debug("send SOE number :%d",cout_framer);
+             my_debug("send SOE number :%d",cout_framer);
             for(i=0; i<32; i++)
             {
                 if(buf&(1<<i))//表示第(cmd>>16)*32+i通道变位
@@ -2487,9 +2487,9 @@ void PC_Send_YX(UInt8* buf,UInt8 len)
             //tmp_buf[k+2] = (pTmp_Point->uiAddr>>8)&0xFF;
             //tmp_buf[k+3] = 0;
             //tmp_buf[k+4] = 0;
-            data =Read_From_Sharearea((pTmp_Point->uiOffset)-1, TYPE_YX_STATUS_BIT);	  //遥信值
+            data =Read_From_Sharearea((pTmp_Point->uiOffset), TYPE_YX_STATUS_BIT);	  //遥信值
 //            tmp_buf[k+5] = (data&(1<<(pTmp_Point->uiOffset&0x7)))?1:0;
-            tmp_buf[k+2] = (data&(1<<((pTmp_Point->uiOffset-1)&0x7)))?1:0;
+            tmp_buf[k+2] = (data&(1<<((pTmp_Point->uiOffset)&0x7)))?1:0;
             pTmp_Point = pTmp_Point->next;
 //            k = k +6;
             k = k +3;
