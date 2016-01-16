@@ -102,7 +102,14 @@ Int DigAdjust(App_Msg *msg, float *adjust)
 		LOG_INFO("Channel is over the index!");
 		status = 0;
 		return status;
-	}	
+	}
+
+	//判断是否为0值校准
+	if(value == 0)
+	{
+		// value值为0,不改变校准值
+		return status;
+	}
 	
 	value = 1000 * msg->data;				//校准值 mA 或 mV
 //	value = msg->data;
@@ -317,11 +324,11 @@ Int ReadConfig(Void)
 		fapamptr->cursection_n = 3;
 		LOG_INFO("ReadConfig cursection_n is over value. ");
 	}
-//	for(i=0;i<fapamptr->cursection_n;i++)
-//	{
-//		// 由于输入的是A 因此需要扩大1000倍 
-//		fapamptr->cursection[i].protectvalue *= 1000; 
-//	}
+	for(i=0;i<fapamptr->cursection_n;i++)
+	{
+		// 由于输入的是A 因此需要扩大1000倍 
+		fapamptr->cursection[i].protectvalue *= 1000; 
+	}
 	
 	/* 零序三段过流 */
 	if(fapamptr->zerosection_n > 3)
@@ -329,11 +336,11 @@ Int ReadConfig(Void)
 		fapamptr->zerosection_n = 3;
 		LOG_INFO("ReadConfig zerosection_n is over value. ");
 	}
-//	for(i=0;i<fapamptr->zerosection_n;i++)
-//	{
-//		// 由于输入的是A 因此需要扩大1000倍 
-//		fapamptr->zerosection[i].protectvalue *= 1000; 
-//	}
+	for(i=0;i<fapamptr->zerosection_n;i++)
+	{
+		// 由于输入的是A 因此需要扩大1000倍 
+		fapamptr->zerosection[i].protectvalue *= 1000; 
+	}
 	
 	/* 越限保护最大支持8个通道的越限检测(3U4I1DC) 由于分为上下限值因此n值最大为16 */
 	if(fapamptr->ycover_n > 16)
@@ -341,18 +348,18 @@ Int ReadConfig(Void)
 		fapamptr->ycover_n = 16;
 		LOG_INFO("ReadConfig ycover_n is over value. ");
 	}
-/*	
-	LOG_INFO("ReadConfig fistreclose_t = %d, secondreclose_t = %d, thirdreclose_t = %d, softenable = %x",
-		fapamptr->fistreclose_t,fapamptr->secondreclose_t,fapamptr->thirdreclose_t,fapamptr->softenable);
-	
-	for(i=0;i<fapamptr->cursection_n;i++)
-	{
-		LOG_INFO("ReadConfig protectvalue = %d, delaytime = %d ",fapamptr->cursection[i].protectvalue,fapamptr->cursection[i].delaytime);
-	}
+///*	
+//	LOG_INFO("ReadConfig fistreclose_t = %d, secondreclose_t = %d, thirdreclose_t = %d, softenable = %x",
+//		fapamptr->fistreclose_t,fapamptr->secondreclose_t,fapamptr->thirdreclose_t,fapamptr->softenable);
+//	
+//	for(i=0;i<fapamptr->cursection_n;i++)
+//	{
+//		LOG_INFO("ReadConfig protectvalue = %d, delaytime = %d ",fapamptr->cursection[i].protectvalue,fapamptr->cursection[i].delaytime);
+//	}
 	for(i=0;i<fapamptr->ycover_n;i++)
 	{
 		LOG_INFO("ReadConfig ycindex = %d, flag = %d, value = %d ",fapamptr->ycover[i].ycindex,fapamptr->ycover[i].flag,fapamptr->ycover[i].value);
 	}
-*/	
+//*/	
 	return 0;
 }

@@ -253,7 +253,7 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 	/* 基本量 */
 	remotevalue->Ua1.Param = basevalue->modeangel[0].module;// * sysparm->ptrate ;
 	/* 判断过零检测电压是否失电 失电则需要切换 此处为恢复为过零检测部分为输入频率 */
-	if(remotevalue->Ua1.Param> basevalue->faparm->lowvol)
+	if(remotevalue->Ua1.Param> (basevalue->faparm->lowvol*1000))
 	{
 		/* 输出方式为1 表明内部输出采样频率 */
 		if(ad7606Str.flagfreq & (0x01 << 2))
@@ -440,7 +440,7 @@ Void FFT_Task(UArg arg0, UArg arg1)
 		}
 		PowerValue(&ycvalueprt, remotevalue);	
 		// 发送fa任务信号量 执行fa判断
-		//Semaphore_post(fasem); 		//2015-10-30 change
+		Semaphore_post(fasem); 		//2015-10-30 change
 	}
 }
 /***************************************************************************/

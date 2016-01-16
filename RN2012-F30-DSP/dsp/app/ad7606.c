@@ -92,7 +92,7 @@ static void EMIFA_AD7606_Init(void)
 //	EMIFAWaitTimingConfig(SOC_EMIFA_0_REGS, EMIFA_CHIP_SELECT_2,
 //                          EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 1, 3, 1, 1));	
 //							EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 3, 2, 0));
-	HWREG(SOC_EMIFA_0_REGS + EMIFA_CE2CFG) |= EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 4, 2, 0);
+	HWREG(SOC_EMIFA_0_REGS + EMIFA_CE2CFG) |= EMIFA_ASYNC_WAITTIME_CONFIG(1, 2, 1, 2, 10, 3, 0);
 
 //	/* CS4 set AD7606 2 */
 //	/*set the buswidth of async device connected.  16bit*/
@@ -250,12 +250,16 @@ static void AD7606_BUSY_Hwi(UArg ad_addr)
 		{
 			ad->flagfreq |= 0x01;
 			Semaphore_post(ad->sem);
+			//测试用
+			GPIOPinWrite(SOC_GPIO_0_REGS, AD7606_CLK_AD2, GPIO_PIN_HIGH);
 		}
 		else if(ad->conter > 127)
 		{
 			ad->flagfreq &= ~0x01;
 			ad->conter = 0;
 			Semaphore_post(ad->sem);
+			//测试用
+			GPIOPinWrite(SOC_GPIO_0_REGS, AD7606_CLK_AD2, GPIO_PIN_LOW);
 		}
 		// 频率采集 
 		if(ad->flagfreq & 0x02)

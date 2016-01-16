@@ -37,8 +37,7 @@
 
 
 /******************************* private data ***********************************/
-UChar ReCounter = 0;				//重合闸次数
-UChar old_fastatus = NOPOWER;
+FAPrivateStr faprivatedata;		//fa文件全局变量数据
 /******************************* functions **************************************/
 /***************************************************************************/
 //函数: static Char OpenDoor(void)
@@ -52,23 +51,23 @@ static Char OpenDoor(void)
 {
 	Char err = 0;
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
-	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 
 	// 执行预置动作
 	YK_SendOut(0, PIN_LOW);
 	// 延时等待预置动作执行完毕
-	Task_sleep(5);
+	Task_sleep(20);
 	if(GPIOPinRead(SOC_GPIO_0_REGS, YK_YZ))	
 		return -1;
 	// 执行分闸动作
 	YK_SendOut(2, PIN_LOW);
 	// 延时执行时间
 	Task_sleep(sysparm->yc1_out);
-	// 分闸为常开触点,
-	if((yxdata[0] >> (FWYX-1)) & 0x01)
+	// 分闸状态为常闭,YX_1为分闸状态
+	if(GPIOPinRead(SOC_GPIO_0_REGS, YX_1))
 	{
 		//分闸失败
 		err = 1;
+		LOG_INFO("open is err by yx. ");
 	}
 	else
 	{
@@ -79,6 +78,7 @@ static Char OpenDoor(void)
 	// 取消预置
 	YK_SendOut(0, PIN_HIGH);
 
+	LOG_INFO("open is right. ");
 	return err;
 }
 
@@ -94,33 +94,51 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 {
 	UChar status = 0;
 	static UChar flag = 0;
+	UInt32 problem = 0;
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
-	float lowvol = faparm->faparm->lowvol;
-	float lowcur = faparm->faparm->lowcur;
+	float lowvol = faparm->faparm->lowvol*1000;
+	float lowcur = faparm->faparm->lowcur*1000;
 
 	if(ycvalue->Ua1.Param > lowvol||ycvalue->Ub1.Param > lowvol
 		||ycvalue->Uc1.Param > lowvol)
-	{	
-		if((flag & 0x01)&&(((yxdata[0] >> PTNOPOWER) & 0x01) == 0))
+	{
+		//判断是否置位标记
+		if(flag & 0x01)
 		{
-			//send soe PT 有压 //ARM端上传电压值有压为1 无压为0,应该是无压disab
-			Send_CS(PTNOPOWER, Disable);
-			//切换状态
-			status = 1;
-			flag &= 0xfe;
-			LOG_INFO("Check_PowerON PT power ua1 = %d, ub1 = %d, uc1 = %d; ",(UInt32)ycvalue->Ua1.Param, (UInt32)ycvalue->Ub1.Param, (UInt32)ycvalue->Uc1.Param);
+			//默认1为故障状态
+			problem = (yxdata[0] >> PTNOPOWER) & 0x01;
+			//与取反标志位异或,如果取反0为故障状态，problem = 0表示此时为默认状态,1表示为故障状态
+			problem ^= (dianbiaodata.yxnot >> PTNOPOWER) & 0x01;
+			//判断是否为故障状态,同为故障状态不再进行事件上报
+			if(problem == 0)
+			{
+				//send soe PT 有压,故障使能信号
+				Send_CS(PTNOPOWER, Enable);
+				//切换状态使能
+				status = 1;
+				//清除标志位
+				flag &= 0xfe;
+				LOG_INFO("Check_PowerON PT power ua1 = %d, ub1 = %d, uc1 = %d; ",(UInt32)ycvalue->Ua1.Param, (UInt32)ycvalue->Ub1.Param, (UInt32)ycvalue->Uc1.Param);
+			}
 		}
 		else
 		{
 			/* 超出失限电压时bit0 = 1 */
-			flag |= 0x01; 		
+			flag |= 0x01; 	
 		}
 	}
 	else
 	{
 		flag &= 0xfe;
-		//无压时恢复
-		yxdata[0] &= ~(0x01 << PTNOPOWER);
+		//无压时恢复状态
+		if((dianbiaodata.yxnot >> PTNOPOWER) & 0x01)
+		{
+			yxdata[0] &= ~(0x01 << PTNOPOWER);
+		}
+		else
+		{
+			yxdata[0] |= 0x01 << PTNOPOWER;
+		}
 	}
 		
 	/* 是否超出失限电流 */
@@ -132,7 +150,7 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 			// 只要电流超过规定值就进入正常状态 进行过流检测
 			status = 1;
 			//send CT 有流  //ARM端上传电流值  有流为1  失流为0
-			Send_CS(CTNOPOWER, Disable);
+			Send_CS(CTNOPOWER, Enable);
 			flag &= 0xfd;
 			LOG_INFO("Check_PowerON CT power Ia1 = %d, Ib1 = %d, Ic1 = %d;",(UInt32)ycvalue->Ia1.Param, (UInt32)ycvalue->Ib1.Param, (UInt32)ycvalue->Ic1.Param );
 		}
@@ -140,6 +158,7 @@ UChar Check_PowerON(YCValueStr *faparm, CurrentPaStr *ycvalue)
 		{
 			/* 超出失限电流时bit1 = 1 */
 			flag |= 0x02;
+			//清除因电压超出设置的标志位
 			status = 0;
 		}
 	}
@@ -170,31 +189,37 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 {
 	UChar status = 0;
 	static UChar flag = 0;
+	UInt32 problem = 0;
 	static unsigned long times = 0;
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
-	float lowvol = faparm->faparm->lowvol;
-	float lowcur = faparm->faparm->lowcur;
+	float lowvol = faparm->faparm->lowvol*1000;
+	float lowcur = faparm->faparm->lowcur*1000;
 
 	/* 是否低于失限电压 */
 	if(ycvalue->Ua1.Param < lowvol && ycvalue->Ub1.Param < lowvol
 		&& ycvalue->Uc1.Param < lowvol)
 	{	
-		if((flag & 0x01)&&((yxdata[0] >> PTNOPOWER) & 0x01))
+		//默认1为故障状态
+		problem = (yxdata[0] >> PTNOPOWER) & 0x01;
+		//与取反标志位异或,如果取反0为故障状态，problem = 0表示此时为默认状态,1表示为故障状态
+		problem ^= (dianbiaodata.yxnot >> PTNOPOWER) & 0x01;
+
+		//判断是否为故障状态,同为故障状态不再进行事件上报	
+		if(problem)
 		{
-			//send soe PT 有压 //ARM端上传电压值 有压为1  失压为0
-			Send_CS(PTNOPOWER, Enable);
-			status = 1;
-			flag &= 0xfe;
-			times = 0;
-			LOG_INFO("Check_PowerOFF PT power ua1 =  %d, ub1 = %d, uc1 = %d;",(UInt32)ycvalue->Ua1.Param, (UInt32)ycvalue->Ub1.Param, (UInt32)ycvalue->Uc1.Param );
-		}
-		else
-		{
-			/* 低于失限电压时bit0 = 1 */
-			if((yxdata[0] >> (PTNOPOWER-1)) & 0x01)
+			if(flag & 0x01)
+			{	
+				//send soe PT 有压 //ARM端上传电压值 有压为1  失压为0
+				Send_CS(PTNOPOWER, Disable);
+				status = 1;
+				flag &= 0xfe;
+				times = 0;
+				LOG_INFO("Check_PowerOFF PT power ua1 =  %d, ub1 = %d, uc1 = %d;",(UInt32)ycvalue->Ua1.Param, (UInt32)ycvalue->Ub1.Param, (UInt32)ycvalue->Uc1.Param );
+			}
+			else
 			{
 				flag |= 0x01; 	
-			}	
+			}
 		}
 	}
 	else
@@ -206,23 +231,39 @@ UChar Check_PowerOFF(YCValueStr *faparm, CurrentPaStr *ycvalue)
 	if(ycvalue->Ia1.Param < lowcur && ycvalue->Ib1.Param < lowcur
 		&&ycvalue->Ic1.Param < lowcur)
 	{
-		if((flag & 0x02)&&((yxdata[0] >> (CTNOPOWER-1)) & 0x01))
+		//默认1为故障状态
+		problem = (yxdata[0] >> CTNOPOWER) & 0x01;
+		//与取反标志位异或,如果取反0为故障状态，problem = 0表示此时为默认状态,1表示为故障状态
+		problem ^= (dianbiaodata.yxnot >> CTNOPOWER) & 0x01;
+
+		//判断是否为故障状态,同为故障状态不再进行事件上报	
+		if(problem)
 		{
-			status = 1;
-			//send CT 有流  //ARM端上传电流值  有流为1  失流为0
-			Send_CS(CTNOPOWER, Enable);
-			flag &= 0xfd;
-			times = 0;
-			LOG_INFO("Check_PowerOFF CT power Ia1 = %d, Ib1 = %d, Ic1 = %d;",(UInt32)ycvalue->Ia1.Param, (UInt32)ycvalue->Ib1.Param, (UInt32)ycvalue->Ic1.Param );
+			if(flag & 0x02)
+			{	
+				//send soe PT 有压 //ARM端上传电压值 有压为1  失压为0
+				Send_CS(CTNOPOWER, Disable);
+				// 故障保护动作后,只有电压没有电流
+				if(faprivatedata.FA_Problem)
+				{
+					status = 0;
+				}
+				else 
+					status = 1;
+				flag &= 0xfd;
+				times = 0;
+				LOG_INFO("Check_PowerOFF CT power Ia1 = %d, Ib1 = %d, Ic1 = %d;",(UInt32)ycvalue->Ia1.Param, (UInt32)ycvalue->Ib1.Param, (UInt32)ycvalue->Ic1.Param );
+			}
+			else
+			{
+				flag |= 0x02; 
+				status = 0;
+			}
 		}
 		else
 		{
-			/* 超出失限电流时bit1 = 1 */
-			if((yxdata[0] >> (CTNOPOWER-1)) & 0x01)
-			{
-				flag |= 0x02; 	
-			}
-			status = 0;
+			if(faprivatedata.FA_Problem == 0)
+				status = 1;
 		}
 	}
 	else
@@ -267,7 +308,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 	static unsigned long GLtimes[3] = {0};
 	static UInt32 GLRECOVERtimes[3] = {0};
 	UChar status = 0;
-	
+
 	// A相是否过流
 	if((ycvalue->Ia1.Param > faparm->faparm->cursection[num].protectvalue) && ((faparm->faparm->softenable >> 4) & 0x01))
 	{
@@ -312,6 +353,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 			{
 				//过流标志
 				GLstatus[num] = 1;
+				faprivatedata.FA_Problem = 1;
 				GLtimes[num] = 0;
 				LEDDATA &= ~(0x01<<LED_PROT);
 				LED_SENDOUT(LEDDATA);
@@ -355,7 +397,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 		{
 			// 重置时间
 			GLRECOVERtimes[num] = 0;
-			if(old_fastatus == PROTECT)
+			if(faprivatedata.old_fastatus == PROTECT)
 			{
 				// 清除故障标志
 				GLstatus[num] = 0;
@@ -368,7 +410,7 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 		if(GLstatus[num])
 		{
 			//重合闸发生时清除故障标志
-			if(old_fastatus == PROTECT)
+			if(faprivatedata.old_fastatus == PROTECT)
 			{
 				GLstatus[num] = 0;
 			}
@@ -381,19 +423,26 @@ UChar Check_GL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 			{
 				//清除过流标志
 				GLstatus[num] = 0;
+				faprivatedata.FA_Problem = 0;
 				GLRECOVERtimes[num] = 0;
 				//故障失去 产生soe cos
 				Send_CS(ALARM, Disable);
 				//事故总去除
 				Send_CS(ALLERR, Disable);
 				//重合去除
-				Send_CS(RECLOSE, Disable);
-				if(ReCounter && (old_fastatus == PROTECT))
+				if((faparm->faparm->softenable >> 13) & 0x01)
+				{
+					Send_CS(RECLOSE, Disable);	
+				}
+				if(faprivatedata.ReCounter && (faprivatedata.old_fastatus == PROTECT))
 				{
 					// 清除重合闸次数记录
-					ReCounter = 0;
+					faprivatedata.ReCounter = 0;
 				}
-				
+
+				// 熄灭故障指示灯 LED2
+				LEDDATA |= (0x01<<LED_PROT);
+				LED_SENDOUT(LEDDATA);
 				LOG_INFO("guoliu num = %d ,GLflag = %d , Ia1 = %d, Ib1 = %d, Ic1 = %d;", 
 					num, GLflag[num], (UInt32)ycvalue->Ia1.Param,(UInt32)ycvalue->Ib1.Param , (UInt32)ycvalue->Ic1.Param );	
 			}
@@ -447,6 +496,7 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				//过流标志
 				LXGLtimes[num] = 0;
 				LXGLstatus[num] = 1;
+				faprivatedata.FA_Problem = 1;
 				LEDDATA &= ~(0x01<<LED_PROT);
 				LED_SENDOUT(LEDDATA);
 
@@ -487,7 +537,7 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 		else
 		{
 			LXGLRECOVERtimes[num] = 0;
-			if(old_fastatus == PROTECT)
+			if(faprivatedata.old_fastatus == PROTECT)
 			{
 				// 清除故障标志
 				LXGLstatus[num] = 0;
@@ -500,7 +550,7 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 		if(LXGLstatus[num])
 		{
 			//重合闸故障发生时清除故障标志
-			if(old_fastatus == PROTECT)
+			if(faprivatedata.old_fastatus == PROTECT)
 			{
 				// 清除故障标志
 				LXGLstatus[num] = 0;
@@ -515,17 +565,24 @@ UChar Check_LXGL(YCValueStr *faparm, CurrentPaStr *ycvalue, UChar num)
 				//清除过流标志
 				LXGLstatus[num] = 0;
 				LXGLRECOVERtimes[num] = 0;
+				faprivatedata.FA_Problem = 0;
 				//故障失去 产生soe cos清除故障
 				Send_CS(ALARM, Disable);
 				//事故总去除
 				Send_CS(ALLERR, Disable);
 				//重合去除
-				Send_CS(RECLOSE, Disable);
-				if(ReCounter && (old_fastatus == PROTECT))
+				if((faparm->faparm->softenable >> 13) & 0x01)
+				{
+					Send_CS(RECLOSE, Disable);	
+				}
+				if(faprivatedata.ReCounter && (faprivatedata.old_fastatus == PROTECT))
 				{
 					// 清除重合闸次数记录
-					ReCounter = 0;
+					faprivatedata.ReCounter = 0;
 				}
+				// 熄灭故障指示灯 LED2
+				LEDDATA |= (0x01<<LED_PROT);
+				LED_SENDOUT(LEDDATA);
 				LOG_INFO("guoliu num = %d ,	LXGLflag = %d , I01 = %d", 
 					num, LXGLflag[num], (UInt32)ycvalue->I01.Param);
 			}
@@ -551,9 +608,10 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 {
 	UChar value = 0;
 	UChar status = 0;
+	UInt32 problem = 0;
 	UInt32 *yxdata = ShareRegionAddr.digitIn_addr;
 	float *ycdata = (float *)(ShareRegionAddr.base_addr + faparm->faparm->ycover[num].ycindex *2);
-	float yuxvalue = faparm->faparm->ycover[num].value;
+	float yuxvalue = faparm->faparm->ycover[num].value*1000;
 
 	switch(faparm->faparm->ycover[num].flag)
 	{	
@@ -581,25 +639,34 @@ UChar Check_YUEX(YCValueStr *faparm, UChar num)
 			break;
 	}
 	
-	if(status && ((yxdata[0] >> ALARM) & 0x01))
-	{
-		//报警
-		Send_CS(ALARM, Enable);
-		value = 1;
+	//默认1为故障状态
+	problem = (yxdata[0] >> ALARM) & 0x01;
+	//与取反标志位异或,如果取反0为故障状态，problem = 0表示此时为默认状态,1表示为故障状态
+	problem ^= (dianbiaodata.yxnot >> ALARM) & 0x01;
 
-		LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", 
-			num,  (UInt32)ycdata[0], yuxvalue);
-	}
-	else if(status == 0)
+	if(status)
 	{
-		if(((yxdata[0] >> ALARM )& 0x01) == 0)
+		if(problem == 0)
+		{
+			//报警
+			Send_CS(ALARM, Enable);
+			value = 1;
+			LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", 
+				num,  (UInt32)ycdata[0], yuxvalue);
+		}
+		
+	}
+	else
+	{
+		if(problem)
 		{
 			//取消
 			Send_CS(ALARM, Disable);
 			LOG_INFO("yuex num = %d ,	ycdata = %d ,yuxvalue = %d ", num,  (UInt32)ycdata[0], yuxvalue);
 		}
+		
 	}
-	
+
 	return value;
 }
 /***************************************************************************/
@@ -627,7 +694,7 @@ UChar Reclose_State(YCValueStr *faparm)
 		// 执行重合闸动作
 		if((faparm->faparm->softenable >> 13) & 0x01)
 		{
-			switch(ReCounter)
+			switch(faprivatedata.ReCounter)
 			{
 				case 0:
 					Task_sleep(faparm->faparm->fistreclose_t);
@@ -652,7 +719,7 @@ UChar Reclose_State(YCValueStr *faparm)
 			// 取消预置
 			YK_SendOut(0, PIN_HIGH);
 			// 重合次数自加
-			ReCounter++;
+			faprivatedata.ReCounter++;
 			Send_CS(RECLOSE, Enable);
 			status = 1;
 		}
@@ -677,8 +744,11 @@ Void FA_Task(UArg arg0, UArg arg1)
 	YCValueStr *ycvaluestr;
 	UChar fastatus = NOPOWER;
 	CurrentPaStr *remotevalue = (CurrentPaStr *)ShareRegionAddr.base_addr;
-	UInt32 *yxstatus = (UInt32 *)ShareRegionAddr.digitIn_addr;
+//	UInt32 *yxstatus = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	UChar status = 0;
+	faprivatedata.FA_Problem = 0;
+	faprivatedata.ReCounter = 0;
+	faprivatedata.old_fastatus = NOPOWER;
 
 	// 创建fa与fft通信信号量
 	fasem = Semaphore_create(0, NULL, NULL); 
@@ -696,7 +766,7 @@ Void FA_Task(UArg arg0, UArg arg1)
 				// 切换状态
 				if(status)
 				{
-					old_fastatus = NOPOWER;
+					faprivatedata.old_fastatus = NOPOWER;
 					fastatus = 	RUNNING;
 					LOG_INFO("Change status to RUNNING! ;");
 				}
@@ -708,7 +778,7 @@ Void FA_Task(UArg arg0, UArg arg1)
 					status = Check_GL(ycvaluestr, remotevalue, i);
 					if(status && ((ycvaluestr->faparm->softenable >> 13) & 0x01))
 					{
-						old_fastatus = RUNNING;
+						faprivatedata.old_fastatus = RUNNING;
 						fastatus = 	PROTECT;
 						break;
 					}
@@ -720,7 +790,7 @@ Void FA_Task(UArg arg0, UArg arg1)
 					status = Check_LXGL(ycvaluestr, remotevalue, i);
 					if(status && ((ycvaluestr->faparm->softenable >> 13) & 0x01))
 					{
-						old_fastatus = RUNNING;
+						faprivatedata.old_fastatus = RUNNING;
 						fastatus = 	PROTECT;
 						break;
 					}
@@ -735,24 +805,24 @@ Void FA_Task(UArg arg0, UArg arg1)
 				// 切换状态
 				if(status)
 				{
-					old_fastatus = RUNNING;
+					faprivatedata.old_fastatus = RUNNING;
 					fastatus = 	NOPOWER;
 					LOG_INFO("Change status to NOPOWER! ;");
 				}
-				//故障灯指示
-				if(((yxstatus[0] >> (GLBASE - 1))&0x3f) == 0)
-				{
-					LEDDATA |= 0x01<<LED_PROT;
-					LED_SENDOUT(LEDDATA);
-				}
+//				//故障灯指示
+//				if(((yxstatus[0] >> (GLBASE - 1))&0x3f) == 0)
+//				{
+//					LEDDATA |= 0x01<<LED_PROT;
+//					LED_SENDOUT(LEDDATA);
+//				}
 				break;
 			case PROTECT:
-				if(ReCounter < ycvaluestr->faparm->reclose_n)
+				if(faprivatedata.ReCounter < ycvaluestr->faparm->reclose_n)
 				{
 					status = Reclose_State(ycvaluestr);
 					if(status)
 					{
-						old_fastatus = PROTECT;
+						faprivatedata.old_fastatus = PROTECT;
 						fastatus = RUNNING;
 					}		
 				}
@@ -768,7 +838,7 @@ Void FA_Task(UArg arg0, UArg arg1)
 				if(FGflag)
 				{
 					fastatus = RUNNING;
-					ReCounter = 0;
+					faprivatedata.ReCounter = 0;
 				}
 				break;
 			default:
@@ -800,7 +870,7 @@ Void Tempture(UArg arg0, UArg arg1)
 }
 /***************************************************************************/
 //函数:	void Send_CS(UChar num,UChar status)
-//说明:	发送SOE与COS数据
+//说明:	发送SOE与COS数据,默认0为默认状态,1为使能故障状态
 //输入: num 发送软遥信编号,status 使能或失能
 //输出: 无
 //编辑:
@@ -815,11 +885,28 @@ void Send_CS(UChar num,UChar status)
 	if(((faparm->faparm->softenable >> 17 ) & 0x01)&&((dianbiaodata.yxcos >> num ) & 0x01))
 	{
 		channel = 0x01 << num;
-		if(status)
-			yxdata[0] &= ~(0x01 << num);
+		if((dianbiaodata.yxnot >> num) & 0x01)
+		{
+			if(status)
+			{
+				yxdata[0] &= ~(0x01 << num);
+			}
+			else
+			{
+				yxdata[0] |= 0x01 << num;
+			}
+		}
 		else
-			yxdata[0] |= 0x01 << num;
-		
+		{
+			if(status)
+			{
+				yxdata[0] |= 0x01 << num;
+			}
+			else
+			{
+				yxdata[0] &= ~(0x01 << num);
+			}			
+		}
 		Message_Send(MSG_COS, channel, yxdata[0]);
 	}
 	if(((faparm->faparm->softenable >> 18 ) & 0x01)&&((dianbiaodata.yxcos >> num) & 0x01))

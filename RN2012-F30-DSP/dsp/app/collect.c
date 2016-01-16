@@ -87,6 +87,7 @@ Void Collect_Task(UArg arg0, UArg arg1)
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
 	UInt32 channel;
 	// 遥信默认值全部为1
+	UInt32 temp = 0;
 	UInt32 newdata = 0x0;
 	UInt32 comparedata = 0;
 	UInt32 status = 0;
@@ -109,8 +110,6 @@ Void Collect_Task(UArg arg0, UArg arg1)
 	
 	while(1)
 	{
-		// 更新数据
-		newdata = yxdata[0];
 		/* 遥信数据变位 */
 		for(i=0;i<10;i++)
 		{
@@ -123,25 +122,31 @@ Void Collect_Task(UArg arg0, UArg arg1)
 					if(comparedata != GPIOPinRead(SOC_GPIO_0_REGS, yxio_num[i]))
 					{
 						newdata ^= (0x01<<i);
-						//复制到共享区
-						yxdata[0] = newdata;
+						//复制到缓存
+						temp = newdata;
 						/* 判断是否取反使能 */
 						if(dianbiaodata.yxnot & (0x01<<i))
 						{
 							// 使能取反则将数据再次异或
-							newdata ^= (0x01<<i);
+							temp = newdata ^ (0x01<<i);	
 						}
+						//保留硬件遥信
+						temp &= 0x3ff;
+						//保留虚拟遥信(5位使用,其余待扩展)
+						yxdata[0] &= 0xfffffc00; 
+						//传递遥信到共享区
+						yxdata[0] |= temp;
 						if(dianbiaodata.yxcos & (0x01<<i))
 						{
 							//send cos msg
 							channel = 0x01<<i;
-							Message_Send(MSG_COS, channel, newdata);
+							Message_Send(MSG_COS, channel, yxdata[0]);
 						}
 						if(dianbiaodata.yxsoe & (0x01<<i))
 						{
 							//send soe msg
 							channel = 0x01<<i;
-							Message_Send(MSG_SOE, channel, newdata);
+							Message_Send(MSG_SOE, channel, yxdata[0]);
 						}
 					}
 					/* 清除变位标志 */
@@ -162,7 +167,7 @@ Void Collect_Task(UArg arg0, UArg arg1)
 			}
 		}		
 		/* 点亮相应的LED(分合闸LED) */
-		ChangeLED(yxdata);
+		ChangeLED(&newdata);
 		/* 延时2ms */
 		Task_sleep(2);
 	}

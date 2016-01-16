@@ -107,7 +107,13 @@ struct _FAPARAM_
 	struct _YCOVERPARAM_ ycover[3];
 								//遥测越限参数 最大为16个数组
 };
-
+//fa文件全局变量结构体
+typedef struct _PRIVATE_STR_
+{
+	UChar FA_Problem ;			//FA故障指示
+	UChar ReCounter;			//重合闸次数	
+	UChar old_fastatus;		//FA切换状态之前的状态
+}FAPrivateStr;
 typedef struct _SYSPARAM_ SYSPARAMSTR;
 typedef struct _FAPARAM_ FAPARAMSTR;
 typedef struct _PROTECTPARM_ PROTECTSTR;
