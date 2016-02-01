@@ -2,9 +2,9 @@
 // iec101.c                                        Version 1.00
 //
 // 本文件是DTU2.0通讯网关装置的IEC60870-5-101规约处理程序
-// 编写人:shaoyi
+// 编写人:R&N
 //
-// 工程师:shaoyi
+// 工程师:R&N
 //  日	   期:2015.04.17
 //  注	   释:
 /*************************************************************************/
@@ -119,7 +119,7 @@ static int name_arr[]  = {230400,  115200,  57600,  38400, 19200,  9600,  4800, 
 //函数说明:回复0xE5
 //输入:命令位
 //输出::无
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2014.10.20
 /**************************************************************************************/
 static void IEC101_SendE5H( void )
@@ -138,7 +138,7 @@ static void IEC101_SendE5H( void )
 //函数说明:回复固定帧格式
 //输入:命令位
 //输出::无
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2014.10.20
 /**************************************************************************************/
 static void IEC101_Send10H(unsigned char ucCommand)       /* 可变报文长度的RTU回答 */
@@ -158,7 +158,7 @@ static void IEC101_Send10H(unsigned char ucCommand)       /* 可变报文长度的RTU回
 //说明:结束总召唤
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 //时间:2015.05.25
 /**************************************************************************/
 static void IEC101_Interroall_End(void)
@@ -204,7 +204,7 @@ static void IEC101_Interroall_End(void)
 //描述:报告所有遥测数据,发送浮点数
 //输入:已经发生的遥测的个数
 //输出:已经发生的遥测的个数
-//编辑:shaoyi
+//编辑:R&N
 //时间:2015.5.27
 /**************************************************************************/
 static short IEC101_AP_ALL_YC( short send_num )//报告全部遥测数据
@@ -310,7 +310,7 @@ static short IEC101_AP_ALL_YC( short send_num )//报告全部遥测数据
 //函数描述:报告所有遥信数据
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static unsigned char IEC101_AP_ALL_YX( short send_num )//报告所有遥信数据
 {
@@ -455,7 +455,7 @@ return 0;
 //说明:确认回复帧
 //输入:帧长
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static void IEC101_PositiveCON(int frame_len)
 {
@@ -479,7 +479,7 @@ static void IEC101_PositiveCON(int frame_len)
 //说明:确认回复帧
 //输入:帧长
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static void IEC101_NegativeCON(int frame_len)
 {
@@ -506,7 +506,7 @@ static void IEC101_NegativeCON(int frame_len)
 //YK_FUGUI				2
 //YK_INVALID_ADDR		3
 //YK_CANCEL_SEL			4
-//编辑:shaoyi1110
+//编辑:R&N1110
 //时间:2015.6.1
 /****************************************************************************/
 static unsigned char IEC101_YK_SelHalt(void)
@@ -556,7 +556,7 @@ static unsigned char IEC101_YK_SelHalt(void)
 //说明:单点遥控选择
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static unsigned char IEC101_YK_Sel( int frame_len )
 {
@@ -607,7 +607,7 @@ static unsigned char IEC101_YK_Sel( int frame_len )
 /****************************************************************************/
 //函数说明:遥控执行
 //输入:ASDU帧     和长度
-//编辑:shaoyi1110
+//编辑:R&N1110
 //时间:2015.6.1
 //YK_ZHIXIN_FAIL			5
 //YK_ZHIXIN_SUCC		6
@@ -669,7 +669,7 @@ static unsigned char IEC101_AP_YKExec(int frame_len)
 //说明:单点遥控
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static void IEC101_Single_YK( int frame_len )
 {
@@ -734,7 +734,7 @@ static void IEC101_Single_YK( int frame_len )
 //函数说明:上报总召唤的所有数据
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static  void  IEC101_Ap_Summonall( void )
 {
@@ -766,7 +766,7 @@ static  void  IEC101_Ap_Summonall( void )
 //函数说明:校验函数
 //输入:getcnt数据存储的地方    length  多少个校验   flag  帧结构
 //输出 :校验结果
-//编辑:shaoyi1110			QQ:402097953
+//编辑:R&N1110			QQ:402097953
 //时间:2014.10.22
 /**********************************************************************************/
 static unsigned char IEC101_CheckSum(unsigned short getcnt,unsigned char length,  unsigned char flag)
@@ -796,7 +796,7 @@ static unsigned char IEC101_CheckSum(unsigned short getcnt,unsigned char length,
 //函数说明:处理总召唤
 //输入:无
 //输出::
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2014.10.22
 /**************************************************************************/
 static void IEC101_Rqall_Con(void)
@@ -841,7 +841,7 @@ static void IEC101_Rqall_Con(void)
 //函数说明:查看是否有事件上报
 //输入:无
 //输出::
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2014.10.20
 /**************************************************************************************/
 static unsigned char IEC101_Chg_Search(void)
@@ -862,7 +862,7 @@ static unsigned char IEC101_Chg_Search(void)
 //函数说明:结束初始化
 //输入:无
 //输出澹何?
-//编辑:shaoyi1110	QQ402097953
+//编辑:R&N1110	QQ402097953
 //时间;2014.10.20
 /****************************************************************************/
 static void IEC101_EndInit( void )
@@ -930,7 +930,7 @@ static void IEC101_Rqlink_Res(void)
 //函数说明:复位远方链路
 //输入:无
 //输出澹何?
-//编辑	:shaoyi1110	QQ:402097953
+//编辑	:R&N1110	QQ:402097953
 //时间:2014.10.20
 /**************************************************************************/
 static void IEC101_Rstlink_Con( void )
@@ -949,7 +949,7 @@ static void IEC101_Rstlink_Con( void )
 //函数说明:处理固定帧的处理函数
 //输入:帧长度
 //输出::
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2015.04.23
 /**************************************************************************/
 static void IEC101_Process_Fixframe( int frame_len)
@@ -1052,7 +1052,7 @@ static void IEC101_Process_Fixframe( int frame_len)
 //说明:处理单点遥信变位
 //输入:
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.05.9
 /***********************************************************************/
 static unsigned char IEC101_Process_COS( void ) //应用层处理
@@ -1136,7 +1136,7 @@ static unsigned char IEC101_Process_COS( void ) //应用层处理
 //说明:处理单点遥信变位
 //输入:无
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.05.9
 /***********************************************************************/
 unsigned char IEC101_Process_SOE( void )
@@ -1228,7 +1228,7 @@ unsigned char IEC101_Process_SOE( void )
 //函数说明: 反馈子站时间
 //输入:帧长度
 //输出::
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2014.10.20
 /**************************************************************************/
 static void IEC101_SendTime(int length)
@@ -1312,7 +1312,7 @@ static void IEC101_SendTime(int length)
 //函数说明:处理可变帧的处理函数
 //输入:帧长度
 //输出::
-//编辑:shaoyi1110	QQ:402097953
+//编辑:R&N1110	QQ:402097953
 //时间:2014.10.20
 /**************************************************************************/
 static void IEC101_Process_Varframe( int frame_len)
@@ -1358,7 +1358,7 @@ static void IEC101_Process_Varframe( int frame_len)
 //		IECFRAMEERR帧错误
 //		IECFRAMEVAR可变帧
 //		IECFRAMEFIX固定帧
-//编辑:shaoyi1110		QQ:402097953
+//编辑:R&N1110		QQ:402097953
 //时间?:2014.10.22
 /**********************************************************************************/
 static unsigned char IEC101_VerifyDLFrame(int fd_usart , int * buf_len)
@@ -1425,7 +1425,7 @@ static unsigned char IEC101_VerifyDLFrame(int fd_usart , int * buf_len)
 //函数说明:101规约的入口
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static void IEC101_Protocol_Entry(  void  )
 {
@@ -1476,7 +1476,7 @@ static void IEC101_Protocol_Entry(  void  )
 //函数说明:处理需要发送的数据，或者SOE上报事件等
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 static void IEC101_UnsoSend( void )
 {
@@ -1487,7 +1487,7 @@ static void IEC101_UnsoSend( void )
 //说明:用于处理从串口接收到的数据
 //输入:
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.21
 /***************************************************************************/
 
@@ -1529,7 +1529,7 @@ void  *Iec101_Thread( void * data  )
 //说明:释放掉缓冲
 //输入:无
 //输出:无
-//编辑:shaoyi1110
+//编辑:R&N1110
 //时间:2015.04.21
 /***************************************************************************/
  int  IEC101_Free_Buf(void)
@@ -1555,7 +1555,7 @@ void  *Iec101_Thread( void * data  )
 //说明:初始化缓冲，包括收到数据保存的缓冲，并将连接成链表
 //输入:无
 //输出:无
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.23
 /***************************************************************************/
  int  IEC101_Init_Buf(void)
@@ -1641,7 +1641,7 @@ leave1:
 //输入:line配置文件中的每一行
 //		  struct _IEC101Struct   * iec_parp全局变量pIEC101_Struct
 //输出:无
-//编辑:shaoyi1110		qq:402097953
+//编辑:R&N1110		qq:402097953
 //时间:2014.10.20
 /********************************************************************************/
 static unsigned char  Get_Dianbiao_From_Line(char * line, struct _IEC101Struct  * item)
@@ -1738,7 +1738,7 @@ static unsigned char  Get_Dianbiao_From_Line(char * line, struct _IEC101Struct  
 //说明:读取点表
 //输入:无
 //输出:无
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.23
 /***************************************************************************/
 static void IEC101_Read_Conf(char * fd,  struct _IEC101Struct   * iec101)
@@ -1763,7 +1763,7 @@ static void IEC101_Read_Conf(char * fd,  struct _IEC101Struct   * iec101)
 //函数说明:101规约的初始化
 //输入:无
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 //时间:2015.04.23
 /**************************************************************************/
 static  void IEC101_InitAllFlag( void )
@@ -1779,7 +1779,7 @@ static  void IEC101_InitAllFlag( void )
 //说明:处理MESSAGE的函数
 //输入:message的命令和buf
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.05.09
 /***************************************************************************/
 void IEC101_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
@@ -1975,7 +1975,7 @@ static int set_parity(int fd, int databits, int stopbits, int parity)
 //Name:       open_dev
 //Function:   打开串口设备
 //Input:      无Return:     FALSE TRUE
-//Author:shaoyi1110		qq:402097953
+//Author:R&N1110		qq:402097953
 //Time:2014.10.20
 /******************************************************************/
 static int open_dev(char *dev)
@@ -2009,7 +2009,7 @@ static  int IEC101_Open_Console(void)
 //说明:串口接收线程，用于为iec101服务
 //输入:无
 //输出:无
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.23
 /***************************************************************************/
 int  Uart_Thread( void )
@@ -2085,7 +2085,7 @@ int  Uart_Thread( void )
 //说明:用于发送监控数据到PC
 //输入:fd用来判断是iec101还是iec104  tmp_buf需要发送的数据  len需要发送的数据长度
 //输出:无
-//编辑:shaoyi
+//编辑:R&N
 /**************************************************************************/
 void IEC101_Senddata2pc(int fd, char *tmp_buf, UInt8 len)
 {

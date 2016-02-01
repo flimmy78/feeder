@@ -36,6 +36,19 @@ bin/release/obj/arm_main.ov5T: arm_main.c \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/string.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/string.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/string2.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/wait.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/signal.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/signum.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/siginfo.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigaction.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigcontext.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/asm/sigcontext.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigstack.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigthread.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/resource.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/resource.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/waitflags.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/waitstatus.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/ioctl.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/ioctls.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/asm/ioctls.h \
@@ -54,16 +67,8 @@ bin/release/obj/arm_main.ov5T: arm_main.c \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/pthread.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sched.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sched.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/signal.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/setjmp.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/time.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/signum.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/siginfo.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigaction.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigcontext.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/asm/sigcontext.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigstack.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/sigthread.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/semaphore.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/semaphore.h \
   /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/Std.h \
@@ -76,11 +81,6 @@ bin/release/obj/arm_main.ov5T: arm_main.c \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/wchar.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/in.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/byteswap.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/wait.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/resource.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/resource.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/waitflags.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/waitstatus.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/unistd.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/posix_opt.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/confname.h \

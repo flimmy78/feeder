@@ -29,6 +29,7 @@
 #include <ti/ipc/Notify.h>
 
 #include "communicate.h"
+#include "collect.h"
 #include "IPCServer.h"
 #include "queue.h"
 #include "led.h"
@@ -103,23 +104,23 @@ Int DigAdjust(App_Msg *msg, float *adjust)
 		status = 0;
 		return status;
 	}
-
+	
+	value = 1000 * msg->data;				//校准值 mA 或 mV
 	//判断是否为0值校准
 	if(value == 0)
 	{
 		// value值为0,不改变校准值
+		LOG_INFO("Value is 0!");
 		return status;
 	}
-	
-	value = 1000 * msg->data;				//校准值 mA 或 mV
-//	value = msg->data;
+//	value = msg->data;						//校准值A或V
 
 	// base_addr是UInt32 ,index索引号对应的参数占用8个字节
 	collectvalue = (float *)(ShareRegionAddr.base_addr + index*2);
 	ShareAdjustaddr  = ShareRegionAddr.anadjust_addr;
 	//计算校准参数
 	if(0 == collectvalue[0])
-		ShareAdjustaddr[index] = 0.1;
+		ShareAdjustaddr[index] = 1;
 	else
 		ShareAdjustaddr[index] = (value * ShareAdjustaddr[index]) / collectvalue[0];
 
@@ -184,7 +185,7 @@ Int16 DigCmdout(App_Msg *msg)
 			
 			if(cmdout.DoutFlag)
 			{
-				if(cmdout.DoutIndex == 1)
+				if((cmdout.DoutIndex == 1) && ((yxstatus >> FWYX) & 0x01))
 				{
 					YK_SendOut(2, PIN_LOW);
 					Task_sleep(sysparm->yc1_out);		//
@@ -198,6 +199,10 @@ Int16 DigCmdout(App_Msg *msg)
 //					Task_sleep(200);
 					YK_SendOut(4, PIN_HIGH);
 				}
+				else
+				{
+					status = 1;							//发生错误,未正常分闸
+				}
 			}
 			YK_SendOut(0, PIN_HIGH);					//关闭预置选中
 			break;
@@ -206,7 +211,7 @@ Int16 DigCmdout(App_Msg *msg)
 			
 			if(cmdout.DoutFlag)
 			{
-				if(cmdout.DoutIndex == 1)
+				if((cmdout.DoutIndex == 1) && ((yxstatus >> HWYX) & 0x01))
 				{
 					YK_SendOut(1, PIN_LOW);
 					Task_sleep(sysparm->yc1_out);
@@ -219,6 +224,10 @@ Int16 DigCmdout(App_Msg *msg)
 					Task_sleep(sysparm->yc2_out);
 //					Task_sleep(200);
 					YK_SendOut(3, PIN_HIGH);
+				}
+				else
+				{
+					status = 1;							//错误,未正常合闸
 				}
 			}
 			YK_SendOut(0, PIN_HIGH);					//关闭预置选中
@@ -301,7 +310,23 @@ Int ReadConfig(Void)
 		if(adjust[i] == 0.0)
 		{	
 			/* 默认校准值*/
-			adjust[i] = 0.01;
+			switch(i)
+			{
+				case 0:
+				case 1:
+				case 2:
+				adjust[i] = 5.2120;
+				break;
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				adjust[i] = 4.3359;
+				case 17:
+				adjust[i] = 2.9079;
+				default:
+				adjust[i] = 1;
+			}
 		}
 	}
 	//根据具体值算出，暂时使用
@@ -324,11 +349,11 @@ Int ReadConfig(Void)
 		fapamptr->cursection_n = 3;
 		LOG_INFO("ReadConfig cursection_n is over value. ");
 	}
-	for(i=0;i<fapamptr->cursection_n;i++)
-	{
-		// 由于输入的是A 因此需要扩大1000倍 
-		fapamptr->cursection[i].protectvalue *= 1000; 
-	}
+//	for(i=0;i<fapamptr->cursection_n;i++)
+//	{
+//		// 由于输入的是A 因此需要扩大1000倍 
+//		fapamptr->cursection[i].protectvalue *= 1000; 
+//	}
 	
 	/* 零序三段过流 */
 	if(fapamptr->zerosection_n > 3)
@@ -336,11 +361,11 @@ Int ReadConfig(Void)
 		fapamptr->zerosection_n = 3;
 		LOG_INFO("ReadConfig zerosection_n is over value. ");
 	}
-	for(i=0;i<fapamptr->zerosection_n;i++)
-	{
-		// 由于输入的是A 因此需要扩大1000倍 
-		fapamptr->zerosection[i].protectvalue *= 1000; 
-	}
+//	for(i=0;i<fapamptr->zerosection_n;i++)
+//	{
+//		// 由于输入的是A 因此需要扩大1000倍 
+//		fapamptr->zerosection[i].protectvalue *= 1000; 
+//	}
 	
 	/* 越限保护最大支持8个通道的越限检测(3U4I1DC) 由于分为上下限值因此n值最大为16 */
 	if(fapamptr->ycover_n > 16)

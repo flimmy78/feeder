@@ -27,6 +27,8 @@
 
 
 UChar FGflag = 0;
+//当前遥信状态
+UInt32 yxstatus = 0;
 
 /***************************************************************************/
 //函数:	Void ChangeLED(UInt16 *status)
@@ -86,8 +88,6 @@ Void Collect_Task(UArg arg0, UArg arg1)
 	UInt32 *yxdata = (UInt32 *)ShareRegionAddr.digitIn_addr;
 	SYSPARAMSTR *sysparm = (SYSPARAMSTR *)ShareRegionAddr.sysconf_addr;
 	UInt32 channel;
-	// 遥信默认值全部为1
-	UInt32 temp = 0;
 	UInt32 newdata = 0x0;
 	UInt32 comparedata = 0;
 	UInt32 status = 0;
@@ -105,11 +105,13 @@ Void Collect_Task(UArg arg0, UArg arg1)
 			newdata |= (0x01<<i);
 		}
 	}
-	yxdata[0] = newdata;	
-	LOG_INFO("yxdata if %x,dianbiaodata soe is %x", yxdata[0],dianbiaodata.yxsoe);
+	yxstatus = newdata;
+	yxdata[0] = yxstatus;	
+	LOG_INFO("yxdata if %x,dianbiaodata soe is %x,not is %d", yxdata[0],dianbiaodata.yxsoe,dianbiaodata.yxnot);
 	
 	while(1)
 	{
+		newdata = yxstatus;
 		/* 遥信数据变位 */
 		for(i=0;i<10;i++)
 		{
@@ -123,31 +125,8 @@ Void Collect_Task(UArg arg0, UArg arg1)
 					{
 						newdata ^= (0x01<<i);
 						//复制到缓存
-						temp = newdata;
-						/* 判断是否取反使能 */
-						if(dianbiaodata.yxnot & (0x01<<i))
-						{
-							// 使能取反则将数据再次异或
-							temp = newdata ^ (0x01<<i);	
-						}
-						//保留硬件遥信
-						temp &= 0x3ff;
-						//保留虚拟遥信(5位使用,其余待扩展)
-						yxdata[0] &= 0xfffffc00; 
-						//传递遥信到共享区
-						yxdata[0] |= temp;
-						if(dianbiaodata.yxcos & (0x01<<i))
-						{
-							//send cos msg
-							channel = 0x01<<i;
-							Message_Send(MSG_COS, channel, yxdata[0]);
-						}
-						if(dianbiaodata.yxsoe & (0x01<<i))
-						{
-							//send soe msg
-							channel = 0x01<<i;
-							Message_Send(MSG_SOE, channel, yxdata[0]);
-						}
+						yxstatus = newdata;				
+						Send_CS(i);
 					}
 					/* 清除变位标志 */
 					status &= ~(0x01<<i);

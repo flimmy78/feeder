@@ -46,7 +46,7 @@ struct _YCOVERPARAM_
 {
 	UInt16 ycindex;				//遥测编号
 	UInt16 flag;				//越限标志 上限1  下限2
-	UInt16 value;				//越限值
+	UInt32 value;				//越限值
 };
 /* 分段式保护参数 */
 struct _PROTECTPARM_
@@ -121,7 +121,7 @@ typedef struct _YCOVERPARAM_ YCOVERSTR;
 
 Void FA_Task(UArg arg0, UArg arg1);
 Void Tempture(UArg arg0, UArg arg1);
-void Send_CS(UChar num,UChar status);
+void Send_CS(UChar num);
 
 
 

@@ -2,7 +2,7 @@
 // iec104.h                                        Version 1.00
 //
 // 本文件是DTU2.0通讯网关装置的IEC60870-5-104规约处理程序
-// 编写人  :shaoyi
+// 编写人  :R&N
 // email		  :R&N
 //  日	   期:2015.04.17
 //  注	   释:
@@ -164,6 +164,7 @@ struct _IEC104Struct
 	int			logfd;
     
     int         logsoEfd;
+    int         soEfile;
 
 };
 typedef	struct _IEC104Struct IEC104Struct;

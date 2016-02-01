@@ -2,7 +2,7 @@
 // common.c                                        Version 1.00
 //
 // 本文件是DTU2.0设备的公共资源
-// 编写人:shaoyi                        email:shaoyi1110@126.com
+// 编写人:R&N                        email:R&N1110@126.com
 //
 //  日	   期:2015.04.17
 //  注	   释:
@@ -129,7 +129,7 @@ unsigned int  Get_Rtc_Time(struct rtc_time  * rtctime)
 //说明:用于初始化Log文件
 //输入:file  文件路径
 //输出: 创建的文件id
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.17
 /***************************************************************************/
 int  Init_Logfile( char * file )
@@ -185,7 +185,7 @@ int  Init_SOEfile( char * file )
 //说明:用于向log文件中写入数据
 //输入:fd--文件id     buf--要写入的内容指针  recvcnt:从buf[recvcnt]开始写入 长度len
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.17
 /***************************************************************************/
  void Log_Frame(int fd, unsigned char * buf, unsigned short recvcnt, unsigned short len, unsigned char dir )

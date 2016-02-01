@@ -348,7 +348,7 @@ float P_Value(UInt8 u1_ch, UInt8 u2_ch)
 	
 	ptemp = ycvalueprt.fftout[u1_ch].real*ycvalueprt.fftout[u1_ch+3].real + ycvalueprt.fftout[u1_ch].image*ycvalueprt.fftout[u1_ch+3].image;
 	ptemp = ptemp + ycvalueprt.fftout[u2_ch].real*ycvalueprt.fftout[u2_ch+3].real + ycvalueprt.fftout[u2_ch].image*ycvalueprt.fftout[u2_ch+3].image;
-	return ptemp;
+	return ptemp/1000000;
 }
 // 无功计算
 float Q_Value(UInt8 u1_ch, UInt8 u2_ch)
@@ -357,7 +357,7 @@ float Q_Value(UInt8 u1_ch, UInt8 u2_ch)
 
 	ptemp = ycvalueprt.fftout[u1_ch].image*ycvalueprt.fftout[u1_ch+3].real - ycvalueprt.fftout[u1_ch].real*ycvalueprt.fftout[u1_ch+3].image;
 	ptemp = ptemp + ycvalueprt.fftout[u2_ch].image*ycvalueprt.fftout[u2_ch+3].real - ycvalueprt.fftout[u2_ch].real*ycvalueprt.fftout[u2_ch+3].image;
-	return ptemp;
+	return ptemp/1000000;
 }
 /***************************************************************************/
 //函数:	Void FFT_Task(UArg arg0, UArg arg1) 

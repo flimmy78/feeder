@@ -2,7 +2,7 @@
 // common.h                                       Version 1.00
 //
 // 本文件是DTU2.0设备的公共资源
-// 编写人:shaoyi                        email:shaoyi1110@126.com
+// 编写人:R&N                        email:R&N1110@126.com
 //
 //  日	   期:2015.04.17
 //  注	   释:

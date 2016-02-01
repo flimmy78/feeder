@@ -68,9 +68,9 @@ void LED_SENDOUT(UChar led_data)
 		/* 每次发送一位数据 */
 		GPIOPinWrite(SOC_GPIO_0_REGS, LED_DATA, (led_data >> (7-i))&0x01 );
 		/* 延时18ns以上 */
-		Delay(10);
+//		Delay(50);
 		GPIOPinWrite(SOC_GPIO_0_REGS, LED_SCLK, GPIO_PIN_HIGH);
-		Delay(10);
+//		Delay(50);
 	}
 }
 /***************************************************************************/

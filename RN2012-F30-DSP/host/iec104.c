@@ -45,9 +45,11 @@
 /******************全局变量，存储大部分104规约中的参数******/
 IEC104Struct  				* pIEC104_Struct;
 static unsigned int cout_framer=0;
+//static unsigned int cuntr=0; 
 static unsigned int flag_kvalue=0;
-static unsigned int cout_Iframe=0;
+static unsigned char cout_Iframe=0;
 struct itimerval timer;
+off_t currpos;
 
 pthread_mutex_t mutex;
 static unsigned char       	save_recv_data[IEC104BUFDOWNNUMBER * IEC104BUFDOWNLENGTH];
@@ -349,6 +351,19 @@ leave1:
 	my_debug("malloc fail");
 	return -1;
 }
+static unsigned char Read_Soe_Count(int *file)
+{
+    unsigned char bufS[1] = {0};
+    lseek(file[0],0,SEEK_SET);
+    if(file[0]>0)
+    {
+        read(file[0], bufS,1); //
+        cout_framer=bufS[0];
+	    lseek(pIEC104_Struct->logsoEfd, (cout_framer*11), SEEK_SET);
+        my_debug("count_framerS:%d",cout_framer);
+    }
+    return cout_framer;
+}
 
 /***************************************************************************/
 //函数:void IEC104_Process_Message(msg->cmd, msg->buf, UInt32 buf)
@@ -363,11 +378,10 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
     struct rtc_time  * stime;
     unsigned char buff[3] = {0};
     unsigned char buffs[11] = {0};
-    
+    unsigned char bufcunt[1]={0};
     UInt8   i;
-    UInt8   j;
-	//static  unsigned  cout_frame=0;
-	
+	unsigned int usec=0;
+
     //if(new_fd == -1)
      //   return ;
     my_debug("cmd104:0x%x buf:0x%x data:0x%x",cmd, buf, data);
@@ -399,19 +413,20 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
             
         case MSG_SOE:
              stime=malloc(sizeof(struct rtc_time));
-             cout_framer++;
-             my_debug("send SOE number :%d",cout_framer);
+             //cout_framer++;
             for(i=0; i<32; i++)
             {
                 if(buf&(1<<i))//表示第(cmd>>16)*32+i通道变位
                 {
-                    if(pSOEFill->ucStatus == EMPTY)
-                    {
+                    //if(pSOEFill->ucStatus == EMPTY)
+                    //{
+                        my_debug("send SOE number :%d",cout_framer);
                         //pSOEFill->usIndex = ((((cmd>>16)&0xFFFF)<<5)+i)&0xFFFF;
                         pSOEFill->usIndex = i;
                         pSOEFill->ucYXValue = (data>>i)&0x1;
                         pSOEFill->ucStatus = FULL;
-                        pSOEFill->usMSec = Get_Rtc_Time(stime);
+                        usec=Get_Rtc_Time(stime);
+                        pSOEFill->usMSec = stime->tm_sec*1000+usec/1000;
                         pSOEFill->ucMin = stime->tm_min;
                         pSOEFill->ucHour =stime->tm_hour;
                         pSOEFill->ucDay = stime->tm_mday;
@@ -459,19 +474,27 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
                         }
                         //free(buffs);
                        pSOEFill = pSOEFill->next;
-                    }
+                    //}
+                    cout_framer++;
+                    bufcunt[0] = cout_framer;
+                    lseek(pIEC104_Struct->soEfile,0,SEEK_SET);
+                    write(pIEC104_Struct->soEfile, bufcunt,1);
                 }
             }
             if(cout_framer>=100)				//每个log里面最多存储多少个记录s
             {  
                 cout_framer=0;
         		lseek(pIEC104_Struct->logsoEfd, 0, SEEK_SET);
-             }
+                my_debug("file station reset to start!");
+            }
+            //currpos = lseek(pIEC104_Struct->logsoEfd, 0, SEEK_CUR);
+            //my_debug("currpos:%d",currpos);
             free(stime);
             break;
         default:
             break;
     }
+            
 }
 
 /***************************************************************************/
@@ -487,6 +510,7 @@ void Send_Soe_Data(int fd)
     unsigned char buffc[11] = {0};
     unsigned long row; 
     unsigned int cuntr=0;
+    off_t SOEFile;
     //lseek(fd, 0, SEEK_SET);
     /*
     if(flock(pIEC104_Struct->logsoEfd,LOCK_UN)==0)
@@ -503,39 +527,48 @@ void Send_Soe_Data(int fd)
                   row= file_wc(fd);
                   cuntr=(unsigned int)row;
                   cuntr=cuntr+cout_framer;
-                  cuntr = cuntr/2;
+                  //cuntr = cuntr/2;
                   my_debug("cuntr:%d",cuntr);
                   if(cuntr>=100)
-                    cuntr=100;
-                  lseek(fd, 0, SEEK_SET);
+                  {
+                       cuntr=100;
+                  }
+                  SOEFile=lseek(fd, 0, SEEK_SET);
+                  my_debug("cuntr:%d SOEFile:%d",cuntr,(int)SOEFile);
                   for(j=0;j<cuntr;j++)
                   { 
-                       //my_debug("j:%d",j);
                        //sem_post(&sem_soe104);//信号量value减1
                        read(fd, buffc,11); //
                        PC_Send_Data(MSG_ALL_SOE, buffc, 11);
                   }
+                  //lseek(fd, currpos, SEEK_SET);
+                  lseek(fd, (cout_framer*11), SEEK_SET);
+                  
+                  my_debug("ALLcurrpos:%d",(cout_framer*11));
                   row=0;
               }
               else if(cout_framer==0)
               {     
                     sys_mod_p->pc_flag &=~(1<<MSG_ALL_SOE);
                     row= file_wc(fd);
-                    row=row/2;
-                    my_debug("row:%d",row);
+                    //row=row/2;
+                    my_debug("row:%ld",row);
                     lseek(fd, 0, SEEK_SET);
                     for(i=0;i<=row;i++)
                     {
                         read(fd, buffc,11); //
                         PC_Send_Data(MSG_ALL_SOE, buffc, 11); 
                     }
+                    //lseek(fd, currpos, SEEK_SET);
+                    //lseek(fd, (cout_framer*11), SEEK_SET);
+                    //my_debug("ALL0currpos:%d",(cout_framer*11));                    
                     row=0;
                     //sys_mod_p->pc_flag &=~(1<<MSG_ALL_SOE);
                     //lseek(fd, 0, SEEK_SET);
                     //close(fd);
               }
         }
-      return 0;
+ 
        //fclose(pIEC104_Struct->logsoEfd);
 }
 unsigned long file_wc(int file)  
@@ -545,6 +578,9 @@ unsigned long file_wc(int file)
      register int ch, len;  
      register unsigned long linect, charct;  
      unsigned char buf[MAXBSIZE];
+	 linect = 0;
+	 charct = 0;
+	 
      //lseek(file, 0, SEEK_SET);
      if (file) 
      {
@@ -567,7 +603,7 @@ unsigned long file_wc(int file)
             }  
        }  
      }
-     my_debug("linect:%d",linect);
+     my_debug("linect:%ld",linect);
      return linect;  
  }
 
@@ -628,8 +664,9 @@ void  *Network_Thread( void * arg  )
 	sys_mod_p = (LOCAL_Module *)arg;
 	sem_init(&sem_soe104, 0, 0);//创建一个未命名的信号量
 	pIEC104_Struct->logfd =Init_Logfile(IEC104LOGFFILE);
-//    pIEC104_Struct->logsoEfd = Init_Logfile(IEC104SOELOG);
+    pIEC104_Struct->soEfile = Init_SOEfile(IEC104SOEFILE);
     pIEC104_Struct->logsoEfd = Init_SOEfile(IEC104SOELOG);
+    Read_Soe_Count(&pIEC104_Struct->soEfile);
 	if(pIEC104_Struct->logfd == -1)
 	{
 		my_debug("Creat logfd fail\n");
@@ -2138,7 +2175,7 @@ static unsigned char IEC104_VerifyDLFrame(unsigned char * pTemp_Buf , unsigned s
 			{
 				pIEC104_Struct->ucSendCountOverturn_Flag = FALSE;
 				pIEC104_Struct->k = pIEC104_Struct->usSendNum - usTemp_ServRecvNum;
-                my_debug("S pIEC104_Struct->k",pIEC104_Struct->k);
+                my_debug("S pIEC104_Struct->k %d ",pIEC104_Struct->k);
 			}
 			else
 				pIEC104_Struct->k = 0x8000 + pIEC104_Struct->usSendNum - usTemp_ServRecvNum;

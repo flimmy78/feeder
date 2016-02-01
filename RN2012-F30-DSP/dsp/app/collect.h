@@ -22,7 +22,7 @@
 
 //复归信号标志
 extern UChar FGflag;
-
+extern UInt32 yxstatus;					//遥信状态
 
 
 

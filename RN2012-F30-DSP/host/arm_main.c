@@ -4,7 +4,7 @@
 // 本文件是DTU2.0通讯网关装置的主程序
 //实现功能: 4块遥测板、每个板上3U9I、最大128个遥信量
 //、128个遥控量实现这些资源的配置和保护
-// 编写人:shaoyi       email:shaoyi1110@126.com
+// 编写人:R&N       email:R&N1110@126.com
 //  日	   期:2015.04.17
 //  注	   释:
 /*************************************************************************/
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/types.h> 
+#include <sys/wait.h>
 /*Linux header files*/
 #include <sys/ioctl.h>
 #include <net/if.h>
@@ -60,6 +62,7 @@ static void Free_All_Mem( void );
 static void Model_Read_Conf(char * fd,   LOCAL_Module  *  mod);
 static void Model_Get_Dianbiao(char *  line,  LOCAL_Module  *  mod_p);
 void Read_Faconfig_Conf(char * fd,  struct  _FAPRMETER_  *  fa);
+void child_fun();
 //void Read_Sysconfig_Conf(char * fd,  struct  _SYSPARAME_ *  sys);
 
 
@@ -68,7 +71,7 @@ void Read_Faconfig_Conf(char * fd,  struct  _FAPRMETER_  *  fa);
 //说明:用于创建IPC
 //输入:
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.17
 /***************************************************************************/
 UInt16 Ipc_Init( void )
@@ -103,7 +106,7 @@ UInt16 Ipc_Init( void )
 //说明:用于destory IPC
 //输入: 信号中断ID
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.17
 /***************************************************************************/
 void Ipc_Exit( void )
@@ -117,7 +120,7 @@ void Ipc_Exit( void )
 //
 //输入: 无
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.23
 /***************************************************************************/
 static void Free_All_Mem( void )
@@ -154,7 +157,7 @@ static void Free_All_Mem( void )
 //
 //输入: 信号中断ID
 //输出:
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.17
 /***************************************************************************/
 static void Process_Signal(int type) /* 信号处理例程，其中dunno将会得到信号的值 */
@@ -187,6 +190,41 @@ return;
 }
 
 /***************************************************************************/
+//函数说明: 监控系统并重启系统
+//输入:   
+//输出:
+//编辑:R&N
+//时间:2015.12.17
+/***************************************************************************/
+void process_reboot(int s)
+{       
+    //exit(0);
+    system("reboot");
+}
+/***************************************************************************/
+//函数说明: 子进程监控
+//输入:   
+//输出:
+//编辑:R&N
+//时间:2015.12.17
+/***************************************************************************/
+void fork_child()
+{       
+    pid_t child_process;            
+    int status;         
+    int signal_num;       
+    wait(&status);//等待子进程中断或终止，释放子进程资源，否则死掉的子进程会变成僵尸进程  
+    //如果子进程是由于某种信号退出的，捕获该信号
+    if(WIFSIGNALED(status))             
+        signal_num = WTERMSIG(status);          
+    child_process = fork();       
+    if(child_process == 0)            
+    {               
+        my_debug("fork new child process.\n");                
+        child_fun();            
+    }
+}
+/***************************************************************************/
 //函数说明: 系统总函数入口
 //输入:   argc   argv[]
 //输出:
@@ -194,13 +232,56 @@ return;
 //时间:2015.8.17
 /***************************************************************************/
 Int main(Int argc, Char* argv[])
+{        
+    pid_t child_process;
+    //signal(SIGINT, Process_Signal);
+    //signal(SIGALRM, Process_Signal);
+    //alarm(2);
+    //my_debug("pidsig=%d\n",pidsig);
+    while(1)
+    {
+        //signal(SIGINT, Process_Signal);
+        my_debug("fork new process.\n");
+        child_process = fork();//父进程调用fork()函数后的返回值:子进程的进程ID;子进程fork()函数的返回值:0.
+        if(child_process > 0)
+        {
+            while (1)
+            {
+                //捕获子进程结束信号
+                my_debug("parent_process pid=%ld\n",(long)getpid());
+                signal(SIGCHLD, fork_child);//子进程状态改变
+                signal(SIGTERM, process_reboot);//终止
+                pause();//主进程休眠，当有信号到来时被唤醒
+            }
+        }
+        else if(child_process == 0)					
+        {  
+            my_debug("child_process pid=%ld\n",(long)getpid());
+            child_fun();                    
+        }
+    }
+    return 0;
+
+}
+
+/***************************************************************************/
+//函数说明: 子进程函数
+//输入:
+//输出:
+//编辑:R&N
+//时间:2015.12.17
+/***************************************************************************/
+void child_fun()
 {
     Int status  = 0;
 
     SharedRegion_SRPtr sharearea_base;
     
+    my_debug("child_fun_process pid=%ld\n",(long)getppid());
+    my_debug("child_fun_process pid=%ld\n",(long)getpid());
     //创建用户重新启动的信号
     signal(SIGINT, Process_Signal);
+    //signal(SIGINT, process_reboot);
     signal(SIGALRM, Process_Signal);
     alarm(2);
 
@@ -245,7 +326,7 @@ Int main(Int argc, Char* argv[])
     if(status<0)
 		Free_All_Mem();
     exit(0);
-    return 0;
+//    return 0;
  leave:
 
    return  -1;
@@ -257,7 +338,7 @@ Int main(Int argc, Char* argv[])
 //说明:读取点表
 //输入:无
 //输出:无
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.23
 /***************************************************************************/
 static void Model_Read_Conf(char * fd,   LOCAL_Module  *  mod)
@@ -318,7 +399,7 @@ static void Model_Read_Conf(char * fd,   LOCAL_Module  *  mod)
 //说明:读取点表的每一行
 //输入:mod_p
 //输出:无
-//编辑:shaoyi1110@126.com
+//编辑:R&N1110@126.com
 //时间:2015.4.23
 /***************************************************************************/
 static void Model_Get_Dianbiao(char *  line,  LOCAL_Module  *  mod_p)

@@ -195,7 +195,7 @@ static unsigned char Get_Sysconfig_From_Line(char * line,struct _SYSPARAME_ * it
 //Name:       open_dev
 //Function:   打开串口设备
 //Input:      无Return:     FALSE TRUE
-//Author:shaoyi1110		qq:402097953
+//Author:R&N1110		qq:402097953
 //Time:2014.10.20
 /******************************************************************/
 /*
