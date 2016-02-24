@@ -283,23 +283,23 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 //	x = basevalue->fftout[6].real - basevalue->fftout[3].real - basevalue->fftout[5].real; 
 //	y = basevalue->fftout[6].image - basevalue->fftout[3].image - basevalue->fftout[5].image;
 //	remotevalue->Ib1.Param = sqrtsp(x*x + y*y);
-	//如果采集电压为A、C时,计算有功功率与无功功率,采用俩表法计算功率
-	remotevalue->P1.Param = P_Value(0,2);
-	remotevalue->Q1.Param = Q_Value(0,2);
+
+//	//如果采集电压为A、C时,计算有功功率与无功功率,采用俩表法计算功率 其中A、C两相是采集的线电压
+//	remotevalue->P1.Param = P_Value(0,2);
+//	remotevalue->Q1.Param = Q_Value(0,2);
 	
-	return ;
+//	return ;
 
 	/* 有功 P1 = Ur*Ir+Ui*Ii */
-/*
+
 	remotevalue->Pa1.Param = basevalue->fftout[0].real*basevalue->fftout[3].real + 
 		basevalue->fftout[0].image*basevalue->fftout[3].image;
 	remotevalue->Pb1.Param = basevalue->fftout[1].real*basevalue->fftout[4].real + 
 		basevalue->fftout[1].image*basevalue->fftout[4].image;
 	remotevalue->Pc1.Param = basevalue->fftout[2].real*basevalue->fftout[5].real + 
 		basevalue->fftout[2].image*basevalue->fftout[5].image;
-*/
 	/* 总有功 */
-//	remotevalue->P1.Param = remotevalue->Pa1.Param + remotevalue->Pb1.Param + remotevalue->Pc1.Param;
+	remotevalue->P1.Param = remotevalue->Pa1.Param + remotevalue->Pb1.Param + remotevalue->Pc1.Param;
 
 	/* 无功 Q = Ui*Ir-Ur*Ii */
 	remotevalue->Qa1.Param = basevalue->fftout[0].image*basevalue->fftout[3].real - 
