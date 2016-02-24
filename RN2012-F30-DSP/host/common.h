@@ -139,6 +139,8 @@ typedef	struct _CP56Time2a CP56Time2a;
 #define  YK_CANCEL_SEL 			4
 #define  YK_ZHIXIN_FAIL			5
 #define  YK_ZHIXIN_SUCC			6
+#define  YK_SEL_FAIL            7
+
 //用于描述每个点的信息
 struct _Point_Info
 {

@@ -53,6 +53,7 @@
 #define YC_CHECK_VALUE_BASE         3600//存储校准值 1字节
 #define YC_CHECK_PAR_BASE           4000//存储遥测参数，校准参数是float
 #define PRINTF_BASE				    6000//用于DSP的打印数据
+#define YK_STATE_ADDR_BASE          6100//遥控返回状态
 
 
 #define YK_OPEN_SEL                 0x01
@@ -68,6 +69,10 @@ typedef struct _YC_CHECK_PARA_struct_
     float checkpara[20];//20
     UInt8 checksum;
 }YC_CHECK_PARA_struct;
+typedef struct _YK_RESULT_STRUCT_
+{
+   UInt32 result;
+}YK_RESULT_STRUCT;
 
 typedef enum
 {

@@ -16,6 +16,7 @@
 #include <string.h>
 #include <sys/types.h> 
 #include <sys/wait.h>
+#include <unistd.h>
 /*Linux header files*/
 #include <sys/ioctl.h>
 #include <net/if.h>
@@ -40,6 +41,7 @@
 #include "readconfig.h"
 #include "readsysconfig.h"
 #include "nand_rw.h"
+#include "DL_101.h"
 FAPARAM  pFAPARAM;
 SYSPARAM pSYSPARAM;
 //RWDATA   pRWDATA;
@@ -62,7 +64,6 @@ static void Free_All_Mem( void );
 static void Model_Read_Conf(char * fd,   LOCAL_Module  *  mod);
 static void Model_Get_Dianbiao(char *  line,  LOCAL_Module  *  mod_p);
 void Read_Faconfig_Conf(char * fd,  struct  _FAPRMETER_  *  fa);
-void child_fun();
 //void Read_Sysconfig_Conf(char * fd,  struct  _SYSPARAME_ *  sys);
 
 
@@ -234,10 +235,10 @@ void fork_child()
 Int main(Int argc, Char* argv[])
 {        
     pid_t child_process;
+    int i = 0;
     //signal(SIGINT, Process_Signal);
     //signal(SIGALRM, Process_Signal);
     //alarm(2);
-    //my_debug("pidsig=%d\n",pidsig);
     while(1)
     {
         //signal(SIGINT, Process_Signal);
@@ -277,6 +278,7 @@ void child_fun()
 
     SharedRegion_SRPtr sharearea_base;
     
+       
     my_debug("child_fun_process pid=%ld\n",(long)getppid());
     my_debug("child_fun_process pid=%ld\n",(long)getpid());
     //创建用户重新启动的信号
@@ -284,7 +286,7 @@ void child_fun()
     //signal(SIGINT, process_reboot);
     signal(SIGALRM, Process_Signal);
     alarm(2);
-
+    
     sys_mod.reset = ENABLE;
 
     //创建IEC104需要的缓冲
@@ -326,7 +328,7 @@ void child_fun()
     if(status<0)
 		Free_All_Mem();
     exit(0);
-//    return 0;
+    return 0;
  leave:
 
    return  -1;

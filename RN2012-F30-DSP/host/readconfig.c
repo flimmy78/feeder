@@ -231,7 +231,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
                     token = strtok(NULL ,"/");
                     if(m==1)
                     {
-                        item->cursection[0].protectvalue= (int)(atof(token) *1000);
+                        item->cursection[0].protectvalue= (int)(atof(token)*1000);
                         my_debug("item->cursection[0].protectvalue:%d",item->cursection[0].protectvalue);
                     }
                     
@@ -243,7 +243,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
                     
                     else if(m==3)
                     {
-                        item->cursection[1].protectvalue= (int)(atof(token) *1000);
+                        item->cursection[1].protectvalue= (int)(atof(token)*1000);
                         my_debug("item->cursection[1].protectvalue:%d",item->cursection[1].protectvalue);
 
                     }
@@ -255,7 +255,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
                     }
                     else if(m==5)
                     {
-                        item->cursection[2].protectvalue= (int)(atof(token) *1000);
+                        item->cursection[2].protectvalue= (int)(atof(token)*1000);
                         my_debug("item->cursection[2].protectvalue:%d",item->cursection[2].protectvalue);
                     }
                     else if(m==6)
@@ -283,7 +283,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
                     token = strtok(NULL ,"/");
                     if(t==1)
                     {
-                        item->zerosection[0].protectvalue=(int)(atof(token) *1000);
+                        item->zerosection[0].protectvalue= (int)(atof(token)*1000);
                         my_debug("item->zerosection[0].protectvalue:%d",item->zerosection[0].protectvalue);
                     }
                     
@@ -295,7 +295,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
                     
                     else if(t==3)
                     {
-                        item->zerosection[1].protectvalue= (int)(atof(token) *1000);
+                        item->zerosection[1].protectvalue= (int)(atof(token)*1000);
                         my_debug("item->zerosection[1].protectvalue:%d",item->zerosection[1].protectvalue);
 
                     }
@@ -308,7 +308,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
                     
                     else if(t==5)
                     {
-                        item->zerosection[2].protectvalue= (int)(atof(token) *1000);
+                        item->zerosection[2].protectvalue= (int)(atof(token)*1000);
                         my_debug("item->zerosection[2].protectvalue:%d",item->zerosection[2].protectvalue);
                     }
                     
@@ -339,7 +339,7 @@ static unsigned char Get_Faconfig_From_Line(char * line,struct _FAPRMETER_ * ite
 				    token = strtok(NULL ,"/");
 				    item->ycover[y].flag= atoi(token);
 				    token = strtok(NULL ,"/");
-				    item->ycover[y].value= (int)(atof(token) *1000);
+				    item->ycover[y].value= atoi(token);
 					my_debug("item->ycover[y].ycindex :%d item->ycover[y].flag :%d item->ycover[y].value :%d",item->ycover[y].ycindex, item->ycover[y].flag, item->ycover[y].value);
 				    y++;
 				    if(y >= item->ycover_n)

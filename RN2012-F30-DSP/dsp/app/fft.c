@@ -147,6 +147,7 @@ static Void Copy_2_FFTIn(AD7606Str *ad, channalstr *output)
 		{
 			/* 移位数据 后32点数据移位到前面*/
 			memcpy((char *)&(output[i].channel[0]), (char *)fft_in_buff[i], TN*4);
+			//新产生的数据copy两份
 			memcpy((char *)&(output[i].channel[64]), (char *)&(buff[i].channel[0]), TN*4);
 			memcpy((char *)fft_in_buff[i], (char *)&(buff[i].channel[0]), TN*4);
 		}
@@ -267,6 +268,7 @@ static Void PowerValue(YCValueStr *basevalue, CurrentPaStr *remotevalue)
 			SetIO_LOW(AD7606_SELCLK_AD2);
 #endif
 			Timer_stop(ad7606Str.clock);
+			LOG_INFO("Ua1 is bigger than lowvol %d;",remotevalue->Ua1.Param);
 		}
 	}
 	remotevalue->Ub1.Param = basevalue->modeangel[1].module;// * sysparm->ptrate;

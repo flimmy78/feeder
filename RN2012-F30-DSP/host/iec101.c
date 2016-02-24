@@ -44,10 +44,11 @@
 #include "iec101.h"
 #include "monitorpc.h"
 #include "sharearea.h"
+#include "DL_101.h"
 
 
 /******************全局变量，存储大部分101规约中的参数******/
-IEC101Struct  * pIEC101_Struct;
+//IEC101Struct  * pIEC101_Struct;
 
 unsigned char ucYKLock;/*遥控闭锁标志
                             0-无闭锁
@@ -73,6 +74,7 @@ static SOEInfoStruct        * pSOEGet;
 sem_t              			sem_iec101;
 sem_t              			sem_iec101_recv;
 
+unsigned char  mod;			//mode=1#模式:不平衡(0),平衡(1)
 
 
 /****************************static local  funtion****************************/
@@ -107,6 +109,7 @@ static unsigned char IEC101_YK_Sel( int frame_len );
 static unsigned char IEC101_YK_SelHalt(void);
 static unsigned char IEC101_AP_YKExec(int frame_len);
 static void IEC101_AP_INTERROALL(void);
+static void BL101_UnsoSend( void );
 
 
 
@@ -119,7 +122,7 @@ static int name_arr[]  = {230400,  115200,  57600,  38400, 19200,  9600,  4800, 
 //函数说明:回复0xE5
 //输入:命令位
 //输出::无
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2014.10.20
 /**************************************************************************************/
 static void IEC101_SendE5H( void )
@@ -138,7 +141,7 @@ static void IEC101_SendE5H( void )
 //函数说明:回复固定帧格式
 //输入:命令位
 //输出::无
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2014.10.20
 /**************************************************************************************/
 static void IEC101_Send10H(unsigned char ucCommand)       /* 可变报文长度的RTU回答 */
@@ -371,7 +374,7 @@ static unsigned char IEC101_AP_ALL_YX( short send_num )//报告所有遥信数据
                     len ++;
                 }
 			}
-			data =(int)Read_From_Sharearea(pTmp_Point->uiOffset, TYPE_YX_STATUS_BIT);//遥测值
+			data =(int)Read_From_Sharearea(pTmp_Point->uiOffset, TYPE_YX_STATUS_BIT);//遥信值
 			if(data&(1<<(pTmp_Point->uiOffset&0x7)))
                pIEC101_Struct->pSendBuf[len3+7+len++] = 0x1;            //品质因数
             else
@@ -766,7 +769,7 @@ static  void  IEC101_Ap_Summonall( void )
 //函数说明:校验函数
 //输入:getcnt数据存储的地方    length  多少个校验   flag  帧结构
 //输出 :校验结果
-//编辑:R&N1110			QQ:402097953
+//编辑:R&N1110			
 //时间:2014.10.22
 /**********************************************************************************/
 static unsigned char IEC101_CheckSum(unsigned short getcnt,unsigned char length,  unsigned char flag)
@@ -796,7 +799,7 @@ static unsigned char IEC101_CheckSum(unsigned short getcnt,unsigned char length,
 //函数说明:处理总召唤
 //输入:无
 //输出::
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2014.10.22
 /**************************************************************************/
 static void IEC101_Rqall_Con(void)
@@ -841,7 +844,7 @@ static void IEC101_Rqall_Con(void)
 //函数说明:查看是否有事件上报
 //输入:无
 //输出::
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2014.10.20
 /**************************************************************************************/
 static unsigned char IEC101_Chg_Search(void)
@@ -925,12 +928,13 @@ static void IEC101_Rqlink_Res(void)
 			ucCommand |=IEC_ACD_BIT;	//有数据上传
 	}
 	IEC101_Send10H(ucCommand);
+    my_debug("RucCommand:%d",ucCommand);
 }
 /**************************************************************************/
 //函数说明:复位远方链路
 //输入:无
 //输出澹何?
-//编辑	:R&N1110	QQ:402097953
+//编辑	:R&N1110	
 //时间:2014.10.20
 /**************************************************************************/
 static void IEC101_Rstlink_Con( void )
@@ -943,13 +947,13 @@ static void IEC101_Rstlink_Con( void )
 	if(IEC101_Chg_Search())
 		ucCommand |=IEC_ACD_BIT;
 	IEC101_Send10H(ucCommand);
+    my_debug("FucCommand:%d",ucCommand);
 }
-
 /**************************************************************************/
 //函数说明:处理固定帧的处理函数
 //输入:帧长度
 //输出::
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2015.04.23
 /**************************************************************************/
 static void IEC101_Process_Fixframe( int frame_len)
@@ -966,6 +970,7 @@ static void IEC101_Process_Fixframe( int frame_len)
 			break;
 		case C_RL_NA_1:              //0x00:复位远方链路
 			IEC101_Rstlink_Con();
+            
 			break;
 		case C_P1_NA_1:            	// 0x0a:召唤1级用户数据
 			if(pIEC101_Struct->flag & END_INIT_BIT)  //初始化结束标志,表示有初始化结束一级数据
@@ -1075,9 +1080,8 @@ static unsigned char IEC101_Process_COS( void ) //应用层处理
 	 pIEC101_Struct->pSendBuf[len1+5]=M_SP_NA_1;   //type
      pIEC101_Struct->pSendBuf[len1+6]= 0;          //可变结构体限定词
 	 pIEC101_Struct->pSendBuf[len1+7]= IEC_CAUSE_SPONT;//原因
-	 pIEC101_Struct->pSendBuf[len1+len2+7]=pIEC101_Struct->linkaddr; //站地址
-
-    len = 0;
+	 pIEC101_Struct->pSendBuf[len1+len2+7]=(pIEC101_Struct->linkaddr); //站地址
+     len = 0;
     while(pYXInfoGet->ucStatus == FULL)
     {
         //遍历链表找到对应的遥信相
@@ -1131,6 +1135,91 @@ static unsigned char IEC101_Process_COS( void ) //应用层处理
     }
  return -1;
 }
+
+/***********************************************************************/
+//函数:unsigned char BL101_Process_COS( void ) //应用层处理
+//说明:处理单点遥信变位
+//输入:
+//输出:
+//编辑:R&N1110@126.com
+//时间:2015.05.9
+/***********************************************************************/
+unsigned char BL101_Process_COS( UInt8 control_code ) //应用层处理
+{
+    short len,i;
+    Point_Info   * pTmp_Point=NULL;
+	unsigned char len1=0, len2=0, len3=0;
+    UInt8 control_codes = control_code;
+
+    if(pIEC101_Struct->fd_usart <=0)
+        return -1;
+
+	 len1 = pIEC101_Struct->linkaddrlen;
+	 len2 = len1+pIEC101_Struct->cotlen;
+	 len3 = len2+pIEC101_Struct->conaddrlen;
+
+	 memset( pIEC101_Struct->pSendBuf, 0, IEC101BUFLEN);
+     pIEC101_Struct->pSendBuf[4]=control_codes;
+	 pIEC101_Struct->pSendBuf[5]= pIEC101_Struct->linkaddr;
+	 pIEC101_Struct->pSendBuf[len1+5]=M_SP_NA_1;   //type
+     pIEC101_Struct->pSendBuf[len1+6]= 0;          //可变结构体限定词
+	 pIEC101_Struct->pSendBuf[len1+7]= IEC_CAUSE_SPONT;//原因
+	 pIEC101_Struct->pSendBuf[len1+len2+6]=(pIEC101_Struct->linkaddr); //站地址
+     len = 0;
+    while(pYXInfoGet->ucStatus == FULL)
+    {
+        //遍历链表找到对应的遥信相
+        pTmp_Point = sys_mod_p->pYX_Addr_List_Head;
+        while(pTmp_Point->uiOffset != pYXInfoGet->usIndex)
+        {
+            pTmp_Point = pTmp_Point->next;
+            if(pTmp_Point == NULL)
+                break;
+        }
+        if(pTmp_Point != NULL)
+        {
+            for(i=0; i<pIEC101_Struct->infoaddlen ; i++)
+            {
+                pIEC101_Struct->pSendBuf[len3+7+len] = (unsigned char)((pTmp_Point->uiAddr>>(i*8))&0xff);
+                len ++;
+            }
+            if(pYXInfoGet->ucYXValue)
+      		    pIEC101_Struct->pSendBuf[len3+7+len++] = 0x1;            //品质因数
+      		else
+                pIEC101_Struct->pSendBuf[len3+7+len++] = 0x0;            //品质因数
+    		pIEC101_Struct->pSendBuf[len1+6]=pIEC101_Struct->pSendBuf[len1+6]+1 ;                         //个数
+    	}
+        else
+            my_debug("iec101 cos cannot find the index");
+		pYXInfoGet->ucStatus =  EMPTY;
+        pYXInfoGet = pYXInfoGet->next;
+        if(pYXInfoGet == NULL)
+            break;
+        if(pIEC101_Struct->pSendBuf[len1+6]>=30)
+            break;
+    }
+	if(pIEC101_Struct->pSendBuf[len1+6]>0)
+	{
+    	 pIEC101_Struct->pSendBuf[len3+7+len]=BL101_CheckSum(4, len3+7+len, IECFRAMESEND);//帧校验
+    	 pIEC101_Struct->pSendBuf[len3+8+len]=0x16;
+
+    	 pIEC101_Struct->pSendBuf[0]= 0x68;
+    	 pIEC101_Struct->pSendBuf[1]= len3+3+len;
+    	 pIEC101_Struct->pSendBuf[2]= pIEC101_Struct->pSendBuf[1];
+    	 pIEC101_Struct->pSendBuf[3]= 0x68;
+
+        write(pIEC101_Struct->fd_usart,  pIEC101_Struct->pSendBuf, len3+9+len);
+	    Log_Frame(pIEC101_Struct->logfd,  pIEC101_Struct->pSendBuf,  0, len3+9+len, SEND_FRAME);
+        return(0);
+	}
+	else
+    {
+       	my_debug("cos num=0");
+		return(0);
+    }
+ return -1;
+}
+
 /***********************************************************************/
 //函数:static unsigned char IEC101_Process_SOE( void ) //应用层处理
 //说明:处理单点遥信变位
@@ -1139,7 +1228,7 @@ static unsigned char IEC101_Process_COS( void ) //应用层处理
 //编辑:R&N1110@126.com
 //时间:2015.05.9
 /***********************************************************************/
-unsigned char IEC101_Process_SOE( void )
+static unsigned char IEC101_Process_SOE( void )
 {
     short len,i;
     Point_Info   * pTmp_Point=NULL;
@@ -1156,10 +1245,106 @@ unsigned char IEC101_Process_SOE( void )
 	 memset( pIEC101_Struct->pSendBuf, 0, IEC101BUFLEN);
 	 pIEC101_Struct->pSendBuf[4]= 0x08 | IEC_DIR_RTU2MAS_BIT;
 	 pIEC101_Struct->pSendBuf[5]= pIEC101_Struct->linkaddr;
-	 pIEC101_Struct->pSendBuf[len1+5]=M_SP_TA_1;   //type
+//	 pIEC101_Struct->pSendBuf[len1+5]=M_SP_TA_1;   //type
+	 pIEC101_Struct->pSendBuf[len1+5]=0x1e;   //type
      pIEC101_Struct->pSendBuf[len1+6]= 0;          //可变结构体限定词
 	 pIEC101_Struct->pSendBuf[len1+7]= IEC_CAUSE_SPONT;//原因
-	 pIEC101_Struct->pSendBuf[len1+len2+7]=pIEC101_Struct->linkaddr; //站地址
+	 pIEC101_Struct->pSendBuf[len1+len2+6]=pIEC101_Struct->linkaddr; //站地址
+
+    len = 0;
+    while(pSOEGet->ucStatus == FULL)
+    {
+        //遍历链表找到对应的遥信相
+        pTmp_Point = sys_mod_p->pYX_Addr_List_Head;
+        while(pTmp_Point->uiOffset != pSOEGet->usIndex)
+        {
+            pTmp_Point = pTmp_Point->next;
+            if(pTmp_Point == NULL)
+                break;
+        }
+        if(pTmp_Point != NULL)
+        {
+            for(i=0; i<pIEC101_Struct->infoaddlen ; i++)
+            {
+                pIEC101_Struct->pSendBuf[len3+7+len] = (unsigned char)((pTmp_Point->uiAddr>>(i*8))&0xff);
+                len ++;
+            }
+            if(pSOEGet->ucYXValue)
+      		    pIEC101_Struct->pSendBuf[len3+7+len++] = 0x1;            //品质因数兼任数据
+      		else
+                pIEC101_Struct->pSendBuf[len3+7+len++] = 0x0;            //品质因数
+
+            pIEC101_Struct->pSendBuf[len3+7+len++] = (unsigned char)( pSOEGet->usMSec & 0xff);
+            pIEC101_Struct->pSendBuf[len3+7+len++] = (unsigned char)(pSOEGet->usMSec >> 8);
+            pIEC101_Struct->pSendBuf[len3+7+len++]=   pSOEGet->ucMin;
+            pIEC101_Struct->pSendBuf[len3+7+len++]=   pSOEGet->ucHour;
+            pIEC101_Struct->pSendBuf[len3+7+len++] =  pSOEGet->ucDay;
+            pIEC101_Struct->pSendBuf[len3+7+len++]=   (pSOEGet->ucMonth+1);
+            pIEC101_Struct->pSendBuf[len3+7+len++] =  pSOEGet->ucYear-100;
+
+    		pIEC101_Struct->pSendBuf[len1+6]=pIEC101_Struct->pSendBuf[len1+6]+1 ;                         //个数
+    	}
+        else
+            my_debug("iec101 soe cannot find the index");
+		pSOEGet->ucStatus =  EMPTY;
+        pSOEGet = pSOEGet->next;
+        if(pSOEGet == NULL)
+            break;
+        if(pIEC101_Struct->pSendBuf[len1+6]>=30)
+            break;
+    }
+	if(pIEC101_Struct->pSendBuf[len1+6]>0)
+	{
+    	 pIEC101_Struct->pSendBuf[len3+7+len]=IEC101_CheckSum(4, len3+7+len, IECFRAMESEND);//帧校验
+    	 pIEC101_Struct->pSendBuf[len3+8+len]=0x16;
+
+    	 pIEC101_Struct->pSendBuf[0]= 0x68;
+    	 pIEC101_Struct->pSendBuf[1]= len3+3+len;
+    	 pIEC101_Struct->pSendBuf[2]= pIEC101_Struct->pSendBuf[1];
+    	 pIEC101_Struct->pSendBuf[3]= 0x68;
+
+        write(pIEC101_Struct->fd_usart,  pIEC101_Struct->pSendBuf, len3+9+len);
+	    Log_Frame(pIEC101_Struct->logfd,  pIEC101_Struct->pSendBuf,  0, len3+9+len, SEND_FRAME);
+        return(0);
+	}
+	else
+    {
+       	my_debug("cos num=0");
+		return(0);
+    }
+ return -1;
+}
+
+/***********************************************************************/
+//函数:unsigned char BL101_Process_SOE( void ) //应用层处理
+//说明:处理单点遥信变位
+//输入:无
+//输出:
+//编辑:R&N1110@126.com
+//时间:2015.05.9
+/***********************************************************************/
+unsigned char BL101_Process_SOE( UInt8 control_code )
+{
+    short len,i;
+    Point_Info   * pTmp_Point=NULL;
+	unsigned char len1=0, len2=0, len3=0;
+    UInt8 control_codes = control_code;
+
+    if(pIEC101_Struct->fd_usart <=0)
+        return -1;
+
+	 len1 = pIEC101_Struct->linkaddrlen;
+	 len2 = len1+pIEC101_Struct->cotlen;
+	 len3 = len2+pIEC101_Struct->conaddrlen;
+
+	 memset( pIEC101_Struct->pSendBuf, 0, IEC101BUFLEN);
+//	 pIEC101_Struct->pSendBuf[4]= 0x08 | IEC_DIR_RTU2MAS_BIT;
+     pIEC101_Struct->pSendBuf[4]=control_codes;
+	 pIEC101_Struct->pSendBuf[5]= pIEC101_Struct->linkaddr;
+	 pIEC101_Struct->pSendBuf[len1+5]=0x1e;   //type
+     pIEC101_Struct->pSendBuf[len1+6]= 0;          //可变结构体限定词
+	 pIEC101_Struct->pSendBuf[len1+7]= IEC_CAUSE_SPONT;//原因
+	 pIEC101_Struct->pSendBuf[len1+len2+6]=pIEC101_Struct->linkaddr; //站地址
 
     len = 0;
     while(pSOEGet->ucStatus == FULL)
@@ -1205,14 +1390,13 @@ unsigned char IEC101_Process_SOE( void )
     }
 	if(pIEC101_Struct->pSendBuf[len1+6]>0)
 	{
-    	 pIEC101_Struct->pSendBuf[len3+7+len]=IEC101_CheckSum(4, len3+7+len, IECFRAMESEND);//帧校验
+    	 pIEC101_Struct->pSendBuf[len3+7+len]=BL101_CheckSum(4, len3+7+len, IECFRAMESEND);//帧校验
     	 pIEC101_Struct->pSendBuf[len3+8+len]=0x16;
 
     	 pIEC101_Struct->pSendBuf[0]= 0x68;
     	 pIEC101_Struct->pSendBuf[1]= len3+3+len;
     	 pIEC101_Struct->pSendBuf[2]= pIEC101_Struct->pSendBuf[1];
     	 pIEC101_Struct->pSendBuf[3]= 0x68;
-
         write(pIEC101_Struct->fd_usart,  pIEC101_Struct->pSendBuf, len3+9+len);
 	    Log_Frame(pIEC101_Struct->logfd,  pIEC101_Struct->pSendBuf,  0, len3+9+len, SEND_FRAME);
         return(0);
@@ -1224,11 +1408,12 @@ unsigned char IEC101_Process_SOE( void )
     }
  return -1;
 }
+
 /**************************************************************************/
 //函数说明: 反馈子站时间
 //输入:帧长度
 //输出::
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2014.10.20
 /**************************************************************************/
 static void IEC101_SendTime(int length)
@@ -1312,7 +1497,7 @@ static void IEC101_SendTime(int length)
 //函数说明:处理可变帧的处理函数
 //输入:帧长度
 //输出::
-//编辑:R&N1110	QQ:402097953
+//编辑:R&N1110	
 //时间:2014.10.20
 /**************************************************************************/
 static void IEC101_Process_Varframe( int frame_len)
@@ -1358,7 +1543,7 @@ static void IEC101_Process_Varframe( int frame_len)
 //		IECFRAMEERR帧错误
 //		IECFRAMEVAR可变帧
 //		IECFRAMEFIX固定帧
-//编辑:R&N1110		QQ:402097953
+//编辑:R&N1110		
 //时间?:2014.10.22
 /**********************************************************************************/
 static unsigned char IEC101_VerifyDLFrame(int fd_usart , int * buf_len)
@@ -1377,11 +1562,11 @@ static unsigned char IEC101_VerifyDLFrame(int fd_usart , int * buf_len)
 		if((len==buf[(recvcnt+2)&0x3FF])&&(buf[(recvcnt+3)&0x3FF]==0x68))
 		{
 		    
-            my_debug("sem_wait1\n");
+//            my_debug("sem_wait1\n");
 			sem_wait(&sem_iec101);//信号量value减1
 			while(pIEC101_Struct->usRecvCont < (len+6))//如果接收到的数据不够，就等待
 			{
-			  my_debug("sem_wait2\n");
+//			  my_debug("sem_wait2\n");
 			  sem_wait(&sem_iec101);
 			  if(cnt++>16)
 				return IECFRAMEERROVERTIME;
@@ -1471,6 +1656,66 @@ static void IEC101_Protocol_Entry(  void  )
 		}
 	}
 }
+/******************************************************/
+//函数功能：101报文发送函数
+//返回值：正确返回0，错误返回1
+//参数：待发送的报文指针p_buff
+//说明：用于回复主站召唤链路状态
+//修改日期：2015/11/05
+/******************************************************/
+UInt8 QLY_101_FrameSend(UInt8* p_buff)
+{
+	//my_debug("send data to station!");
+    write(pIEC101_Struct->fd_usart,p_buff,QLY_101FrameLen(p_buff));
+	return 0;
+}
+/**************************************************************************/
+//函数说明:平衡101规约的入口
+//输入:无
+//输出:无
+//编辑:R&N
+/**************************************************************************/
+static void BL101_Protocol_Entry(  void  )
+{
+	int  frame_len;
+	unsigned char   return_flag;
+	if(pIEC101_Struct->usRecvCont>0)	//有数据
+	{   
+	    
+        BL101_UnsoSend();
+		return_flag = IEC101_VerifyDLFrame(pIEC101_Struct->fd_usart, &frame_len);
+        my_debug("len:%d, %d, %d", frame_len, pIEC101_Struct->pBufGet, pIEC101_Struct->usRecvCont);
+        QLY_101FrameProcess(sys_mod_p,&save_recv_data[pIEC101_Struct->pBufGet&0x3FF]);
+        pIEC101_Struct->usRecvCont  = pIEC101_Struct->usRecvCont- frame_len;
+		pIEC101_Struct->pBufGet = (pIEC101_Struct->pBufGet+frame_len)&0x3FF;
+        //my_debug("continue continue!");
+	}
+}
+
+/**************************************************************************/
+//函数说明:
+//			      所以采用平衡传输方式下的事件收集方法，事件全部主动上送
+//输出:无
+//编辑:R&N
+/**************************************************************************/
+static void BL101_UnsoSend( void )
+{
+	unsigned char ucTemp_Chg;
+	ucTemp_Chg = IEC101_Chg_Search();
+    
+	if(ucTemp_Chg==MSG_COS)           //YX change  		2---遥信变位
+	{
+	    my_debug("MSG_COS");
+		if(QLY_BL101_SpontTrans())
+			return;
+	}
+    /*
+	if(ucTemp_Chg == MSG_SOE)		 //	4---SOE事件
+	{
+		if(QLY_BL101_SpontTrans())
+			return;
+	}*/
+}
 
 /**************************************************************************/
 //函数说明:处理需要发送的数据，或者SOE上报事件等
@@ -1494,36 +1739,60 @@ static void IEC101_UnsoSend( void )
 void  *Iec101_Thread( void * data  )
 {
     sys_mod_p = (LOCAL_Module *)data;
+    short tempcont=0;
+    int j=0;
 	while(1)
 	{
 		if(pIEC101_Struct->fd_usart >0)
 		{
-			if(pIEC101_Struct->usRecvCont>0)
-			{
-				if((save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0x68)
-				||(save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0x10)
-				||(save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0xE5))
-					IEC101_Protocol_Entry();		//处理接收到的数据
-				else
-				{
-					pIEC101_Struct->usRecvCont --;
-					pIEC101_Struct->pBufGet = (pIEC101_Struct->pBufGet+1)&0x3FF;
-				}
-			}
-			else
-				 sem_wait(&sem_iec101_recv);
-
-			IEC101_UnsoSend();
+		    if(mod==1)
+            {
+                 
+                    if(pIEC101_Struct->usRecvCont>0)
+                    {
+                        j++;
+                        my_debug("j=%d",j);
+                        if((save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0x68)
+                        ||(save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0x10)
+                        ||(save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0xE5))
+                            BL101_Protocol_Entry();        //处理接收到的数据
+                        else
+                        {
+                            pIEC101_Struct->usRecvCont --;
+                            pIEC101_Struct->pBufGet = (pIEC101_Struct->pBufGet+1)&0x3FF;
+                        }
+                    }
+                    else
+                         sem_wait(&sem_iec101_recv);
+                    
+                    IEC101_UnsoSend();
+            }
+            else if(mod==0)
+                {
+                    
+                    if(pIEC101_Struct->usRecvCont>0)
+                    {
+                        if((save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0x68)
+                        ||(save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0x10)
+                        ||(save_recv_data[pIEC101_Struct->pBufGet&0x3FF]==0xE5))
+                            IEC101_Protocol_Entry();        //处理接收到的数据
+                        else
+                        {
+                            pIEC101_Struct->usRecvCont --;
+                            pIEC101_Struct->pBufGet = (pIEC101_Struct->pBufGet+1)&0x3FF;
+                        }
+                    }
+                    else
+                         sem_wait(&sem_iec101_recv);
+                    
+                    IEC101_UnsoSend();
+                }
 		}
 		else
 			usleep(500);
 	}
 	return 0;
 }
-
-
-
-
 /***************************************************************************/
 //函数:  int  IEC101_Free_Buf(void)
 //说明:释放掉缓冲
@@ -1654,6 +1923,7 @@ static unsigned char  Get_Dianbiao_From_Line(char * line, struct _IEC101Struct  
 		{
 			token = strtok( tmp_line, "#");
 			item->mode = atoi( token+strlen("mode="));
+            mod = item->mode;
 			my_debug("item->mode:%d",item->mode);
 			return 1;
 		}
@@ -1786,8 +2056,9 @@ void IEC101_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
 {
     struct rtc_time  * stime;
     UInt8   i;
+	unsigned int usec=0;
 
-    //my_debug("cmd101:0x%x buf:0x%x data:0x%x", cmd, buf, data);
+    my_debug("cmd101:0x%x buf:0x%x data:0x%x", cmd, buf, data);
     switch (cmd&0xFFFF)
     {
         case MSG_COS:
@@ -1797,7 +2068,8 @@ void IEC101_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
                 {
                     if(pYXInfoFill->ucStatus == EMPTY)
                     {
-                        pYXInfoFill->usIndex = ((((cmd>>16)&0xFFFF)<<5)+i)&0xFFFF;
+                        //pYXInfoFill->usIndex = ((((cmd>>16)&0xFFFF)<<5)+i)&0xFFFF;
+                        pYXInfoFill->usIndex = i;
                         pYXInfoFill->ucYXValue = (data>>i)&0x1;
                         pYXInfoFill->ucStatus = FULL;
                         pYXInfoFill = pYXInfoFill->next;
@@ -1811,18 +2083,19 @@ void IEC101_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
             {
                 if(buf&(1<<i))//表示第(cmd>>16)*32+i通道变位
                 {
+                    my_debug("101 SOE");
                     if(pSOEFill->ucStatus == EMPTY)
                     {
-                        pSOEFill->usIndex = ((((cmd>>16)&0xFFFF)<<5)+i)&0xFFFF;
+                        pSOEFill->usIndex = i;
                         pSOEFill->ucYXValue = (data>>i)&0x1;
                         pSOEFill->ucStatus = FULL;
-                        pSOEFill->usMSec = Get_Rtc_Time(stime);
+                        usec=Get_Rtc_Time(stime);
+                        pSOEFill->usMSec = stime->tm_sec*1000+usec/1000;
                         pSOEFill->ucMin = stime->tm_min;
                         pSOEFill->ucHour =stime->tm_hour;
                         pSOEFill->ucDay = stime->tm_mday;
                         pSOEFill->ucMonth = stime->tm_mon;
                         pSOEFill->ucYear = stime->tm_year;
-//                        pSOEFill->ucStatus = FULL;
                         pSOEFill = pSOEFill->next;
                     }
                 }
@@ -2040,6 +2313,29 @@ int  Uart_Thread( void )
 	}*/
 	while(1)
 	{
+	     int res = 0;
+        struct itimerval tick;
+        
+        signal(SIGALRM, QLY_101Frame_1s_RsendCheck);
+        memset(&tick, 0, sizeof(tick));
+    
+        //Timeout to run first time
+        tick.it_value.tv_sec = 1;
+        tick.it_value.tv_usec = 0;
+    
+        //After first, the Interval time for clock
+        tick.it_interval.tv_sec = 1;
+        tick.it_interval.tv_usec = 0;
+    
+        if(setitimer(ITIMER_REAL, &tick, NULL) < 0)
+                printf("Set timer failed!\n");
+    
+        //When get a SIGALRM, the main process will enter another loop for pause()
+       // while(1)
+        //{
+       //     pause();
+        //}
+        //return 0;
 	   if(pIEC101_Struct->fd_usart >0)//端口连接
 	   	{
 			if(pIEC101_Struct->pBufFill<=1003)

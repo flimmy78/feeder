@@ -173,6 +173,7 @@ unsigned char  flag;			//bit0 远方复位链路请求复位标记
 typedef	struct _IEC101Struct  IEC101Struct;
 
 
+IEC101Struct  * pIEC101_Struct;
 
 /**********************extern function**********************************/
 extern  void  *Iec101_Thread( void * data  );
@@ -181,7 +182,8 @@ extern int  IEC101_Free_Buf(void);
 extern int  Uart_Thread( void );
 extern void IEC101_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data);
 extern void IEC101_Senddata2pc(int fd, char *tmp_buf, UInt8 len);
-
+extern unsigned char BL101_Process_SOE( UInt8 control_code );
+extern unsigned char BL101_Process_COS( UInt8 control_code ); //应用层处理
 
 
 #endif

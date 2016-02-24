@@ -46,6 +46,10 @@ bin/debug/obj/arm_main.ov5T: arm_main.c \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/resource.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/waitflags.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/waitstatus.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/unistd.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/posix_opt.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/confname.h \
+  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/getopt.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/ioctl.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/ioctls.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/asm/ioctls.h \
@@ -78,10 +82,6 @@ bin/debug/obj/arm_main.ov5T: arm_main.c \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/wchar.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/in.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/byteswap.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/unistd.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/posix_opt.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/bits/confname.h \
-  /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/getopt.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/arpa/inet.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/shm.h \
   /home/think/l138/arm-2009q1/bin/../arm-none-linux-gnueabi/libc/usr/include/sys/ipc.h \
@@ -104,4 +104,4 @@ bin/debug/obj/arm_main.ov5T: arm_main.c \
   /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/utils/Trace.h \
   /home/think/ti/syslink_2_21_01_05/packages/ti/syslink/utils/OsalPrint.h \
   /home/think/ti/ipc_1_25_03_15/packages/ti/ipc/Notify.h sharearea.h \
-  readconfig.h readsysconfig.h nand_rw.h
+  readconfig.h readsysconfig.h nand_rw.h DL_101.h

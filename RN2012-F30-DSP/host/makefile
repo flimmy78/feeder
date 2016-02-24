@@ -34,7 +34,7 @@
 #  ======== Makefile ========
 #
 
-srcs = arm_main.c iec101.c iec104.c sharearea.c common.c monitorpc.c readconfig.c readsysconfig.c nand_rw.c
+srcs = arm_main.c iec101.c iec104.c sharearea.c common.c monitorpc.c readconfig.c readsysconfig.c nand_rw.c DL_101.c
 #srcs = main_host.c App.c 
 EXBASE = ..
 include $(EXBASE)/products.mak

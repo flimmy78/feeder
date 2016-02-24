@@ -23,7 +23,7 @@ struct _YCOVERPARAME_
 {
 	short ycindex;				//遥测编号
 	short flag;					//越限标志 上限1  下限2
-	int value;				    //越限值
+	short value;				//越限值
 };
 typedef struct _YCOVERPARAME_ YCOVERSTRM;
 

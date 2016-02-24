@@ -40,6 +40,7 @@
 #define CHECKPARMFILE               "/config/checkparm.txt"
 static  int Check_Write_Param(char * file);
 static void Check_Read_Param(int file);
+static void Write_Check_Sharearea(UInt8 flag, UInt32  *data);
 static UInt8 Get_Check_Param_Sum(UInt8 *bufp, UInt16 len);
 
 UInt32            INDEX=0;
@@ -89,6 +90,7 @@ typedef struct {
 static Message_Module message_mod;
 static App_Module Module;
 YC_CHECK_PARA_struct * g_YC_Check_Para_p;
+YK_RESULT_STRUCT * g_YK_State_p;
 
 /*******************local function***************************************/
 static UInt32 App_waitForEvent(Event_Queue* eventQueue);
@@ -213,6 +215,7 @@ SharedRegion_SRPtr Sharearea_Creat(  LOCAL_Module * mod_p)
     //Write_To_Sharearea(4, TYPE_YC, 41);
     //Write_To_Sharearea(5, TYPE_YC, -43);
     g_YC_Check_Para_p = (YC_CHECK_PARA_struct *)(Module.bufferPtr+YC_CHECK_PAR_BASE);//new
+    g_YK_State_p = (YK_RESULT_STRUCT *)(Module.bufferPtr + YK_STATE_ADDR_BASE);
     return sharedBufferPtr;
 
  leave4:
@@ -278,6 +281,7 @@ float Read_From_Sharearea( UInt16 index, UInt8 flag )
 /***************************************************************************/
 void   Write_To_Sharearea(UInt16 index, UInt8 flag, UInt32  data)
 {
+	int ret=0;
     UInt16 base=0;
     float test;
     if(flag == TYPE_YC)
@@ -685,15 +689,15 @@ static void Check_Read_Param(int file)
             {
                 g_YC_Check_Para_p->checkpara[sum] = 1;
             }*/
-            g_YC_Check_Para_p->checkpara[0] = 0;//A相电压
-            g_YC_Check_Para_p->checkpara[1] = 0;//B相电压
-            g_YC_Check_Para_p->checkpara[2] = 0;//C相电压
-            g_YC_Check_Para_p->checkpara[3] = 0;//零序电压
-            g_YC_Check_Para_p->checkpara[4] = 0;//A相电流
-            g_YC_Check_Para_p->checkpara[5] = 0;//B相电流
-            g_YC_Check_Para_p->checkpara[6] = 0;//C相电流
-            g_YC_Check_Para_p->checkpara[7] = 0;//零序电流
-            g_YC_Check_Para_p->checkpara[17] = 0;//DC1电压
+            g_YC_Check_Para_p->checkpara[0] = 5.120;//A相电压
+            g_YC_Check_Para_p->checkpara[1] = 5.120;//B相电压
+            g_YC_Check_Para_p->checkpara[2] = 5.120;//C相电压
+            g_YC_Check_Para_p->checkpara[3] = 0.0;//零序电压
+            g_YC_Check_Para_p->checkpara[4] = 4.3359;//A相电流
+            g_YC_Check_Para_p->checkpara[5] = 4.3359;//B相电流
+            g_YC_Check_Para_p->checkpara[6] = 4.3359;//C相电流
+            g_YC_Check_Para_p->checkpara[7] = 4.3359;//零序电流
+            g_YC_Check_Para_p->checkpara[17] = 2.9079;//DC1电压
         }
     }
     

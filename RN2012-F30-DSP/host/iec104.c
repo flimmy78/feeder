@@ -43,6 +43,7 @@
 #define MAXBSIZE 65536 
 #include "iec104.h"
 /******************全局变量，存储大部分104规约中的参数******/
+static UInt32               yk_select_flag=0;//遥控选中标记，开关选中，每个index对应2bit,最大16个
 IEC104Struct  				* pIEC104_Struct;
 static unsigned int cout_framer=0;
 //static unsigned int cuntr=0; 
@@ -104,6 +105,7 @@ static unsigned char IEC104_Process_SOE( void ); //应用层处理
 
 sem_t              			sem_soe104;
 
+extern YK_RESULT_STRUCT * g_YK_State_p;
 
 /***************************************************************************/
 //函数: static   void IEC104_Creat_connection( void )
@@ -162,9 +164,9 @@ static   void IEC104_Creat_connection( void )
 		}
 		while (1)
 		{
-			FD_ZERO(&rfds);		// 把集合清空
+			FD_ZERO(&rfds);		    // 把集合清空
 			FD_SET(0, &rfds);		// 把标准输入句柄 0 加入到集合中
-			FD_SET(new_fd, &rfds);// 把当前连接句柄 new_fd 加入到集合中
+			FD_SET(new_fd, &rfds);  // 把当前连接句柄 new_fd 加入到集合中
 			maxfd = 0;
 			if (new_fd > maxfd)
 				maxfd = new_fd;
@@ -351,15 +353,15 @@ leave1:
 	my_debug("malloc fail");
 	return -1;
 }
-static unsigned char Read_Soe_Count(int *file)
+static unsigned char Read_Soe_Count(int  file)
 {
     unsigned char bufS[1] = {0};
-    lseek(file[0],0,SEEK_SET);
-    if(file[0]>0)
+    lseek(file,0,SEEK_SET);
+    if(file>0)
     {
-        read(file[0], bufS,1); //
+        read(file, bufS,1); //
         cout_framer=bufS[0];
-	    lseek(pIEC104_Struct->logsoEfd, (cout_framer*11), SEEK_SET);
+        lseek(pIEC104_Struct->logsoEfd,(cout_framer*11),SEEK_SET);
         my_debug("count_framerS:%d",cout_framer);
     }
     return cout_framer;
@@ -380,10 +382,11 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
     unsigned char buffs[11] = {0};
     unsigned char bufcunt[1]={0};
     UInt8   i;
+    UInt8   j;
 	unsigned int usec=0;
-
     //if(new_fd == -1)
      //   return ;
+    
     my_debug("cmd104:0x%x buf:0x%x data:0x%x",cmd, buf, data);
     switch (cmd&0xFFFF)
     {
@@ -432,23 +435,7 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
                         pSOEFill->ucDay = stime->tm_mday;
                         pSOEFill->ucMonth = stime->tm_mon;
                         pSOEFill->ucYear = stime->tm_year;
-                        /*
-                        if(sys_mod_p->pc_flag &(1<<MSG_EVENT_SOE))
-                            {
-                                buffs[0] = pSOEFill->usIndex;
-                                buffs[1] = 0;
-                                buffs[2] = pSOEFill->ucYXValue;
-                                buffs[3] = (pSOEFill->ucYear-100);
-                                buffs[4] = (pSOEFill->ucMonth+1);
-                                buffs[5] = pSOEFill->ucDay;
-                                buffs[6] = pSOEFill->ucHour;
-                                buffs[7] = pSOEFill->ucMin;
-                                buffs[8] = (unsigned char)( pSOEFill->usMSec & 0xff);
-                                buffs[9] = (unsigned char)(pSOEFill->usMSec >> 8);
-                                
-                                PC_Send_Data(MSG_EVENT_SOE, buffs, 10); 
-                            }
-                        */
+                        my_debug("%d-%02d-%02d %02d:%02d:%02d:%02d",pSOEFill->ucYear+1900,pSOEFill->ucMonth+1,pSOEFill->ucDay,pSOEFill->ucHour,pSOEFill->ucMin,stime->tm_sec,usec/1000);
                         buffs[0] = pSOEFill->usIndex;
                         buffs[1] = 0;
                         buffs[2] = pSOEFill->ucYXValue;
@@ -534,7 +521,7 @@ void Send_Soe_Data(int fd)
                        cuntr=100;
                   }
                   SOEFile=lseek(fd, 0, SEEK_SET);
-                  my_debug("cuntr:%d SOEFile:%d",cuntr,(int)SOEFile);
+                  //my_debug("cuntr:%d SOEFile:%d",cuntr,SOEFile);
                   for(j=0;j<cuntr;j++)
                   { 
                        //sem_post(&sem_soe104);//信号量value减1
@@ -543,7 +530,6 @@ void Send_Soe_Data(int fd)
                   }
                   //lseek(fd, currpos, SEEK_SET);
                   lseek(fd, (cout_framer*11), SEEK_SET);
-                  
                   my_debug("ALLcurrpos:%d",(cout_framer*11));
                   row=0;
               }
@@ -552,7 +538,7 @@ void Send_Soe_Data(int fd)
                     sys_mod_p->pc_flag &=~(1<<MSG_ALL_SOE);
                     row= file_wc(fd);
                     //row=row/2;
-                    my_debug("row:%ld",row);
+                    my_debug("row:%d",row);
                     lseek(fd, 0, SEEK_SET);
                     for(i=0;i<=row;i++)
                     {
@@ -560,15 +546,15 @@ void Send_Soe_Data(int fd)
                         PC_Send_Data(MSG_ALL_SOE, buffc, 11); 
                     }
                     //lseek(fd, currpos, SEEK_SET);
-                    //lseek(fd, (cout_framer*11), SEEK_SET);
-                    //my_debug("ALL0currpos:%d",(cout_framer*11));                    
+                    lseek(fd, (cout_framer*11), SEEK_SET);
+                    my_debug("ALL0currpos:%d",(cout_framer*11));                    
                     row=0;
                     //sys_mod_p->pc_flag &=~(1<<MSG_ALL_SOE);
                     //lseek(fd, 0, SEEK_SET);
                     //close(fd);
               }
         }
- 
+      return 0;
        //fclose(pIEC104_Struct->logsoEfd);
 }
 unsigned long file_wc(int file)  
@@ -578,9 +564,6 @@ unsigned long file_wc(int file)
      register int ch, len;  
      register unsigned long linect, charct;  
      unsigned char buf[MAXBSIZE];
-	 linect = 0;
-	 charct = 0;
-	 
      //lseek(file, 0, SEEK_SET);
      if (file) 
      {
@@ -603,7 +586,7 @@ unsigned long file_wc(int file)
             }  
        }  
      }
-     my_debug("linect:%ld",linect);
+     my_debug("linect:%d",linect);
      return linect;  
  }
 
@@ -666,7 +649,7 @@ void  *Network_Thread( void * arg  )
 	pIEC104_Struct->logfd =Init_Logfile(IEC104LOGFFILE);
     pIEC104_Struct->soEfile = Init_SOEfile(IEC104SOEFILE);
     pIEC104_Struct->logsoEfd = Init_SOEfile(IEC104SOELOG);
-    Read_Soe_Count(&pIEC104_Struct->soEfile);
+    Read_Soe_Count(pIEC104_Struct->soEfile);
 	if(pIEC104_Struct->logfd == -1)
 	{
 		my_debug("Creat logfd fail\n");
@@ -1050,7 +1033,46 @@ static unsigned char IEC104_AP_YKExec(IEC104_ASDU_Frame * pRecv_ASDUFrame, unsig
     
 	if(i==sys_mod_p->usYK_Num)
 		return YK_INVALID_ADDR;
-    
+
+    /*
+	if((pRecv_ASDUFrame->ucInfoUnit[3]&0x01)==0X01)   //这里添加遥控分闸
+	{
+	    if(yk_select_flag&(1<<(Point_Info->uiOffset<<1)))
+//		if(Point_Info->usFlag &(1<<8))			           //已经选中
+		{
+		   //添加合闸动作
+			Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_CLOSE_EXECUTIVE);
+            g_YK_State_p->result &=~ (1<<Point_Info->uiOffset);//成功了共享区置位
+            //sleep(2);
+            if(g_YK_State_p->result&(1<<Point_Info->uiOffset))//读取共享区的状态
+            {
+//			  Point_Info->usFlag &=~(1<<8); 		   //合闸动作,并且解除选中
+              yk_select_flag &=~(1<<(Point_Info->uiOffset<<1));
+              return YK_ZHIXIN_SUCC;
+            }
+            return  YK_ZHIXIN_FAIL;
+		}
+	}
+	else
+	{
+		if(yk_select_flag&(2<<(Point_Info->uiOffset<<1)))			           //已经选中
+		{
+				//添加分闸动作
+			Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_OPEN_EXECUTIVE);
+            g_YK_State_p->result &=~ (1<<Point_Info->uiOffset);//成功了共享区置位
+            //sleep(2);
+            if(g_YK_State_p->result&(1<<Point_Info->uiOffset))//读取共享区的状态
+            {
+  	      	  yk_select_flag &=~(2<<(Point_Info->uiOffset<<1)); 		   //合闸动作,并且解除选中
+              return YK_ZHIXIN_SUCC;
+            }
+            return  YK_ZHIXIN_FAIL;
+		}
+        else
+            return  YK_ZHIXIN_FAIL;
+	}
+ return YK_INVALID_ADDR;
+    */
 	if((pRecv_ASDUFrame->ucInfoUnit[3]&0x01)==0X01)   //这里添加遥控分闸
 	{
 		if(Point_Info->usFlag &(1<<8))			           //已经选中
@@ -1073,6 +1095,7 @@ static unsigned char IEC104_AP_YKExec(IEC104_ASDU_Frame * pRecv_ASDUFrame, unsig
 		return YK_ZHIXIN_SUCC;
 	else
 		return YK_ZHIXIN_FAIL;
+		
 }
 
 /****************************************************************************/
@@ -1109,7 +1132,35 @@ static unsigned char IEC104_AP_YKSelHalt(IEC104_ASDU_Frame * pRecv_ASDUFrame)
 	}
 	if(i==sys_mod_p->usYK_Num)
 		return YK_INVALID_ADDR;
+/*
+	if((pRecv_ASDUFrame->ucInfoUnit[3]&0x01)==0X01)//这里添加遥控分闸选中取消  还是遥控合闸选中取消
+	{
 
+        Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_CANCEL_OPEN_SEL);
+        g_YK_State_p->result &=~ (1<<Point_Info->uiOffset);//成功了共享区置位
+        //sleep(2);
+        if(g_YK_State_p->result&(1<<Point_Info->uiOffset))//读取共享区的状态
+        {
+          yk_select_flag &=~(1<<(Point_Info->uiOffset<<1));//合闸预置成功
+          return YK_CANCEL_SEL;
+        }
+        return  YK_SEL_FAIL;
+    }
+	else
+    {
+        Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_CANCEL_CLOSE_SEL);
+        g_YK_State_p->result &=~ (1<<Point_Info->uiOffset);//成功了共享区置位
+        //sleep(2);
+        if(g_YK_State_p->result&(1<<Point_Info->uiOffset))//读取共享区的状态
+        {
+          yk_select_flag &=~(2<<(Point_Info->uiOffset<<1));;
+
+          return YK_CANCEL_SEL;
+        }
+        return  YK_SEL_FAIL;
+    }
+	return YK_CANCEL_SEL;
+*/
 	if((pRecv_ASDUFrame->ucInfoUnit[3]&0x01)==0X01)//这里添加遥控分闸选中取消  还是遥控合闸选中取消
 	{
 		Point_Info->usFlag &=~(1<<8);
@@ -1121,6 +1172,7 @@ static unsigned char IEC104_AP_YKSelHalt(IEC104_ASDU_Frame * pRecv_ASDUFrame)
         Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_CANCEL_CLOSE_SEL);
     }
 	return YK_CANCEL_SEL;
+	
 }
 
 /****************************************************************************/
@@ -1157,11 +1209,38 @@ static unsigned char IEC104_AP_YKSel(IEC104_ASDU_Frame * pRecv_ASDUFrame)
     
 	if(i==sys_mod_p->usYK_Num)
 		return YK_INVALID_ADDR;
-    
+    /*
+    if((pRecv_ASDUFrame->ucInfoUnit[3]&0x01)==0X01)//这里添加遥控分闸选中  还是遥控合闸选中
+	{
+        Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_CLOSE_SEL);//最高位是1是表示选中，是0表示执行
+        g_YK_State_p->result &=~ (1<<Point_Info->uiOffset);//成功了共享区置位
+        //sleep(2);
+        if(g_YK_State_p->result&(1<<Point_Info->uiOffset))//读取共享区的状态
+        {
+
+          yk_select_flag |= (1<<(Point_Info->uiOffset<<1));//合闸预置成功
+          return YK_NORMAL_CONTRL;
+        }
+        return  YK_SEL_FAIL;
+    }
+	else
+    {
+        Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_OPEN_SEL);
+        g_YK_State_p->result &=~ (1<<Point_Info->uiOffset);//成功了共享区置位
+        //sleep(2);
+        if(g_YK_State_p->result&(1<<Point_Info->uiOffset))//读取共享区的状态
+        {
+          yk_select_flag |= (2<<(Point_Info->uiOffset<<1));//分闸预置成功
+          return YK_NORMAL_CONTRL;
+        }
+        return  YK_SEL_FAIL;
+    }
+    */
 	if((pRecv_ASDUFrame->ucInfoUnit[3]&0x01)==0X01)//这里添加遥控分闸选中  还是遥控合闸选中
 	{
 		Point_Info->usFlag |=(1<<8);
         Send_Event_By_Message(MSG_YK, Point_Info->uiOffset, YK_OPEN_SEL);//最高位是1是表示选中，是0表示执行
+
     }
 	else
     {
@@ -2175,7 +2254,7 @@ static unsigned char IEC104_VerifyDLFrame(unsigned char * pTemp_Buf , unsigned s
 			{
 				pIEC104_Struct->ucSendCountOverturn_Flag = FALSE;
 				pIEC104_Struct->k = pIEC104_Struct->usSendNum - usTemp_ServRecvNum;
-                my_debug("S pIEC104_Struct->k %d ",pIEC104_Struct->k);
+                my_debug("S pIEC104_Struct->k",pIEC104_Struct->k);
 			}
 			else
 				pIEC104_Struct->k = 0x8000 + pIEC104_Struct->usSendNum - usTemp_ServRecvNum;
@@ -2240,6 +2319,7 @@ static void IEC104_APDU_Send(unsigned char ucTemp_FrameFormat,unsigned char ucTe
             {
                     my_debug("send - rece min 12!");
                     close(new_fd);
+                   //return IECFRAMENEEDACK;
             }
             if(flag_kvalue>=1)
             {
@@ -2257,6 +2337,7 @@ static void IEC104_APDU_Send(unsigned char ucTemp_FrameFormat,unsigned char ucTe
             		{
                          my_debug("k max 12...");
                          close(new_fd);
+                         //return IECFRAMENEEDACK;
                          //return ;
             		}
                }
@@ -2362,8 +2443,8 @@ void set_timer()
     timer.it_interval = interval;//定时器启动后，每隔x秒将执行相应的函数
     timer.it_value = interval;//十秒钟后将启动定时器
 */    
-    timer.it_value.tv_sec = 0;  //十秒钟后将启动定时器
-    timer.it_value.tv_usec = 500;
+    timer.it_value.tv_sec = 0;  //
+    timer.it_value.tv_usec = 300000;
     timer.it_interval.tv_sec  =0; //定时器启动后，每隔0秒将执行相应的函数
     timer.it_interval.tv_usec = 0;
     setitimer(ITIMER_VIRTUAL, &timer, 0);//让它产生SIGVTALRM信号

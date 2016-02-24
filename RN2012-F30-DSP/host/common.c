@@ -113,14 +113,13 @@ unsigned int  Get_Rtc_Time(struct rtc_time  * rtctime)
 	timenow1=localtime(&tv.tv_sec);
 //	my_debug("get time: %d-%02d-%02d %02d:%02d:%02d  %4d\n",timenow1->tm_year + 1900, timenow1->tm_mon + 1,
 //	timenow1->tm_mday,timenow1->tm_hour,timenow1->tm_min,timenow1->tm_sec, tv.tv_usec);
-
-
 	rtctime->tm_sec = timenow1->tm_sec;
 	rtctime->tm_min  = timenow1->tm_min;
 	rtctime->tm_hour = timenow1->tm_hour;
 	rtctime->tm_mday  = timenow1->tm_mday;
 	rtctime->tm_mon  = timenow1->tm_mon; //9-1
 	rtctime->tm_year  = timenow1->tm_year;//2014-1900
+	//my_debug("tv_sec:%u:%u",tv.tv_sec,tv.tv_usec);
 	return tv.tv_usec;
 }
 
