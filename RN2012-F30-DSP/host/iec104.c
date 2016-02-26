@@ -382,7 +382,7 @@ void IEC104_Process_Message(UInt32 cmd, UInt32 buf, UInt32 data)
     unsigned char buffs[11] = {0};
     unsigned char bufcunt[1]={0};
     UInt8   i;
-    UInt8   j;
+//    UInt8   j;
 	unsigned int usec=0;
     //if(new_fd == -1)
      //   return ;
@@ -538,7 +538,7 @@ void Send_Soe_Data(int fd)
                     sys_mod_p->pc_flag &=~(1<<MSG_ALL_SOE);
                     row= file_wc(fd);
                     //row=row/2;
-                    my_debug("row:%d",row);
+ //                   my_debug("row:%d",row);
                     lseek(fd, 0, SEEK_SET);
                     for(i=0;i<=row;i++)
                     {
@@ -562,7 +562,7 @@ unsigned long file_wc(int file)
      register unsigned char *p;  
      register short gotsp;  
      register int ch, len;  
-     register unsigned long linect, charct;  
+     register unsigned long linect=0, charct;  
      unsigned char buf[MAXBSIZE];
      //lseek(file, 0, SEEK_SET);
      if (file) 
@@ -586,7 +586,7 @@ unsigned long file_wc(int file)
             }  
        }  
      }
-     my_debug("linect:%d",linect);
+//     my_debug("linect:%d",linect);
      return linect;  
  }
 
@@ -1829,8 +1829,8 @@ static unsigned char IEC104_Process_SOE( void ) //应用层处理
     UInt8 len=0;
 	IEC104_ASDU_Frame *pTemp_ASDUFrame;
 	Point_Info   * pTmp_Point=NULL;
-	static  unsigned  cout_pc=0;
-    unsigned char  buffer[200];
+//	static  unsigned  cout_pc=0;
+//    unsigned char  buffer[200];
     if(new_fd == (-1))
         return 0;
 
@@ -2254,7 +2254,7 @@ static unsigned char IEC104_VerifyDLFrame(unsigned char * pTemp_Buf , unsigned s
 			{
 				pIEC104_Struct->ucSendCountOverturn_Flag = FALSE;
 				pIEC104_Struct->k = pIEC104_Struct->usSendNum - usTemp_ServRecvNum;
-                my_debug("S pIEC104_Struct->k",pIEC104_Struct->k);
+//                my_debug("S pIEC104_Struct->k",pIEC104_Struct->k);
 			}
 			else
 				pIEC104_Struct->k = 0x8000 + pIEC104_Struct->usSendNum - usTemp_ServRecvNum;
@@ -2328,7 +2328,7 @@ static void IEC104_APDU_Send(unsigned char ucTemp_FrameFormat,unsigned char ucTe
             }
             if(flag_kvalue==0)
             {
-                int i;
+//                int i;
                 set_timer();
                 signal(SIGVTALRM, sig_handler);
                 if(cout_Iframe<20)
@@ -2500,7 +2500,6 @@ void PC_Send_YC(UInt8* buf, UInt8 len)
         while(pTmp_Point != NULL)
         {
             uindex = pTmp_Point->uiOffset;
-            //uindex = uindex + 1;
             tmp_buf[k] = uindex&0xFF;
             tmp_buf[k+1] = (uindex>>8)&0xFF;
             //tmp_buf[k] =   pTmp_Point->uiOffset&0xFF;       //占用2字节
@@ -2510,20 +2509,17 @@ void PC_Send_YC(UInt8* buf, UInt8 len)
             //tmp_buf[k+4] =   0x00;
             //tmp_buf[k+5] =   0x00;
             data =(float)Read_From_Sharearea(pTmp_Point->uiOffset, TYPE_YC);//遥测值
-//          memcpy((UInt8 *)&tmp_buf[k+6], (UInt8 *)&data,4);//占用4个字节
             memcpy((UInt8 *)&tmp_buf[k+2], (UInt8 *)&data,4);//占用4个字节
             pTmp_Point = pTmp_Point->next;
-//            k = k +10;
+//          k = k +10;
             k = k +6;
-//            if(k>55)
-            if(k>3)
+            if(k>55)
             {
                 PC_Send_Data(MSG_DIANBIAO_YC, tmp_buf, k);
-                //my_debug("tem_buf[k+6]:%f tem_buf[k+10]:%f",tem_buf[k+6],tem_buf[k+10])；
                 k = 0;
             }
         }
-        if(k>9)
+        if(k>6)
             PC_Send_Data(MSG_DIANBIAO_YC, tmp_buf, k);
     }
     else
@@ -2539,38 +2535,26 @@ void PC_Send_YC(UInt8* buf, UInt8 len)
                     break;
                 }
                 pTmp_Point = pTmp_Point->next;
-                //i= i+2;
             }
             i= i+2;//每个index占用2个字节
             if(pTmp_Point != NULL)//找到了对应的结构体
             {
                 
-                uindex = pTmp_Point->uiOffset;
-                uindex = uindex + 1;
-                tmp_buf[k] = uindex&0xFF;
-                tmp_buf[k+1] = (uindex>>8)&0xFF;
-            //tmp_buf[k] =   pTmp_Point->uiOffset&0xFF;       //占用2字节
-            //tmp_buf[k+1] =   (pTmp_Point->uiOffset>>8)&0xFF;
-            //tmp_buf[k+2] =   pTmp_Point->uiAddr&0xFF;       //占用4个字节
-            //tmp_buf[k+3] =   (pTmp_Point->uiAddr>>8)&0xFF;
-            //tmp_buf[k+4] =   0x00;
-            //tmp_buf[k+5] =   0x00;
+            uindex = pTmp_Point->uiOffset;
+            tmp_buf[k] = uindex&0xFF;
+            tmp_buf[k+1] = (uindex>>8)&0xFF;
             data =(float)Read_From_Sharearea(pTmp_Point->uiOffset, TYPE_YC);	  //遥测值
-            //memcpy((UInt8 *)&tmp_buf[k+6], (UInt8 *)&data,4);
             memcpy((UInt8 *)&tmp_buf[k+2], (UInt8 *)&data,4);
-            
-//            k = k+10;
+//          k = k+10;
             k = k+6;
-            
             }
-//            if(k>55)
-            if(k>6)
+            if(k>55)
             {
                 PC_Send_Data(MSG_DIANBIAO_YC, tmp_buf, k);
                 k = 0;
             }
         }
-        if(k>9)
+        if(k>6)
             PC_Send_Data(MSG_DIANBIAO_YC, tmp_buf, k);
     }
     free(tmp_buf);
@@ -2597,29 +2581,19 @@ void PC_Send_YX(UInt8* buf,UInt8 len)
         while(pTmp_Point != NULL)
         {
             uindex = pTmp_Point->uiOffset;
-            //uindex = uindex +1;
             tmp_buf[k] = uindex&0xFF;
             tmp_buf[k+1] = (uindex>>8)&0xFF;
-            //tmp_buf[k] = pTmp_Point->uiOffset;
-            //tmp_buf[k+1] = pTmp_Point->uiAddr&0xFF;
-            //tmp_buf[k+2] = (pTmp_Point->uiAddr>>8)&0xFF;
-            //tmp_buf[k+3] = 0;
-            //tmp_buf[k+4] = 0;
-            data =Read_From_Sharearea((pTmp_Point->uiOffset), TYPE_YX_STATUS_BIT);	  //遥信值
-//            tmp_buf[k+5] = (data&(1<<(pTmp_Point->uiOffset&0x7)))?1:0;
+            data =Read_From_Sharearea(pTmp_Point->uiOffset, TYPE_YX_STATUS_BIT);	  //遥信值
             tmp_buf[k+2] = (data&(1<<((pTmp_Point->uiOffset)&0x7)))?1:0;
             pTmp_Point = pTmp_Point->next;
-//            k = k +6;
             k = k +3;
-//          if(k>54)
-            if(k>3)
+            if(k>54)
             {
                 PC_Send_Data(MSG_DIANBIAO_YX, tmp_buf, k);
-                //my_debug("send yx data!");
                 k = 0;
             }
         }
-        if(k>8)
+        if(k>3)
             PC_Send_Data(MSG_DIANBIAO_YX, tmp_buf, k);
     }
     else
@@ -2637,23 +2611,15 @@ void PC_Send_YX(UInt8* buf,UInt8 len)
             if(pTmp_Point != NULL)//找到了对应的结构体
             {
             uindex = pTmp_Point->uiOffset;
-            uindex = uindex + 1;
             tmp_buf[k] = uindex&0xFF;
             tmp_buf[k+1] = (uindex>>8)&0xFF;
-            //tmp_buf[k] = pTmp_Point->uiOffset;
-            //tmp_buf[k+1] = pTmp_Point->uiAddr&0xFF;
-            //tmp_buf[k+2] = (pTmp_Point->uiAddr>>8)&0xFF;
-            //tmp_buf[k+3] = 0;
-            //tmp_buf[k+4] = 0;
+            
             data =Read_From_Sharearea(pTmp_Point->uiOffset, TYPE_YX_STATUS_BIT);  //遥信量
-            //tmp_buf[k+5] = (data&(1<<(pTmp_Point->uiOffset&0x7)))?1:0;
             tmp_buf[k+2] = (data&(1<<(pTmp_Point->uiOffset&0x7)))?1:0;                 
             pTmp_Point = pTmp_Point->next;
-            //k = k +6;
             k = k +3;
             }
-//          if(k>51)
-            if(k>3)
+          if(k>51)
             {
                 PC_Send_Data(MSG_DIANBIAO_YX, tmp_buf, k);
                 k = 0;

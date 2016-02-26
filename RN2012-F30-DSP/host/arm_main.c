@@ -21,7 +21,7 @@
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <pthread.h>
-#include   <sys/time.h>
+#include <sys/time.h>
 #include <signal.h>
 #include <semaphore.h>
 
@@ -65,6 +65,7 @@ static void Model_Read_Conf(char * fd,   LOCAL_Module  *  mod);
 static void Model_Get_Dianbiao(char *  line,  LOCAL_Module  *  mod_p);
 void Read_Faconfig_Conf(char * fd,  struct  _FAPRMETER_  *  fa);
 //void Read_Sysconfig_Conf(char * fd,  struct  _SYSPARAME_ *  sys);
+void child_fun(void);
 
 
 /***************************************************************************/
@@ -161,7 +162,7 @@ static void Free_All_Mem( void )
 //编辑:R&N1110@126.com
 //时间:2015.4.17
 /***************************************************************************/
-static void Process_Signal(int type) /* 信号处理例程，其中dunno将会得到信号的值 */
+void Process_Signal(int type) /* 信号处理例程，其中dunno将会得到信号的值 */
 {
     UInt8 buf[6];
 	switch (type)
@@ -177,14 +178,14 @@ static void Process_Signal(int type) /* 信号处理例程，其中dunno将会得到信号的值 
 		case 3:
 			my_debug("Get a signal -- SIGQUIT ");
             break;
-        case 14://闹钟用于计时3S钟
+        case 14://闹钟用于计时3S钟 14
             buf[4] = 0xFF;
             buf[5] = 0xFF;
             if(sys_mod.pc_flag &(1<<MSG_DIANBIAO_YX_DQ))
                 PC_Send_YX(buf,1);
             if(sys_mod.pc_flag &(1<<MSG_DIANBIAO_YC_DQ))
                 PC_Send_YC(buf, 1);
-            alarm(3);
+            //alarm(3);
 		    break;
 	}
 return;
@@ -235,7 +236,7 @@ void fork_child()
 Int main(Int argc, Char* argv[])
 {        
     pid_t child_process;
-    int i = 0;
+//    int i = 0;
     //signal(SIGINT, Process_Signal);
     //signal(SIGALRM, Process_Signal);
     //alarm(2);
@@ -277,16 +278,26 @@ void child_fun()
     Int status  = 0;
 
     SharedRegion_SRPtr sharearea_base;
-    
-       
-    my_debug("child_fun_process pid=%ld\n",(long)getppid());
-    my_debug("child_fun_process pid=%ld\n",(long)getpid());
     //创建用户重新启动的信号
-    signal(SIGINT, Process_Signal);
-    //signal(SIGINT, process_reboot);
-    signal(SIGALRM, Process_Signal);
-    alarm(2);
+    signal(SIGINT, Process_Signal);//终端中断
     
+    //signal(SIGALRM, Process_Signal);//定时器超时
+    //alarm(2);
+    
+    struct itimerval tick;
+    
+    signal(SIGALRM, QLY_101Frame_1s_RsendCheck);
+    memset(&tick, 0, sizeof(tick));
+    tick.it_value.tv_sec = 1;
+    tick.it_value.tv_usec = 0;
+
+    //After first, the Interval time for clock
+    tick.it_interval.tv_sec = 1;
+    tick.it_interval.tv_usec = 0;
+
+    if(setitimer(ITIMER_REAL, &tick, NULL) < 0)
+            printf("Set timer failed!\n");
+
     sys_mod.reset = ENABLE;
 
     //创建IEC104需要的缓冲

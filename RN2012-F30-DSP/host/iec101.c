@@ -1677,8 +1677,9 @@ UInt8 QLY_101_FrameSend(UInt8* p_buff)
 /**************************************************************************/
 static void BL101_Protocol_Entry(  void  )
 {
-	int  frame_len;
-	unsigned char   return_flag;
+	    int  frame_len;
+	    unsigned char   return_flag;
+    
 	if(pIEC101_Struct->usRecvCont>0)	//гаЪ§Он
 	{   
 	    
@@ -1739,7 +1740,7 @@ static void IEC101_UnsoSend( void )
 void  *Iec101_Thread( void * data  )
 {
     sys_mod_p = (LOCAL_Module *)data;
-    short tempcont=0;
+//    short tempcont=0;
     int j=0;
 	while(1)
 	{
@@ -2313,7 +2314,8 @@ int  Uart_Thread( void )
 	}*/
 	while(1)
 	{
-	     int res = 0;
+//	    int res = 0;
+/*
         struct itimerval tick;
         
         signal(SIGALRM, QLY_101Frame_1s_RsendCheck);
@@ -2329,7 +2331,7 @@ int  Uart_Thread( void )
     
         if(setitimer(ITIMER_REAL, &tick, NULL) < 0)
                 printf("Set timer failed!\n");
-    
+*/             
         //When get a SIGALRM, the main process will enter another loop for pause()
        // while(1)
         //{

@@ -145,6 +145,7 @@ UInt8 QLY_101_FrameSend(UInt8* p_buff);
 
 UInt8 QLY_101Frame_1s_RsendCheck(int signo);//平衡101重发机制，1秒调用一次，且与报文处理函数互斥
 extern unsigned char BL101_CheckSum(unsigned short getcnt,unsigned char length,  unsigned char flag);
+extern UInt8 QLY_101FrameLen(UInt8* p_buff);
 
 #endif
 

@@ -39,12 +39,12 @@
 SYSPARAM * pSysparam_Struct;
 
 static unsigned char  Get_Sysconfig_From_Line(char * line, struct _SYSPARAME_  * item);
-
+/*
 static int set_speed_uart2(int fd,  int speed);
 static int set_parity_uart2(int fd, int databits, int stopbits, int parity) ;
 static int speed_arr2[] = {B230400, B115200, B57600, B38400, B19200, B9600, B4800, B2400, B1800, B1200, B600, B300};
 static int name_arr2[]  = {230400,  115200,  57600,  38400, 19200,  9600,  4800,  2400,  1800,  1200,  600,  300};
-
+*/
 //static  int SYS_Open_Console(void);
 
 //SYSPARAM *pSYSPARAM;

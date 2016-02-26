@@ -40,7 +40,7 @@
 #define CHECKPARMFILE               "/config/checkparm.txt"
 static  int Check_Write_Param(char * file);
 static void Check_Read_Param(int file);
-static void Write_Check_Sharearea(UInt8 flag, UInt32  *data);
+//static void Write_Check_Sharearea(UInt8 flag, UInt32  *data);
 static UInt8 Get_Check_Param_Sum(UInt8 *bufp, UInt16 len);
 
 UInt32            INDEX=0;
@@ -281,7 +281,7 @@ float Read_From_Sharearea( UInt16 index, UInt8 flag )
 /***************************************************************************/
 void   Write_To_Sharearea(UInt16 index, UInt8 flag, UInt32  data)
 {
-	int ret=0;
+//	int ret=0;
     UInt16 base=0;
     float test;
     if(flag == TYPE_YC)

@@ -65,7 +65,7 @@ static void BL101_NegativeCON(int frame_len,UInt8 * p_buffs,UInt8 code);
 static void BL101_PositiveCON(int frame_len,UInt8 * p_buffs,UInt8 code);
 static void BL101_SendTime(int length,UInt8 * p_buffs,UInt8 control_code);
 static UInt8 QLY_BL101_SpontTransData(UInt8 Type_Identification);
-
+int timercount=0;
 //变量声明
 static enum 
 {
@@ -979,7 +979,13 @@ UInt8 QLY_101Frame_1s_RsendCheck(int signo)
 //		}
 //		return 0;
 //	}
-    my_debug("QLY_101Frame_1s_RsendCheck");
+    timercount++;
+    if(timercount%3==0)
+    {
+        Process_Signal(14);
+        timercount=0;
+    }
+//    my_debug("QLY_101Frame_1s_RsendCheck");
 	if(!Q_control_101->Wait_Answer_mask)//如果不在等待回应期间，直接返回0
 		return 0;
 	if(--Q_control_101->Wait101Frame_Times)//如果等待时间未到，返回0
@@ -1146,7 +1152,6 @@ static UInt8 QLY_BL101_total_call(UInt8* p_buff1,UInt8 con_type,UInt8* p_buff2)
 	{
 		type_id = p_buff1[6];//取出类型标示
 		
-        my_debug("type_id:%d",type_id);
 		TotaCall_Cause = p_buff1[8];//取出传送原因
 	}
 	switch(BL101_totacall_state)
@@ -1850,6 +1855,22 @@ UInt8 QLY_BL101_SpontTrans()
 //101报文处理主程序
 UInt8 QLY_101FrameProcess(LOCAL_Module *sys_mod_ps,UInt8* p_buff1)
 {
+ //       create();
+ /*
+        struct itimerval tick;
+        
+        signal(SIGALRM, QLY_101Frame_1s_RsendCheck);
+        memset(&tick, 0, sizeof(tick));
+        tick.it_value.tv_sec = 1;
+        tick.it_value.tv_usec = 0;
+    
+        //After first, the Interval time for clock
+        tick.it_interval.tv_sec = 1;
+        tick.it_interval.tv_usec = 0;
+    
+        if(setitimer(ITIMER_REAL, &tick, NULL) < 0)
+                printf("Set timer failed!\n");
+    */    
     sys_mod_p = sys_mod_ps;
 	if(QLY_101frame_check(p_buff1))//帧校验
 		return 1;
